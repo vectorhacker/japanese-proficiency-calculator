@@ -1114,7 +1114,12 @@
       <div class="calc-panel active" data-panel="jgr">
         <div class="panel-header">
           <div class="panel-name">JGR Sakura Vocabulary Test</div>
-          <div class="panel-desc">Either pick your recommended level, or enter your per-level percentages for a more precise read.</div>
+          <div class="panel-desc">Either pick your recommended level, or enter your per-level percentages for a more precise read. The test is monolingual (Japanese-Japanese synonym matching), so results may run slightly stricter than English-glossed flashcards suggest.</div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" style="color: var(--vermilion-deep)">↳ What "recommended level" means</label>
+          <div class="field-help" style="margin-bottom: 0;">JGR aims for ~95% vocabulary coverage at your recommended level — i.e. your <strong>comfortable reading zone</strong>, not your stretch goal. The level above is your i+1 growth edge.</div>
         </div>
 
         <div class="field-group">
@@ -1229,12 +1234,12 @@
       <div class="calc-panel" data-panel="duo">
         <div class="panel-header">
           <div class="panel-name">Duolingo Score</div>
-          <div class="panel-desc">Your Duolingo Score (0 – 160). Visible next to the language flag in-app.</div>
+          <div class="panel-desc">Your Duolingo Score (0 – 160). Visible next to the language flag in-app. Note: the scale runs to 160 (C2), but Duolingo courses currently cap their content at 130 (end of B2) — so 130 is the practical ceiling reachable through the app.</div>
         </div>
 
         <div class="field-group">
           <label class="field-label">Duolingo Score</label>
-          <div class="field-help">⚠ Currently shown only for Spanish, French, and English courses. Other languages roughly map via CEFR.</div>
+          <div class="field-help">⚠ Currently shown only for Spanish, French, and English courses. Other languages roughly map via CEFR. The Japanese course doesn't expose a Score yet.</div>
           <div class="slider-wrap">
             <div class="slider-value">
               <span id="duo-value">50</span>
@@ -1245,7 +1250,7 @@
               <span>0</span>
               <span>40</span>
               <span>80</span>
-              <span>120</span>
+              <span style="color: var(--vermilion-deep); font-weight: 700;">130 ↑ course cap</span>
               <span>160</span>
             </div>
           </div>
@@ -1501,7 +1506,7 @@
       </div>
 
       <div class="chart-footer">
-        ↳ Bands are approximate; vocab knowledge is only one dimension of proficiency.
+        ↳ JGR aims for ~95% coverage at your recommended level (comfortable reading). Duolingo Score scale runs 0–160, but course content caps at 130 (end of B2).
       </div>
     </div>
 
@@ -1509,8 +1514,10 @@
       <div class="caveats-title">⚠ Important caveats</div>
       <ol>
         <li>Proficiency is multi-dimensional. Vocabulary, grammar, listening speed, kanji recognition, and productive ability rarely sit at the same level for any one learner.</li>
+        <li>JGR Sakura aims for ~95% vocabulary coverage at your recommended level — meaning that level is calibrated to your <em>comfortable reading</em> zone, not your stretch goal. The level immediately above is your i+1 growth edge.</li>
+        <li>JGR's vocabulary test uses Japanese-Japanese synonym matching, which is stricter than English-glossed flashcard recognition. Learners with bilingual flashcard backgrounds may score lower than their actual recognition vocabulary would suggest.</li>
         <li>"1,000 words" on JGR is not the same as "1,000 words" on JLPT vocab lists — the sets overlap heavily but aren't identical. Conjugated forms and counting methods differ.</li>
-        <li>Duolingo's Score is course-completion based; it measures progress through the app's curriculum, not raw proficiency. The Japanese course doesn't currently expose the Score.</li>
+        <li>The Duolingo Score scale runs 0–160 (mapped to CEFR up through C2), but Duolingo's course content currently caps at score 130 (end of B2). Scores above 130 aren't currently reachable through the app — they're scale headroom, not content. The Japanese course doesn't expose the Score yet.</li>
         <li>CEFR was designed for European languages. Its application to Japanese is a recent adaptation and remains an active research area — N5 ≈ A1 is a useful approximation, not an equivalence.</li>
         <li>The CIJ difficulty score is a statistical model of video transcripts. Topic familiarity, visual scaffolding, and personal interest can shift effective difficulty up or down by 10–15 points.</li>
       </ol>
@@ -1715,8 +1722,7 @@
     } else {
       const cijLow = band.cij[0];
       const cijHigh = nextBand.cij[1];
-      const cijTarget = Math.round((band.cij[1] + nextBand.cij[0]) / 2);
-      advice = `For comprehensible input, target CIJ videos in the ${cijLow}–${Math.round(nextBand.cij[0])} range as your comfortable zone, with stretch into ${Math.round(nextBand.cij[0])}–${cijHigh} for i+1 growth. Mining vocabulary from native content above your current level (rather than from graded material) tends to accelerate progress most at this stage.`;
+      advice = `This band represents your ~95% comprehension zone (comfortable input). For i+1 growth, target CIJ videos in the ${band.cij[0]}–${nextBand.cij[0]} range as comfortable, with stretch into ${nextBand.cij[0]}–${cijHigh} for ${nextBand.jgr === 'X' ? 'native-adjacent' : 'level ' + nextBand.jgr} content. For graded reading, the JGR level above your current one is your stretch — but staying at your current level builds fluency. Mining vocabulary from native content (rather than graded material) tends to accelerate progress most at this stage.`;
     }
     document.getElementById('result-advice-text').textContent = advice;
 
