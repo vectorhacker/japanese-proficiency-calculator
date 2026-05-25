@@ -4557,29 +4557,20 @@
 
             // ============== Conversion logic ==============
             function jgrPercentagesToBand(scores) {
+                // Recommended = highest level at ≥95% (comfortable zone).
+                // Anything 70–94% is i+1 stretch, not the recommendation.
                 const levels = ["B", "C", "D", "E", "F", "G", "H"];
                 let lastMastered = null;
-                let firstPartial = null;
                 for (const lvl of levels) {
                     const s = scores[lvl];
                     if (s === undefined || s === null || isNaN(s)) continue;
                     if (s >= 95) {
                         lastMastered = lvl;
-                    } else if (s >= 70) {
-                        if (!firstPartial) firstPartial = lvl;
-                        break;
                     } else {
                         break;
                     }
                 }
-                if (firstPartial) return firstPartial;
-                if (lastMastered) {
-                    const nextIdx = levels.indexOf(lastMastered) + 1;
-                    return nextIdx < levels.length
-                        ? levels[nextIdx]
-                        : lastMastered;
-                }
-                return "A";
+                return lastMastered || "A";
             }
 
             function cijScoreToBandIdx(score) {
