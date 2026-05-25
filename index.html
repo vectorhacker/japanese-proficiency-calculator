@@ -1116,6 +1116,61 @@
                 color: var(--paper);
             }
 
+            .resource-item .res-name .res-via {
+                display: inline-block;
+                font-family: "JetBrains Mono", monospace;
+                font-size: 8.5px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                padding: 2px 5px;
+                margin-left: 4px;
+                background: transparent;
+                color: var(--vermilion);
+                border: 1px solid var(--vermilion);
+                vertical-align: middle;
+                border-radius: 2px;
+            }
+
+            .browse-content .resource-item .res-name .res-via {
+                color: var(--vermilion-deep);
+                border-color: var(--vermilion-deep);
+            }
+
+            .resources-subsection-divider {
+                grid-column: 1 / -1;
+                margin: 8px 0 -4px;
+                font-family: "JetBrains Mono", monospace;
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.18em;
+                color: var(--vermilion);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                opacity: 0.85;
+            }
+
+            .resources-subsection-divider::before,
+            .resources-subsection-divider::after {
+                content: "";
+                flex: 1;
+                height: 1px;
+                background: var(--result-rule);
+                opacity: 0.5;
+            }
+
+            .browse-content .resources-subsection-divider {
+                color: var(--vermilion-deep);
+            }
+
+            .browse-content .resources-subsection-divider::before,
+            .browse-content .resources-subsection-divider::after {
+                background: var(--rule);
+                opacity: 0.3;
+            }
+
             .resource-item .res-why {
                 font-size: 12.5px;
                 font-style: italic;
@@ -2189,10 +2244,8 @@
                         <div class="field-group">
                             <label class="field-label">Duolingo Score</label>
                             <div class="field-help">
-                                ⚠ Currently shown only for Spanish, French, and
-                                English courses. Other languages roughly map via
-                                CEFR. The Japanese course doesn't expose a Score
-                                yet.
+                                The Japanese course does expose a Score —
+                                visible in-app next to the language flag.
                             </div>
                             <div class="slider-wrap">
                                 <div class="slider-value">
@@ -2655,8 +2708,7 @@
                             up through C2), but Duolingo's course content
                             currently caps at score 130 (end of B2). Scores
                             above 130 aren't currently reachable through the app
-                            — they're scale headroom, not content. The Japanese
-                            course doesn't expose the Score yet.
+                            — they're scale headroom, not content.
                         </li>
                         <li>
                             CEFR was designed for European languages. Its
@@ -2781,6 +2833,18 @@
                             reviews, WaniKani Community, NPO Tadoku Supporters,
                             Kudan Institute, creator self-descriptions, and the
                             broader r/LearnJapanese community.</span
+                        >
+                    </li>
+                    <li>
+                        <span
+                            ><strong>"Via CIJ" recommendations</strong> —
+                            Comprehensible Japanese resources page.
+                            <a
+                                href="https://cijapanese.com/resources"
+                                target="_blank"
+                                rel="noopener"
+                                >cijapanese.com/resources</a
+                            ></span
                         >
                     </li>
                 </ul>
@@ -3785,6 +3849,628 @@
                 },
             };
 
+            // ============== CIJ Resources ==============
+            // Sourced from https://cijapanese.com/resources — CIJ's own curated recommendation list.
+            // CIJ uses 4 levels: 超初心者 (Complete Beginner), 初級 (Beginner), 中級 (Intermediate), 上級 (Advanced).
+            // Mapping to our 9-tier system:
+            //   超初心者 → A, B    |   初級 → C, D
+            //   中級 → E, F, G     |   上級 → H, X
+            //   全て (All Levels) → all
+            // Resources with multiple CIJ tags appear in the union of corresponding tiers.
+            // Each entry: { name, url, tag, why, type, tiers }
+            const CIJ_LIST = [
+                {
+                    name: "Akiko_Japanese_Conversations",
+                    url: "https://www.youtube.com/@akiko_japanese_conversation",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G"],
+                    why: "Akiko talks about her daily life and Japanese culture in easy Japanese.",
+                },
+                {
+                    name: "Anna's Japan Diary",
+                    url: "https://www.youtube.com/@AnnasJapanDiary",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Seika's reading-practice channel — illustrated stories about exchange student Anna, in her gentle voice.",
+                },
+                {
+                    name: "Chienowa Japanese",
+                    url: "https://www.youtube.com/@ChienowaJapanese",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Chieko introduces Japanese literature and culture in easy Japanese.",
+                },
+                {
+                    name: "Corocoro Comic (online manga)",
+                    url: "https://corocoro.jp/",
+                    tag: "free",
+                    type: "website",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Free online manga reading site, kid-friendly vocabulary.",
+                },
+                {
+                    name: "Daily Japanese with Naoko",
+                    url: "https://www.youtube.com/@dailyjapanesewithnaoko",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Naoko introduces Japanese daily life in easy-to-understand vlog-style videos.",
+                },
+                {
+                    name: "Dokusho Club",
+                    url: "https://dokushoclub.com/",
+                    tag: "free",
+                    type: "website",
+                    tiers: ["A", "B", "C", "D", "E", "F", "G", "H", "X"],
+                    why: "Ariane-san shares recommended Japanese books and reviews across all levels.",
+                },
+                {
+                    name: "Easy Japanese Podcast",
+                    url: "https://podcasts.apple.com/us/podcast/easy-japanese-podcast/id1633511865",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Masa & Asami chat about everyday topics in slow, easy-to-understand Japanese.",
+                },
+                {
+                    name: "Everyday Japanese Podcast by Sayuri Saying",
+                    url: "https://sayurisaying.com/",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["E", "F", "G"],
+                    why: "Sayuri's intermediate-aimed podcast covering Japanese society, culture, and her insights — solo and guest episodes.",
+                },
+                {
+                    name: "Fuji Nihongo Gakuin (富士日本語学院)",
+                    url: "https://www.youtube.com/@fujinihongogakuin",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Japanese school channel introducing culture and manners in easy Japanese with illustrations.",
+                },
+                {
+                    name: "Haru no Nihongo",
+                    url: "https://www.youtube.com/@harunonihongo",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G", "H", "X"],
+                    why: "Haruka's travel vlogs and culture talks in natural Japanese.",
+                },
+                {
+                    name: "Japanese Buzz & Trivia Listening with Mayu",
+                    url: "https://www.youtube.com/@JapaneseBuzzTriviaListening",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G", "H", "X"],
+                    why: "Interesting and unique aspects of Japanese society with visuals; mostly casual タメ口.",
+                },
+                {
+                    name: "Japanese Go 日本語ゴー",
+                    url: "https://podcasts.apple.com/jp/podcast/%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%82%B4%E3%83%BC-japanese-listening-practice/id1657169867",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["E", "F", "G", "H", "X"],
+                    why: "Intermediate-to-advanced podcast: daily life at natural speed with explanations for harder parts.",
+                },
+                {
+                    name: "Japanese Immersion with Asami",
+                    url: "https://www.youtube.com/@japaneseimmersionwithasami4249",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["A", "B", "C", "D"],
+                    why: "Asami and learner Hyougen converse using simple Japanese — designed for complete beginners and up.",
+                },
+                {
+                    name: "Japanese Podcast with Hana",
+                    url: "https://www.youtube.com/@japanesepodcastwithhana",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["E", "F", "G", "H", "X"],
+                    why: "Life and culture topics; YouTube version includes helpful images.",
+                },
+                {
+                    name: "Japanese with Jun",
+                    url: "https://www.youtube.com/@japanesewithJun",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Jun explains Japanese culture and news in simple Japanese; great for reading practice too.",
+                },
+                {
+                    name: "Japanese with K (Podcast)",
+                    url: "https://japanesewithk.com/",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["E", "F", "G"],
+                    why: "Kei tackles culture, current events, even politics — slow and easy Japanese with transcripts on his site.",
+                },
+                {
+                    name: "Japanese with K (YouTube)",
+                    url: "https://www.youtube.com/@japanesewithk",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Travel and walking vlogs using simple Japanese.",
+                },
+                {
+                    name: "Japanese with Shun",
+                    url: "https://www.youtube.com/@JapanesewithShun",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["C", "D"],
+                    why: "Shun discusses topics mainly using GENKI 1 grammar — beginner-aimed and Genki-aligned.",
+                },
+                {
+                    name: "Japanese with Teppei and Noriko",
+                    url: "https://nihongoconteppei.com/",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["E", "F", "G", "H", "X"],
+                    why: "Listen to actual conversational exchanges between two Japanese teachers.",
+                },
+                {
+                    name: "Japanese! わたしの いろいろな はなし",
+                    url: "https://www.youtube.com/@japanese_iroironahanashi",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D"],
+                    why: "Yoshida-sensei's vlog-style videos from Italy in easy-to-understand Japanese.",
+                },
+                {
+                    name: "JGRPG Sakura - さくら多読ラボ",
+                    url: "https://sakuratadokulab.com/",
+                    tag: "free",
+                    type: "website",
+                    tiers: ["C", "D", "E", "F", "G", "H", "X"],
+                    why: "Free graded reader library from beginner to upper intermediate.",
+                },
+                {
+                    name: "K&K's Talk for Japanese Listening",
+                    url: "https://www.youtube.com/@kktalk_japanese",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G"],
+                    why: "Casual タメ口 conversation between male and female hosts — good for informal Japanese practice.",
+                },
+                {
+                    name: "Kiraku Japanese",
+                    url: "https://www.youtube.com/@kirakujapanese",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Various topics explained clearly with lots of illustrations.",
+                },
+                {
+                    name: "Konichiwa My Dude Japanese Podcast",
+                    url: "https://www.youtube.com/@konichiwamydude",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["E", "F", "G", "H", "X"],
+                    why: "Gameplay videos and podcasts on Japanese society and youth culture.",
+                },
+                {
+                    name: "Kotsu kotsu Nihongo",
+                    url: "https://www.youtube.com/@kotsukotsunihongo",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G"],
+                    why: "Mizuki's clear-Japanese channel touching on social issues, politics, and business manners.",
+                },
+                {
+                    name: "Learn Japanese with Noriko",
+                    url: "https://japanesewithnoriko.com/",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["E", "F", "G", "H", "X"],
+                    why: "Noriko's wide-ranging podcast with interviews; transcripts on her site.",
+                },
+                {
+                    name: "Mei's Nihongo Classroom",
+                    url: "https://www.youtube.com/@meisnihongoclassroom",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Daily topics, Japanese culture, and Japan/US differences in natural-but-clear Japanese — the podcast series is especially recommended.",
+                },
+                {
+                    name: "mkのゲーム実況ch",
+                    url: "https://www.youtube.com/@mk_gamech",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G", "H", "X"],
+                    why: "Native-aimed gaming channel (Mario, Kirby, Minecraft) but the slow, clear commentary makes it learner-accessible.",
+                },
+                {
+                    name: "Natively",
+                    url: "https://learnnatively.com/",
+                    tag: "free",
+                    type: "website",
+                    tiers: ["A", "B", "C", "D", "E", "F", "G", "H", "X"],
+                    why: "Search Japanese books by level — invaluable for finding your next read.",
+                },
+                {
+                    name: "Netflix (recommended shows)",
+                    url: "https://www.netflix.com/",
+                    tag: "paid",
+                    type: "website",
+                    tiers: ["C", "D"],
+                    why: "CIJ's recommended beginner-friendly shows like Sumikko-gurashi and Bokukerp Umi no Unicorn.",
+                },
+                {
+                    name: "News Web Easy",
+                    url: "https://www3.nhk.or.jp/news/easy/",
+                    tag: "paid",
+                    type: "website",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Simple-Japanese news site with furigana and audio. ⚠ Paywalled in 2025; use NHK Easier mirror for free access.",
+                },
+                {
+                    name: "Nihongo con Teppei",
+                    url: "https://nihongoconteppei.com/",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["C", "D"],
+                    why: "Teppei's beginner podcast uses simple words and heavy repetition.",
+                },
+                {
+                    name: "Nihongo Palette",
+                    url: "https://sayurisaying.com/nihongo-palette",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["C", "D"],
+                    why: "Sayuri's beginner-aimed podcast spin-off from Sayuri Saying.",
+                },
+                {
+                    name: "Nihongo-Learning",
+                    url: "https://www.youtube.com/@nihongo-learning",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["A", "B", "C", "D"],
+                    why: "Yuta uses images, photos, and gestures to teach in slow, comprehensible Japanese.",
+                },
+                {
+                    name: "NIHONGOBLOG",
+                    url: "https://nihongoblog.org/",
+                    tag: "free",
+                    type: "website",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "UK-based teacher writes about daily life and culture in easy Japanese with furigana.",
+                },
+                {
+                    name: "OkkeiJapanese",
+                    url: "https://www.youtube.com/@OkkeiJapanese",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Podcast-style videos with a calm, clear male voice on everyday topics.",
+                },
+                {
+                    name: "pekopeko vlog",
+                    url: "https://www.youtube.com/@pekopekovlog",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Japanese teacher vlogs with natural native expressions, easy to understand.",
+                },
+                {
+                    name: "Peppa Pig (Japanese dub)",
+                    url: "https://www.youtube.com/@PeppaPigJapanese",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D"],
+                    why: "The Japanese dub of the British kids' anime — slow, simple, repetitive.",
+                },
+                {
+                    name: "Picture Books Plaza - 絵本ひろば",
+                    url: "https://www.ehonhiroba.com/",
+                    tag: "free",
+                    type: "website",
+                    tiers: ["C", "D"],
+                    why: "Read Japanese children's stories online.",
+                },
+                {
+                    name: "Ryusei Poddo Casto【日本語Podcast】",
+                    url: "https://www.youtube.com/@ryusei_japanese",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["E", "F", "G", "H", "X"],
+                    why: "Male teacher covers Japanese society, culture, and manners — recommended for deeper Japan understanding.",
+                },
+                {
+                    name: "Sakura Tips",
+                    url: "https://sakuratips.com/",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["C", "D"],
+                    why: "Mari speaks slowly and clearly across various topics; transcripts on her site.",
+                },
+                {
+                    name: "Samurai's daily life",
+                    url: "https://www.youtube.com/@samuraidailylife",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Japanese man vlogs food and culture — a glimpse into everyday Japan.",
+                },
+                {
+                    name: "Satori Reader",
+                    url: "https://www.satorireader.com/",
+                    tag: "paid",
+                    type: "website",
+                    tiers: ["A", "B", "C", "D", "E", "F", "G", "H", "X"],
+                    why: "Catalog of fun stories with audio at every level. (Free trial; paid subscription.)",
+                },
+                {
+                    name: "Sayuri Saying",
+                    url: "https://www.youtube.com/@sayurisaying",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G"],
+                    why: "Sayuri's YouTube — travel vlogs, guest conversations, Japanese etiquette.",
+                },
+                {
+                    name: "SeikaのJapanese Room",
+                    url: "https://www.youtube.com/@seikasjapaneseroom",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G", "H", "X"],
+                    why: "Vlogs for beginners + podcasts for intermediate/advanced — gentle, clear voice throughout.",
+                },
+                {
+                    name: "Simple Japanese Listening with Meg-めぐ-Smile",
+                    url: "https://www.youtube.com/@simplejapaneselistening",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["A", "B", "C", "D"],
+                    why: "Meg's TPRS-style videos with transcripts on her site.",
+                },
+                {
+                    name: "Speak Japanese Naturally (vlogs)",
+                    url: "https://www.youtube.com/@SpeakJapaneseNaturally",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G"],
+                    why: "Fumi's vlog-style videos on Japanese culture and scenery in her very gentle voice.",
+                },
+                {
+                    name: "Tadoku Graded Readers",
+                    url: "https://tadoku.org/japanese/en/",
+                    tag: "free",
+                    type: "website",
+                    tiers: ["A", "B", "C", "D", "E", "F", "G", "H", "X"],
+                    why: "Extensive-reading graded readers with pictures, furigana, and audio. Some free PDFs.",
+                },
+                {
+                    name: "The Bite size Japanese Podcast",
+                    url: "https://podcasts.apple.com/us/podcast/the-bite-size-japanese-podcast/id1521881586",
+                    tag: "freemium",
+                    type: "podcast",
+                    tiers: ["E", "F", "G"],
+                    why: "Layla's daily life and culture in easy Japanese; transcripts via Patreon.",
+                },
+                {
+                    name: "The Life of Yurichan",
+                    url: "https://www.youtube.com/@thelifeofyurichan",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G", "H", "X"],
+                    why: "Japanese culture vlogs + podcasts — beautiful visuals, calm clear narration.",
+                },
+                {
+                    name: "The Miku Real Japanese Podcast",
+                    url: "https://podcasts.apple.com/us/podcast/miku-real-japanese-podcast/id1567783480",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["E", "F", "G"],
+                    why: "Interviews with Japanese speakers; YouTube version has Japanese subtitles.",
+                },
+                {
+                    name: "Uki Uki Japanese Podcast",
+                    url: "https://www.youtube.com/@ukiukijapanese",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Slow Japanese on culture and daily life with images and gestures.",
+                },
+                {
+                    name: "Wasabi podcast",
+                    url: "https://podcasts.apple.com/us/podcast/wasabi-japanese-podcast/id1561733349",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Yoshie's pleasant, relaxing podcast on daily topics and Japanese culture.",
+                },
+                {
+                    name: "Yui's minano nihonngo",
+                    url: "https://www.youtube.com/@yuisminanonihongo",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Yui uses gestures and images to teach everyday life and culture in easy Japanese.",
+                },
+                {
+                    name: "Yuka chan (travel vlog)",
+                    url: "https://www.youtube.com/@yukachan_jp",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G"],
+                    why: "Natural Japanese spoken relatively slowly on travel vlogs.",
+                },
+                {
+                    name: "YUYUの日本語Podcast",
+                    url: "https://www.youtube.com/@YUYUnoNihongoPodcast",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["E", "F", "G"],
+                    why: "Various topics plus interviews with other Japanese teachers.",
+                },
+                {
+                    name: "【桜の間 日本語ルーム】",
+                    url: "https://www.youtube.com/@sakuranoma_japanese",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Yukie-sensei's everyday-topic videos with abundant gestures and illustrations.",
+                },
+                {
+                    name: "あかね的日本語教室",
+                    url: "https://www.youtube.com/@AkaneNihongo",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G"],
+                    why: "Akane has conversations at restaurants/shops and interviews Japanese speakers.",
+                },
+                {
+                    name: "あたしんち (anime)",
+                    url: "https://www.youtube.com/@atashinchi_anime",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Family-life anime series — slice-of-life vocabulary.",
+                },
+                {
+                    name: "かず にほんご",
+                    url: "https://www.youtube.com/@kazu_nihongo",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Walking video-podcast in simple Japanese on culture and daily life.",
+                },
+                {
+                    name: "きっずちゅーぶ / 絵本読み聞かせ",
+                    url: "https://www.youtube.com/@kidstube_jp",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Japanese kids' picture-book read-aloud channel.",
+                },
+                {
+                    name: "けんさんおかえり / Japanese Conversations",
+                    url: "https://www.youtube.com/@kensanokaeri",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Many collaboration videos with various Japanese teachers — great for conversational listening.",
+                },
+                {
+                    name: "けんさんおかえり Japanese Podcast",
+                    url: "https://podcasts.apple.com/us/podcast/kensanokaeri-japanese-podcast/id1644728317",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Ken's slow, easy Japanese on personal stories and everyday life.",
+                },
+                {
+                    name: "さきちゃん vlog 🇯🇵",
+                    url: "https://www.youtube.com/@sakichan_vlog",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Young woman vlogs real Japan: food, shopping, beauty.",
+                },
+                {
+                    name: "しのせんせい",
+                    url: "https://www.youtube.com/@shino_sensei",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G"],
+                    why: "Shino tells Japanese folktales and news in easy Japanese.",
+                },
+                {
+                    name: "やさしい日本語で読む西日本新聞",
+                    url: "https://c.nishinippon.co.jp/yasashii/",
+                    tag: "free",
+                    type: "website",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Newspaper articles rewritten in easy Japanese — click 「元の記事はこちら」 to compare with the original.",
+                },
+                {
+                    name: "やさしい日本語ブログ",
+                    url: "https://yasashiinihongo.com/",
+                    tag: "freemium",
+                    type: "website",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Meika writes each entry in two versions: easy Japanese with furigana (beginner) and natural Japanese without (intermediate).",
+                },
+                {
+                    name: "スローライフしないジル",
+                    url: "https://www.youtube.com/@nojirusurolife",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G"],
+                    why: "Relaxing-games gaming channel (Stardew Valley etc) — slow and clear for a native channel.",
+                },
+                {
+                    name: "日本語の聴解のためのPodcast",
+                    url: "https://podcasts.apple.com/jp/podcast/%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%81%AE%E8%81%B4%E8%A7%A3%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AEpodcast/id1593905043",
+                    tag: "free",
+                    type: "podcast",
+                    tiers: ["E", "F", "G"],
+                    why: "Akane (あかね的日本語教室) podcast — very clear Japanese with transcripts on her site.",
+                },
+                {
+                    name: "日本語多読道場",
+                    url: "https://tadoku.us/",
+                    tag: "free",
+                    type: "website",
+                    tiers: ["A", "B", "C", "D", "E", "F", "G", "H", "X"],
+                    why: "Free online reading from N5 to N1 with photos, furigana, and audio.",
+                },
+                {
+                    name: "杏 / anne TOKYO",
+                    url: "https://www.youtube.com/@AnneTokyo",
+                    tag: "free",
+                    type: "youtube",
+                    tiers: ["E", "F", "G", "H", "X"],
+                    why: "Japanese actress Anne — native-aimed but very clear; travel vlogs and cooking.",
+                },
+                {
+                    name: "福娘童話集",
+                    url: "https://hukumusume.com/",
+                    tag: "free",
+                    type: "website",
+                    tiers: ["C", "D", "E", "F", "G"],
+                    why: "Folk-tale read-aloud channel and database for Japanese kids.",
+                },
+                {
+                    name: "１０分で読める物語シリーズ (10 Minute Stories)",
+                    url: "https://omgjapan.com/",
+                    tag: "paid",
+                    type: "website",
+                    tiers: ["A", "B", "C", "D", "E", "F", "G", "H", "X"],
+                    why: '"10 Minute Stories" book series — available from Gakken (JP) and OMG Japan (EN).',
+                },
+            ];
+
+            // Build a per-tier index of CIJ resources, split by type
+            const CIJ_RESOURCES = {};
+            for (const tier of ["A", "B", "C", "D", "E", "F", "G", "H", "X"]) {
+                CIJ_RESOURCES[tier] = {
+                    podcasts: [],
+                    youtube: [],
+                    websites: [],
+                };
+                for (const r of CIJ_LIST) {
+                    if (!r.tiers.includes(tier)) continue;
+                    const entry = {
+                        name: r.name,
+                        url: r.url,
+                        tag: r.tag,
+                        why: r.why,
+                        via: "cij",
+                    };
+                    if (r.type === "podcast")
+                        CIJ_RESOURCES[tier].podcasts.push(entry);
+                    else if (r.type === "youtube")
+                        CIJ_RESOURCES[tier].youtube.push(entry);
+                    else if (r.type === "website")
+                        CIJ_RESOURCES[tier].websites.push(entry);
+                }
+            }
+
             const bandByJgr = (l) => BANDS.find((b) => b.jgr === l);
             const bandByIdx = (i) => BANDS.find((b) => b.idx === i);
 
@@ -3926,6 +4612,7 @@
             // ============== Resource rendering ==============
             function renderResourcesGrid(targetEl, jgrKey) {
                 const data = RESOURCES[jgrKey];
+                const cijData = CIJ_RESOURCES[jgrKey];
                 if (!data) {
                     targetEl.innerHTML =
                         '<p style="font-style:italic;opacity:0.7;">No resources available for this tier.</p>';
@@ -3938,25 +4625,53 @@
                     { key: "websites", ja: "読書", title: "Reading" },
                 ];
 
-                targetEl.innerHTML = sections
+                const renderItem = (r) => `
+      <div class="resource-item">
+        <div class="res-name"><a href="${r.url}" target="_blank" rel="noopener">${r.name}</a><span class="res-tag ${r.tag}">${r.tag}</span>${r.via === "cij" ? '<span class="res-via" title="Recommended on cijapanese.com/resources">via CIJ</span>' : ""}</div>
+        <div class="res-why">${r.why}</div>
+      </div>
+    `;
+
+                const hasCijItems =
+                    cijData &&
+                    (cijData.podcasts.length ||
+                        cijData.youtube.length ||
+                        cijData.websites.length);
+
+                let html = "";
+
+                // Main curated section
+                html += sections
                     .map(
                         (sec) => `
       <div class="resource-col">
         <h4><span class="col-ja">${sec.ja}</span>${sec.title}</h4>
-        ${data[sec.key]
-            .map(
-                (r) => `
-          <div class="resource-item">
-            <div class="res-name"><a href="${r.url}" target="_blank" rel="noopener">${r.name}</a><span class="res-tag ${r.tag}">${r.tag}</span></div>
-            <div class="res-why">${r.why}</div>
-          </div>
-        `,
-            )
-            .join("")}
+        ${data[sec.key].map(renderItem).join("")}
       </div>
     `,
                     )
                     .join("");
+
+                // CIJ-recommended section (if any items for this tier)
+                if (hasCijItems) {
+                    html += `<div class="resources-subsection-divider">↓ Also recommended by Comprehensible Japanese</div>`;
+                    html += sections
+                        .map(
+                            (sec) => `
+        <div class="resource-col">
+          <h4><span class="col-ja">${sec.ja}</span>${sec.title}</h4>
+          ${
+              cijData[sec.key].length > 0
+                  ? cijData[sec.key].map(renderItem).join("")
+                  : '<div class="res-why" style="opacity:0.5;">— none for this tier —</div>'
+          }
+        </div>
+      `,
+                        )
+                        .join("");
+                }
+
+                targetEl.innerHTML = html;
             }
 
             // ============== Render result ==============
