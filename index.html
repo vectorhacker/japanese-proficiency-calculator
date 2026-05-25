@@ -4540,6 +4540,19 @@
                 });
             });
 
+            // ============== JGR score input clamp ==============
+            document
+                .querySelectorAll("[data-jgr-score]")
+                .forEach((input) => {
+                    input.addEventListener("input", () => {
+                        if (input.value === "") return;
+                        const v = parseFloat(input.value);
+                        if (isNaN(v)) return;
+                        if (v > 100) input.value = "100";
+                        else if (v < 0) input.value = "0";
+                    });
+                });
+
             // ============== Sliders ==============
             const cijSlider = document.getElementById("cij-slider");
             const cijValue = document.getElementById("cij-value");
