@@ -917,6 +917,24 @@
                 margin-top: 4px;
             }
 
+            /* Value-anchored markers that sit at a true position on the track
+               (unlike .slider-ticks, which are evenly spaced labels). */
+            .slider-caps {
+                position: relative;
+                height: 14px;
+                margin-top: 2px;
+            }
+
+            .slider-caps .cap {
+                position: absolute;
+                transform: translateX(-50%);
+                white-space: nowrap;
+                font-family: "JetBrains Mono", monospace;
+                font-size: 10px;
+                font-weight: 700;
+                color: var(--vermilion-deep);
+            }
+
             /* JGR per-level grid */
             .jgr-score-grid {
                 display: grid;
@@ -2528,17 +2546,25 @@
                                     value="50"
                                     id="duo-slider"
                                 />
+                                <!-- cap marker at the true 130/160 position
+                                     (offset by half the 22px thumb so it lines
+                                     up with the slider handle) -->
+                                <div class="slider-caps">
+                                    <span
+                                        class="cap"
+                                        style="
+                                            left: calc(
+                                                11px + (100% - 22px) * 0.8125
+                                            );
+                                        "
+                                        >↑ 130 course cap</span
+                                    >
+                                </div>
                                 <div class="slider-ticks">
                                     <span>0</span>
                                     <span>40</span>
                                     <span>80</span>
-                                    <span
-                                        style="
-                                            color: var(--vermilion-deep);
-                                            font-weight: 700;
-                                        "
-                                        >130 ↑ course cap</span
-                                    >
+                                    <span>120</span>
                                     <span>160</span>
                                 </div>
                             </div>
