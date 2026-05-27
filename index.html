@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>
-            日本語 Proficiency Crosswalk — JGR · CIJ · JLPT · Duolingo
+            日本語 Proficiency Crosswalk — JGRPG · CIJ · JLPT · Duolingo
         </title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -135,6 +135,11 @@
                     );
                 min-height: 100vh;
                 overflow-x: hidden;
+                /* Don't let the browser chase content when the live result
+                   expands below the viewport — that caused the page to "jump
+                   down" when picking a JGR/JLPT level. The page does its own
+                   scrolling (only the explicit Calculate button scrolls). */
+                overflow-anchor: none;
                 transition:
                     background-color 0.3s ease,
                     color 0.3s ease;
@@ -1407,6 +1412,29 @@
                 color: var(--result-fg-soft);
             }
 
+            .resource-item .res-tags {
+                margin-top: 6px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            .resource-item .res-chip {
+                font-family: "JetBrains Mono", monospace;
+                font-size: 9px;
+                letter-spacing: 0.04em;
+                color: var(--result-fg-soft);
+                background: var(--result-rule);
+                border-radius: 2px;
+                padding: 2px 6px;
+                white-space: nowrap;
+            }
+
+            .browse-content .resource-item .res-chip {
+                color: var(--ink-soft);
+                background: rgba(42, 34, 27, 0.07);
+            }
+
             .resource-item .res-where .res-where-label {
                 display: inline-block;
                 font-size: 8.5px;
@@ -1433,13 +1461,21 @@
 
             .chart-header {
                 display: grid;
-                grid-template-columns: 60px 1.2fr 1fr 1fr 1.4fr;
+                grid-template-columns: var(--chart-cols);
+                min-width: var(--chart-min);
                 background: var(--ink);
                 color: var(--paper);
                 font-family: "JetBrains Mono", monospace;
                 font-size: 11px;
                 text-transform: uppercase;
                 letter-spacing: 0.15em;
+            }
+
+            /* 7 columns: tier · JGR · CIJ · JLPT · Duo·CEFR · Anki · Graded */
+            .mapping-chart {
+                --chart-cols: 56px 1.15fr 0.95fr 0.8fr 1.2fr 1.05fr 0.95fr;
+                --chart-min: 980px;
+                overflow-x: auto;
             }
 
             .chart-header > div {
@@ -1480,7 +1516,8 @@
 
             .chart-row {
                 display: grid;
-                grid-template-columns: 60px 1.2fr 1fr 1fr 1.4fr;
+                grid-template-columns: var(--chart-cols);
+                min-width: var(--chart-min);
                 border-bottom: 1px solid rgba(42, 34, 27, 0.15);
                 transition: background 0.2s ease;
                 position: relative;
@@ -1650,6 +1687,99 @@
                 font-style: italic;
                 color: var(--ink-soft);
                 line-height: 1.4;
+            }
+
+            /* Anki + graded-works cells */
+            .cell-anki,
+            .cell-grading {
+                padding: 16px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 4px;
+            }
+
+            .anki-decks {
+                font-family: "Fraunces", serif;
+                font-size: 12px;
+                line-height: 1.35;
+                color: var(--ink-soft);
+            }
+
+            .grading-line {
+                font-family: "JetBrains Mono", monospace;
+                font-size: 11px;
+                color: var(--ink-soft);
+            }
+
+            .grading-line .g-sys {
+                display: inline-block;
+                min-width: 34px;
+                padding-right: 6px;
+                color: var(--vermilion-deep);
+                font-weight: 700;
+            }
+
+            /* Crosswalk controls (filter + scroll hint) */
+            .chart-controls {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 10px 14px;
+                margin-bottom: 12px;
+            }
+
+            .chart-filter-btn {
+                font-family: "JetBrains Mono", monospace;
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--ink-soft);
+                background: var(--paper-warm);
+                border: 1px solid var(--rule);
+                box-shadow: 2px 2px 0 var(--rule);
+                padding: 8px 14px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+            }
+
+            .chart-filter-btn:hover {
+                color: var(--vermilion-deep);
+                border-color: var(--vermilion);
+            }
+
+            .chart-filter-btn[aria-pressed="true"] {
+                background: var(--ink);
+                color: var(--paper);
+                border-color: var(--ink);
+            }
+
+            .chart-filter-btn:disabled {
+                opacity: 0.45;
+                cursor: not-allowed;
+                box-shadow: none;
+            }
+
+            .chart-controls-hint,
+            .chart-scroll-hint {
+                font-family: "JetBrains Mono", monospace;
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--ink-soft);
+                opacity: 0.75;
+            }
+
+            .chart-scroll-hint {
+                display: none;
+                margin-left: auto;
+                color: var(--vermilion-deep);
+            }
+
+            /* Filtered: show only the user's tier + i+1 */
+            .mapping-chart.filtered .chart-row:not(.row-keep) {
+                display: none;
             }
 
             .chart-footer {
@@ -1910,6 +2040,16 @@
                 gap: 12px;
             }
 
+            .colophon .report-link {
+                color: var(--vermilion-deep);
+                text-decoration: none;
+                border-bottom: 1px dotted var(--vermilion);
+            }
+
+            .colophon .report-link:hover {
+                color: var(--vermilion);
+            }
+
             :root[data-theme="dark"] .colophon {
                 border-top-color: rgba(237, 228, 211, 0.2);
             }
@@ -2028,15 +2168,13 @@
                     grid-template-columns: 1fr;
                     gap: 20px;
                 }
-                .chart-header,
-                .chart-row {
-                    grid-template-columns: 50px 1fr 1fr;
+                /* On phones the full 7-column table scrolls horizontally;
+                   the "show only my tier + i+1" toggle trims rows. */
+                .mapping-chart {
+                    --chart-min: 860px;
                 }
-                .chart-header > div:nth-child(4),
-                .chart-header > div:nth-child(5),
-                .chart-row > div:nth-child(4),
-                .chart-row > div:nth-child(5) {
-                    display: none;
+                .chart-scroll-hint {
+                    display: inline !important;
                 }
                 .browse-section {
                     padding: 20px;
@@ -2127,7 +2265,7 @@
                     <span class="en">Japanese Proficiency Crosswalk</span>
                 </div>
                 <div class="masthead-right">
-                    <div>JGR · CIJ</div>
+                    <div>JGRPG · CIJ</div>
                     <div>JLPT · Duolingo</div>
                 </div>
             </header>
@@ -2143,7 +2281,7 @@
                 </h1>
                 <p class="hero-deck fade-in">
                     Enter a score from <strong>any one</strong> of four scales —
-                    JGR Sakura vocab test, CIJ video comfort, JLPT, or Duolingo
+                    JGRPG Sakura vocab test, CIJ video comfort, JLPT, or Duolingo
                     Score — and see your approximate position across all four,
                     along with podcast, YouTube, reading, and manga &amp; anime
                     recommendations tuned to your <strong>i+1</strong> growth
@@ -2254,7 +2392,8 @@
                     Pick the scale you have a score on. You only need one — the
                     rest is calculated live as you choose. Most learners know
                     their <strong>JLPT</strong> or <strong>Duolingo</strong>
-                    level; the <strong>JGR</strong> Sakura vocab test is the most
+                    level; the <strong>JGRPG</strong> Sakura vocab test is the
+                    most
                     precise input if you've taken it.
                 </p>
 
@@ -2273,7 +2412,7 @@
                             Video difficulty
                         </button>
                         <button class="calc-tab" data-tab="jgr">
-                            <span class="tab-ja">JGR</span>
+                            <span class="tab-ja">JGRPG</span>
                             Sakura vocab
                         </button>
                     </div>
@@ -2282,7 +2421,7 @@
                     <div class="calc-panel" data-panel="jgr">
                         <div class="panel-header">
                             <div class="panel-name">
-                                JGR Sakura Vocabulary Test
+                                JGRPG Sakura Vocabulary Test (さくら多読ラボ)
                             </div>
                             <div class="panel-desc">
                                 Either pick your recommended level, or enter
@@ -2301,7 +2440,7 @@
                                 >↳ What "recommended level" means</label
                             >
                             <div class="field-help" style="margin-bottom: 0">
-                                JGR aims for ~95% vocabulary coverage at your
+                                JGRPG aims for ~95% vocabulary coverage at your
                                 recommended level — i.e. your
                                 <strong>comfortable reading zone</strong>, not
                                 your stretch goal. The level above is your i+1
@@ -2522,9 +2661,11 @@
                             <div class="panel-desc">
                                 Your Duolingo Score (0 – 160). Visible next to
                                 the language flag in-app. Note: the scale runs
-                                to 160 (C2), but Duolingo courses currently cap
-                                their content at 130 (end of B2) — so 130 is the
-                                practical ceiling reachable through the app.
+                                to 160 (C2), but the <em>Japanese</em> course's
+                                content currently reaches only about B1 / early
+                                B2 — roughly a score of <strong>100–110</strong>
+                                as of 2026. Scores beyond that are scale
+                                headroom, not reachable course content.
                             </div>
                         </div>
 
@@ -2546,18 +2687,18 @@
                                     value="50"
                                     id="duo-slider"
                                 />
-                                <!-- cap marker at the true 130/160 position
-                                     (offset by half the 22px thumb so it lines
-                                     up with the slider handle) -->
+                                <!-- cap marker at the JP course's practical
+                                     reach (~110/160 = 0.6875), offset by half
+                                     the 22px thumb to line up with the handle -->
                                 <div class="slider-caps">
                                     <span
                                         class="cap"
                                         style="
                                             left: calc(
-                                                11px + (100% - 22px) * 0.8125
+                                                11px + (100% - 22px) * 0.6875
                                             );
                                         "
-                                        >↑ 130 course cap</span
+                                        >↑ JP course ≈ here</span
                                     >
                                 </div>
                                 <div class="slider-ticks">
@@ -2624,7 +2765,7 @@
 
                         <div class="result-stats">
                             <div class="result-stat">
-                                <div class="stat-label">JGR Sakura</div>
+                                <div class="stat-label">JGRPG Sakura</div>
                                 <div class="stat-value" id="r-jgr">—</div>
                                 <div class="stat-sub" id="r-jgr-sub">—</div>
                             </div>
@@ -2646,7 +2787,9 @@
                         </div>
 
                         <div class="result-advice">
-                            <div class="advice-label">i+1 recommendation</div>
+                            <div class="advice-label" id="result-advice-label">
+                                i+1 recommendation
+                            </div>
                             <p id="result-advice-text"></p>
                         </div>
 
@@ -2675,13 +2818,28 @@
                     measurement. Click any row to see resources for that tier.
                 </p>
 
+                <div class="chart-controls">
+                    <button
+                        type="button"
+                        class="chart-filter-btn"
+                        id="chart-filter-btn"
+                        aria-pressed="false"
+                    >
+                        Show only my tier + i+1
+                    </button>
+                    <span class="chart-controls-hint" id="chart-filter-hint"
+                        >Calculate your level first to use this.</span
+                    >
+                    <span class="chart-scroll-hint">↔ scroll for more columns</span>
+                </div>
+
                 <div class="mapping-chart">
                     <div class="chart-header">
                         <div>
                             <span>—</span><span class="col-meta">tier</span>
                         </div>
                         <div>
-                            <span>JGR Sakura</span
+                            <span>JGRPG Sakura</span
                             ><span class="col-meta">vocab level</span>
                         </div>
                         <div>
@@ -2693,8 +2851,18 @@
                             ><span class="col-meta">test level</span>
                         </div>
                         <div>
-                            <span>Duolingo · CEFR</span
-                            ><span class="col-meta">score · framework</span>
+                            <span>Duolingo · CEFR ≈</span
+                            ><span class="col-meta"
+                                >score · framework (approx.)</span
+                            >
+                        </div>
+                        <div>
+                            <span>Anki decks</span
+                            ><span class="col-meta">SRS milestone</span>
+                        </div>
+                        <div>
+                            <span>Graded works ≈</span
+                            ><span class="col-meta">jpdb · Natively</span>
                         </div>
                     </div>
 
@@ -2929,7 +3097,7 @@
                             </div>
                             <div class="jgr-info">
                                 <div class="words">4,500 words</div>
-                                <div class="label">JGR ceiling</div>
+                                <div class="label">JGRPG ceiling</div>
                             </div>
                         </div>
                         <div class="cell-cij">
@@ -2955,13 +3123,17 @@
                         <div class="cell-jgr">
                             <div class="jgr-badge empty">N/A</div>
                             <div class="jgr-info">
-                                <div class="words">10,000+ words</div>
-                                <div class="label">native-adjacent</div>
+                                <div class="words">10k → 30k+ words</div>
+                                <div class="label">
+                                    native-adjacent → fully native
+                                </div>
                             </div>
                         </div>
                         <div class="cell-cij">
                             <div class="cij-tier">Beyond CIJ</div>
-                            <div class="cij-score">native content</div>
+                            <div class="cij-score">
+                                native content (wide span)
+                            </div>
                         </div>
                         <div class="cell-jlpt">
                             <div class="jlpt-badge">N1+</div>
@@ -2976,9 +3148,13 @@
                     </div>
 
                     <div class="chart-footer">
-                        ↳ JGR aims for ~95% coverage at your recommended level
-                        (comfortable reading). Duolingo Score scale runs 0–160,
-                        but course content caps at 130 (end of B2).
+                        ↳ JGRPG (さくら多読ラボ) aims for ~95% coverage at your
+                        recommended level
+                        (comfortable reading). The Duolingo Score scale runs
+                        0–160, but the Japanese course's content currently
+                        reaches only ~B1 / early B2 (score ≈ 100–110). CEFR ↔
+                        JLPT rows are approximate (≈), not official equivalence —
+                        see caveats.
                     </div>
                 </div>
             </section>
@@ -2990,9 +3166,9 @@
                     <span class="ja">教材</span>Browse resources by tier
                 </h2>
                 <p class="section-intro">
-                    Curated learner-focused podcasts, YouTube channels, and
-                    reading sources for each tier — picked from the band
-                    <em>at and just above</em> your level for i+1 input.
+                    Curated learner-focused podcasts, YouTube channels, reading
+                    sources, and manga &amp; anime for each tier — picked from
+                    the band <em>at and just above</em> your level for i+1 input.
                 </p>
 
                 <div class="browse-section">
@@ -3010,31 +3186,37 @@
                             any one learner.
                         </li>
                         <li>
-                            JGR Sakura aims for ~95% vocabulary coverage at your
+                            JGRPG Sakura aims for ~95% vocabulary coverage at your
                             recommended level — meaning that level is calibrated
                             to your <em>comfortable reading</em> zone, not your
                             stretch goal. The level immediately above is your
                             i+1 growth edge.
                         </li>
                         <li>
-                            JGR's vocabulary test uses Japanese-Japanese synonym
+                            JGRPG's vocabulary test uses Japanese-Japanese
+                            synonym
                             matching, which is stricter than English-glossed
                             flashcard recognition. Learners with bilingual
                             flashcard backgrounds may score lower than their
                             actual recognition vocabulary would suggest.
                         </li>
                         <li>
-                            "1,000 words" on JGR is not the same as "1,000
+                            "1,000 words" on JGRPG is not the same as "1,000
                             words" on JLPT vocab lists — the sets overlap
                             heavily but aren't identical. Conjugated forms and
                             counting methods differ.
                         </li>
                         <li>
                             The Duolingo Score scale runs 0–160 (mapped to CEFR
-                            up through C2), but Duolingo's course content
-                            currently caps at score 130 (end of B2). Scores
-                            above 130 aren't currently reachable through the app
-                            — they're scale headroom, not content.
+                            up through C2), but content varies by course. The
+                            <strong>Japanese</strong> course currently reaches
+                            only about B1 / early B2 — roughly score 100–110 as
+                            of 2026 (the often-quoted "130 cap" is a
+                            broader-platform figure, not Japanese-specific).
+                            Higher scores are scale headroom, not reachable
+                            course content. <em>Re-verify before publishing —
+                            Duolingo has been expanding course content through
+                            2025–2026.</em>
                         </li>
                         <li>
                             CEFR was designed for European languages. Its
@@ -3057,10 +3239,20 @@
                         </li>
                         <li>
                             Resource freshness as of 2025–2026:
-                            <strong>NHK News Web Easy is now paywalled</strong>
-                            (NHK monetized its streaming service in 2025) — the
-                            free third-party mirror NHK Easier is recommended
-                            instead.
+                            <strong
+                                >NHK News Web Easy's free text articles appear to
+                                remain accessible</strong
+                            >
+                            (the site moved to <code>news.web.nhk</code>); what
+                            NHK monetized in 2025 was its streaming app, not the
+                            Easy reading site — so the earlier "now paywalled"
+                            claim was likely conflating the two.
+                            <em
+                                >Status unconfirmed — verify directly; the free
+                                third-party mirror NHK Easier remains a
+                                fallback.</em
+                            >
+                            Separately,
                             <strong
                                 >News in Slow Japanese has been dormant</strong
                             >
@@ -3130,7 +3322,7 @@
                     </li>
                     <li>
                         <span
-                            ><strong>JGR Sakura Level Vocabulary Counts</strong>
+                            ><strong>JGRPG Sakura Level Vocabulary Counts</strong>
                             — Sakura Tadoku Lab graded reader project.</span
                         >
                     </li>
@@ -3179,7 +3371,19 @@
             <div class="colophon">
                 <div>An interactive proficiency reference</div>
                 <div>Shippori Mincho · Fraunces · JetBrains Mono</div>
-                <div>不正確な部分があり得る · accuracy not guaranteed</div>
+                <div>
+                    Last updated <time datetime="2026-05-27">2026-05-27</time> ·
+                    不正確な部分があり得る · accuracy not guaranteed
+                </div>
+                <div>
+                    <a
+                        class="report-link"
+                        href="https://github.com/vectorhacker/japanese-proficiency-calculator/issues/new?title=Broken%2Fchanged%20resource&labels=resource-update&body=Resource%20name%3A%0AWhat%20changed%20(removed%2C%20paywalled%2C%20moved%2C%20etc.)%3A%0ALink%3A%0ATier%3A"
+                        target="_blank"
+                        rel="noopener"
+                        >⚐ Report a broken or changed resource</a
+                    >
+                </div>
             </div>
         </div>
 
@@ -3621,6 +3825,67 @@
                 }
             }
 
+            // Dialect / register tags so learners can filter by what they need.
+            // Keyed by the Japanese title (matches both manga & anime variants).
+            const MEDIA_TAGS = {
+                しろくまカフェ: ["slow speech", "keigo-ish", "puns"],
+                チーズスイートホーム: ["kana-heavy", "slow speech"],
+                ドラえもん: ["full furigana", "kids"],
+                ちびまる子ちゃん: ["Shizuoka-ben (mild)", "full furigana"],
+                となりのトトロ: ["slow speech", "standard"],
+                サザエさん: ["standard", "polite"],
+                "からかい上手": ["2-speaker", "slow speech", "standard"],
+                ふらいんぐうぃっち: ["Tsugaru-ben (light)", "slow speech"],
+                のんのんびより: ["rural dialect (mild)", "slow speech"],
+                ARIA: ["literary", "slow speech"],
+                ご注文はうさぎですか: ["slow speech", "standard"],
+                けいおん: ["fast casual", "narrow vocab"],
+                カードキャプターさくら: ["Kansai (Kero, mild)", "standard"],
+                月刊少女野崎くん: ["standard", "clear speech"],
+                "SPY×FAMILY": ["keigo ↔ casual", "standard"],
+                夏目友人帳: ["literary", "slow speech", "yōkai vocab"],
+                僕のヒーローアカデミア: ["keigo ↔ rough", "shōnen jargon"],
+                名探偵コナン: ["police/legal register", "Kansai (Hattori)"],
+                ヴァイオレット: ["keigo-heavy", "literary"],
+                ホリミヤ: ["slang", "casual contractions"],
+                極主夫道: ["rough male speech", "keigo contrast"],
+                薬屋のひとりごと: ["pseudo-classical", "specialist (herbal)"],
+                進撃の巨人: ["military jargon", "no furigana"],
+                鬼滅の刃: ["Taishō-era flavor"],
+                "STEINS;GATE": ["chūnibyō register", "net slang", "technobabble"],
+                "DEATH NOTE": ["legal/strategy register", "long monologues"],
+                デスノート: ["legal/strategy register", "long monologues"],
+                化物語: ["heavy wordplay", "fast dialogue"],
+                "3月のライオン": ["literary", "no furigana", "shōgi vocab"],
+                "20世紀少年": ["no furigana", "varied registers"],
+                銀の匙: ["Hokkaidō-ben", "no furigana", "specialist (farm)"],
+                バガボンド: ["archaic/period", "no furigana"],
+                ゴールデンカムイ: ["Ainu vocab", "period/dialect", "specialist"],
+                ベルセルク: ["archaic", "no furigana"],
+                おやすみプンプン: ["literary", "no furigana"],
+                物語シリーズ: ["heavy wordplay", "classical refs"],
+                "PSYCHO-PASS": ["legal/philosophical", "fast adult speech"],
+                攻殻機動隊: ["technobabble", "political/military"],
+                新世紀エヴァンゲリオン: ["technical jargon", "religious refs"],
+                十二国記: ["classical court vocab"],
+            };
+            (function attachMediaTags() {
+                const keys = Object.keys(MEDIA_TAGS);
+                const seen = new Set();
+                for (const band of MEDIA_BANDS) {
+                    for (const list of [band.manga, band.anime]) {
+                        for (const entry of list) {
+                            if (seen.has(entry)) continue;
+                            seen.add(entry);
+                            const key = keys.find((k) =>
+                                entry.name.startsWith(k),
+                            );
+                            if (key) entry.tags = MEDIA_TAGS[key];
+                        }
+                    }
+                }
+            })();
+
             // ============== RESOURCES per tier ==============
             // Each tier has podcasts, youtube, and websites arrays
             // Tags: 'free', 'freemium', 'paid'
@@ -3808,7 +4073,7 @@
                             why: "Continue building up reading volume.",
                         },
                         {
-                            name: "JGR Sakura test passages — Tier B",
+                            name: "JGRPG Sakura test passages — Tier B",
                             url: "https://sakuratadokulab.com/",
                             tag: "free",
                             why: "Use the test itself as a reading source at your level.",
@@ -5219,6 +5484,7 @@
                     .querySelectorAll(".chart-row")
                     .forEach((r) => r.classList.remove("highlighted"));
                 saveState();
+                if (typeof applyTierFilter === "function") applyTierFilter();
             }
 
             // ============== Tab switching ==============
@@ -5362,30 +5628,31 @@
 
                 const renderItem = (r) => `
       <div class="resource-item">
-        <div class="res-name">${r.url ? `<a href="${r.url}" target="_blank" rel="noopener">${r.name}</a>` : r.name}${r.tag ? `<span class="res-tag ${r.tag}">${r.tag}</span>` : ""}${r.rating ? `<span class="res-tag level">${r.rating}</span>` : ""}${r.via === "cij" ? '<span class="res-via" title="Recommended on cijapanese.com/resources">via CIJ</span>' : ""}</div>
+        <div class="res-name">${r.url ? `<a href="${r.url}" target="_blank" rel="noopener">${r.name}</a>` : r.name}${r.tag ? `<span class="res-tag ${r.tag}">${r.tag}</span>` : ""}${r.rating ? `<span class="res-tag level">${r.rating}</span>` : ""}</div>
         <div class="res-why">${r.why}</div>
         ${r.where ? `<div class="res-where"><span class="res-where-label">watch</span>${r.where}</div>` : ""}
+        ${r.tags && r.tags.length ? `<div class="res-tags">${r.tags.map((t) => `<span class="res-chip">${t}</span>`).join("")}</div>` : ""}
       </div>
     `;
 
-                const hasCijItems =
-                    cijData &&
-                    (cijData.podcasts.length ||
-                        cijData.youtube.length ||
-                        cijData.websites.length);
-
                 let html = "";
 
-                // Main curated section
+                // Main section — curated picks plus CIJ-recommended items
+                // folded into the same Podcasts/YouTube/Reading columns
+                // (CIJ entries keep their "via CIJ" badge).
                 html += sections
-                    .map(
-                        (sec) => `
+                    .map((sec) => {
+                        const items = [
+                            ...data[sec.key],
+                            ...((cijData && cijData[sec.key]) || []),
+                        ];
+                        return `
       <div class="resource-col">
         <h4><span class="col-ja">${sec.ja}</span>${sec.title}</h4>
-        ${data[sec.key].map(renderItem).join("")}
+        ${items.map(renderItem).join("")}
       </div>
-    `,
-                    )
+    `;
+                    })
                     .join("");
 
                 // Manga & anime section (if any for this tier)
@@ -5395,7 +5662,6 @@
                         { key: "manga", ja: "漫画", title: "Manga" },
                         { key: "anime", ja: "アニメ", title: "Anime" },
                     ];
-                    html += `<div class="resources-subsection-divider">↓ Manga &amp; anime to read &amp; watch at this level</div>`;
                     html += mediaSections
                         .map(
                             (sec) => `
@@ -5404,25 +5670,6 @@
           ${
               media[sec.key].length > 0
                   ? media[sec.key].map(renderItem).join("")
-                  : '<div class="res-why" style="opacity:0.5;">— none for this tier —</div>'
-          }
-        </div>
-      `,
-                        )
-                        .join("");
-                }
-
-                // CIJ-recommended section (if any items for this tier)
-                if (hasCijItems) {
-                    html += `<div class="resources-subsection-divider">↓ Also recommended by Comprehensible Japanese</div>`;
-                    html += sections
-                        .map(
-                            (sec) => `
-        <div class="resource-col">
-          <h4><span class="col-ja">${sec.ja}</span>${sec.title}</h4>
-          ${
-              cijData[sec.key].length > 0
-                  ? cijData[sec.key].map(renderItem).join("")
                   : '<div class="res-why" style="opacity:0.5;">— none for this tier —</div>'
           }
         </div>
@@ -5468,7 +5715,7 @@
                     6: "You can handle real native content with effort. Slice-of-life anime, easy NHK news, and lighter novels are workable input sources.",
                     7: "Most everyday content is accessible. The remaining work is on speed, productive ability, and the long tail of less-common vocabulary.",
                     8: "You can engage with most native content. Specialized vocabulary (academic, legal, literary) is the remaining frontier.",
-                    9: "Near-native territory. Standardized tests no longer meaningfully measure your level — your real growth happens through breadth of experience.",
+                    9: "Native-adjacent through fully native — a wide span. A 10k-word reader and a 30k-word native have very different experiences, but standardized tests no longer meaningfully separate them. Real growth now comes from breadth: specialist domains, literary and classical registers, regional dialects.",
                 };
                 document.getElementById("result-summary").textContent =
                     summaries[bandIdx];
@@ -5477,7 +5724,7 @@
                     band.jgr === "X" ? "N/A" : band.jgr;
                 document.getElementById("r-jgr-sub").textContent =
                     band.jgr === "X"
-                        ? "beyond JGR ceiling"
+                        ? "beyond JGRPG ceiling"
                         : `${band.words.toLocaleString()} words`;
                 document.getElementById("r-cij").textContent =
                     `${band.cij[0]}–${band.cij[1]}`;
@@ -5496,6 +5743,11 @@
                 document.getElementById("r-duo-sub").textContent = band.cefr;
 
                 const nextBand = bandByIdx(Math.min(bandIdx + 1, 9));
+                const jgrLabel = (b) => (b.jgr === "X" ? "超" : b.jgr);
+                document.getElementById("result-advice-label").textContent =
+                    bandIdx === 9
+                        ? `i: ${jgrLabel(band)} (native-adjacent) · past the i+1 scale`
+                        : `i: ${jgrLabel(band)} (you) · i+1: ${jgrLabel(nextBand)} (grow here)`;
                 let advice;
                 if (bandIdx === 9) {
                     advice =
@@ -5526,6 +5778,9 @@
 
                 // Persist + reflect state in the URL so it's shareable
                 saveState();
+
+                // Keep the crosswalk filter (if active) pointed at the new tier
+                if (typeof applyTierFilter === "function") applyTierFilter();
 
                 if (scroll) {
                     setTimeout(
@@ -5559,7 +5814,7 @@
                         const tab = activeTab();
                         if (tab === "jgr")
                             showCalcError(
-                                "Pick a recommended JGR level above, or enter at least one per-level score.",
+                                "Pick a recommended JGRPG level above, or enter at least one per-level score.",
                             );
                         else if (tab === "jlpt")
                             showCalcError("Pick a JLPT level above.");
@@ -5791,6 +6046,73 @@
                     }
                 });
             });
+
+            // ============== Crosswalk: Anki + graded-works columns ==============
+            // jpdb (0–100) and LearnNatively (L1–40) bands interpolated from the
+            // five-vocab-band research artifact, remapped onto the eight JGR
+            // tiers. Anki = the deck milestone the immersion community tracks.
+            const CROSSWALK_EXTRA = {
+                A: { anki: "Kaishi 1.5k · Tango N5", jpdb: "0–10", natively: "L1–12" },
+                B: { anki: "Kaishi 1.5k · Tango N5", jpdb: "5–15", natively: "L10–16" },
+                C: { anki: "Kaishi 1.5k · Tango N5→N4", jpdb: "12–22", natively: "L15–19" },
+                D: { anki: "Kaishi 1.5k ✓ · Core 2k · Tango N4", jpdb: "18–28", natively: "L17–21" },
+                E: { anki: "Core 2k · Tango N4→N3", jpdb: "25–35", natively: "L20–23" },
+                F: { anki: "Core 2k ✓ → 6k · Tango N3", jpdb: "30–45", natively: "L23–27" },
+                G: { anki: "Core 6k · Tango N3→N2", jpdb: "45–60", natively: "L27–31" },
+                H: { anki: "Core 6k ✓ → 10k · Tango N2→N1", jpdb: "60–75", natively: "L31–36" },
+                X: { anki: "Core 10k ✓ · Tango N1 ✓ · native mining", jpdb: "75–100", natively: "L36–40+" },
+            };
+            document.querySelectorAll(".chart-row").forEach((row) => {
+                const x = CROSSWALK_EXTRA[row.dataset.row];
+                if (!x) return;
+                row.insertAdjacentHTML(
+                    "beforeend",
+                    `<div class="cell-anki"><div class="anki-decks">${x.anki}</div></div>
+                     <div class="cell-grading">
+                       <div class="grading-line"><span class="g-sys">jpdb</span>${x.jpdb}</div>
+                       <div class="grading-line"><span class="g-sys">Nat.</span>${x.natively}</div>
+                     </div>`,
+                );
+            });
+
+            // ============== Crosswalk: "show only my tier + i+1" filter ==============
+            const chart = document.querySelector(".mapping-chart");
+            const filterBtn = document.getElementById("chart-filter-btn");
+            const filterHint = document.getElementById("chart-filter-hint");
+            let tierFilterOn = false;
+
+            function applyTierFilter() {
+                const band = lastBandIdx ? bandByIdx(lastBandIdx) : null;
+                // Filter only works once a level has been computed.
+                filterBtn.disabled = !band;
+                filterHint.style.display =
+                    !band && tierFilterOn ? "inline" : !band ? "inline" : "none";
+                document
+                    .querySelectorAll(".chart-row")
+                    .forEach((r) => r.classList.remove("row-keep"));
+                if (tierFilterOn && band) {
+                    const keep = new Set([band.jgr]);
+                    const next = bandByIdx(Math.min(lastBandIdx + 1, 9));
+                    if (next) keep.add(next.jgr);
+                    document.querySelectorAll(".chart-row").forEach((r) => {
+                        if (keep.has(r.dataset.row)) r.classList.add("row-keep");
+                    });
+                    chart.classList.add("filtered");
+                } else {
+                    chart.classList.remove("filtered");
+                }
+            }
+
+            filterBtn.addEventListener("click", () => {
+                if (!lastBandIdx) {
+                    filterHint.style.display = "inline";
+                    return;
+                }
+                tierFilterOn = !tierFilterOn;
+                filterBtn.setAttribute("aria-pressed", String(tierFilterOn));
+                applyTierFilter();
+            });
+            applyTierFilter(); // set initial enabled/disabled state
 
             // ============== Browse section ==============
             const browseTabsContainer = document.getElementById("browse-tabs");
