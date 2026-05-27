@@ -286,13 +286,63 @@
             }
 
             /* Theme toggle (now nested in site-nav) */
-            .theme-toggle {
+            .theme-toggle,
+            .lang-toggle {
                 display: flex;
                 background: var(--paper-warm);
                 border: 1px solid var(--rule);
                 box-shadow: 2px 2px 0 var(--rule);
                 padding: 0;
                 flex-shrink: 0;
+            }
+
+            .lang-btn {
+                background: transparent;
+                border: none;
+                border-right: 1px solid var(--rule);
+                padding: 10px 12px;
+                cursor: pointer;
+                font-family: "JetBrains Mono", monospace;
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--ink-soft);
+                letter-spacing: 0.08em;
+                transition: all 0.15s ease;
+            }
+
+            .lang-btn:last-child {
+                border-right: none;
+            }
+
+            .lang-btn:hover {
+                background: rgba(200, 68, 58, 0.08);
+                color: var(--ink);
+            }
+
+            .lang-btn.active {
+                background: var(--ink);
+                color: var(--paper);
+            }
+
+            /* ===== Graded furigana =====
+               Density follows the computed tier via data-furigana on <html>:
+               all (A–C) → some, only .adv readings (D–G) → none (H–X). */
+            rt {
+                font-family: "Shippori Mincho", serif;
+                font-weight: 400;
+                font-size: 0.5em;
+                color: var(--ink-soft);
+                user-select: none;
+            }
+            html[data-furigana="some"] ruby:not(.adv) rt {
+                visibility: hidden;
+            }
+            html[data-furigana="none"] rt {
+                visibility: hidden;
+            }
+            /* keep line spacing stable whether or not furigana shows */
+            ruby {
+                ruby-position: over;
             }
 
             .theme-btn {
@@ -2207,10 +2257,36 @@
                 ><span class="nav-en">Proficiency Crosswalk</span>
             </a>
             <div class="nav-links">
-                <a href="#input" class="nav-link primary">Find my level</a>
-                <a href="#crosswalk" class="nav-link">Crosswalk</a>
-                <a href="#resources" class="nav-link">Resources</a>
-                <a href="#explainer" class="nav-link">Why i+1?</a>
+                <a href="#input" class="nav-link primary" data-i18n="nav.find"
+                    >Find my level</a
+                >
+                <a href="#crosswalk" class="nav-link" data-i18n="nav.crosswalk"
+                    >Crosswalk</a
+                >
+                <a href="#resources" class="nav-link" data-i18n="nav.resources"
+                    >Resources</a
+                >
+                <a href="#explainer" class="nav-link" data-i18n="nav.why"
+                    >Why i+1?</a
+                >
+                <span class="nav-divider" aria-hidden="true"></span>
+                <div class="lang-toggle" role="group" aria-label="Language">
+                    <button
+                        class="lang-btn"
+                        data-lang-set="en"
+                        title="English"
+                    >
+                        EN
+                    </button>
+                    <button
+                        class="lang-btn"
+                        data-lang-set="ja"
+                        title="日本語（レベル別ふりがな）"
+                        lang="ja"
+                    >
+                        日本語
+                    </button>
+                </div>
                 <span class="nav-divider" aria-hidden="true"></span>
                 <div class="theme-toggle" role="group" aria-label="Theme">
                     <button
@@ -2272,14 +2348,14 @@
 
             <!-- Hero -->
             <section class="hero">
-                <h1 class="hero-headline fade-in">
+                <h1 class="hero-headline fade-in" data-i18n="hero.headline">
                     Where am I,<br />
                     <span class="accent">roughly?</span>
                     <span class="small-ja"
                         >put in what you know — find out the rest</span
                     >
                 </h1>
-                <p class="hero-deck fade-in">
+                <p class="hero-deck fade-in" data-i18n="hero.deck">
                     Enter a score from <strong>any one</strong> of four scales —
                     JGRPG Sakura vocab test, CIJ video comfort, JLPT, or Duolingo
                     Score — and see your approximate position across all four,
@@ -2288,10 +2364,16 @@
                     zone.
                 </p>
                 <div class="hero-cta fade-in">
-                    <a href="#input" class="btn-primary hero-cta-btn"
+                    <a
+                        href="#input"
+                        class="btn-primary hero-cta-btn"
+                        data-i18n="hero.cta1"
                         >Find my level ↓</a
                     >
-                    <a href="#explainer" class="hero-cta-link"
+                    <a
+                        href="#explainer"
+                        class="hero-cta-link"
+                        data-i18n="hero.cta2"
                         >First, what does <em>i+1</em> mean? →</a
                     >
                 </div>
@@ -2384,11 +2466,13 @@
 
             <!-- Calculator -->
             <section class="section" id="input">
-                <div class="section-label">Step 一 · Input</div>
-                <h2 class="section-title">
+                <div class="section-label" data-i18n="input.label">
+                    Step 一 · Input
+                </div>
+                <h2 class="section-title" data-i18n="input.title">
                     <span class="ja">入力</span>Choose what you know
                 </h2>
-                <p class="section-intro">
+                <p class="section-intro" data-i18n="input.intro">
                     Pick the scale you have a score on. You only need one — the
                     rest is calculated live as you choose. Most learners know
                     their <strong>JLPT</strong> or <strong>Duolingo</strong>
@@ -2713,10 +2797,18 @@
                     </div>
 
                     <div class="calc-actions">
-                        <button class="btn-primary" id="calc-btn">
+                        <button
+                            class="btn-primary"
+                            id="calc-btn"
+                            data-i18n="btn.calculate"
+                        >
                             Calculate ↓
                         </button>
-                        <button class="btn-secondary" id="reset-btn">
+                        <button
+                            class="btn-secondary"
+                            id="reset-btn"
+                            data-i18n="btn.reset"
+                        >
                             Reset
                         </button>
                         <div
@@ -2738,7 +2830,7 @@
                 >
                     <div class="result-inner">
                         <div class="result-topline">
-                            <div class="label">
+                            <div class="label" data-i18n="result.position">
                                 — Your approximate position —
                             </div>
                             <button
@@ -2749,7 +2841,9 @@
                             >
                                 <span class="share-icon" aria-hidden="true"
                                     >🔗</span
-                                ><span id="share-label">Copy link</span>
+                                ><span id="share-label" data-i18n="result.share"
+                                    >Copy link</span
+                                >
                             </button>
                         </div>
                         <h2>
@@ -2794,7 +2888,7 @@
                         </div>
 
                         <div class="resources-block" id="result-resources">
-                            <div class="resources-label">
+                            <div class="resources-label" data-i18n="result.reczone">
                                 — Recommended for your i+1 zone —
                             </div>
                             <div
@@ -2808,11 +2902,13 @@
 
             <!-- Reference table -->
             <section class="section" id="crosswalk">
-                <div class="section-label">Reference table 二</div>
-                <h2 class="section-title">
+                <div class="section-label" data-i18n="cross.label">
+                    Reference table 二
+                </div>
+                <h2 class="section-title" data-i18n="cross.title">
                     <span class="ja">対照表</span>The full crosswalk
                 </h2>
-                <p class="section-intro">
+                <p class="section-intro" data-i18n="cross.intro">
                     Look across to see the rough equivalents. Bands overlap and
                     edges are fuzzy — treat this as a navigation aid, not a
                     measurement. Click any row to see resources for that tier.
@@ -3161,11 +3257,13 @@
 
             <!-- Browse all resources -->
             <section class="section" id="resources">
-                <div class="section-label">Step 三 · Resources</div>
-                <h2 class="section-title">
+                <div class="section-label" data-i18n="res.label">
+                    Step 三 · Resources
+                </div>
+                <h2 class="section-title" data-i18n="res.title">
                     <span class="ja">教材</span>Browse resources by tier
                 </h2>
-                <p class="section-intro">
+                <p class="section-intro" data-i18n="res.intro">
                     Curated learner-focused podcasts, YouTube channels, reading
                     sources, and manga &amp; anime for each tier — picked from
                     the band <em>at and just above</em> your level for i+1 input.
@@ -3369,7 +3467,9 @@
             </footer>
 
             <div class="colophon">
-                <div>An interactive proficiency reference</div>
+                <div data-i18n="colophon.tagline">
+                    An interactive proficiency reference
+                </div>
                 <div>Shippori Mincho · Fraunces · JetBrains Mono</div>
                 <div>
                     Last updated <time datetime="2026-05-27">2026-05-27</time> ·
@@ -5424,6 +5524,92 @@
                 });
             });
 
+            // ============== Language (EN / 日本語) ==============
+            // English text lives inline as the fallback; Japanese (with <ruby>
+            // furigana) is swapped in from I18N_JA, keyed by data-i18n.
+            let currentLang = localStorage.getItem("lang") || "en";
+
+            function cacheEnglishOnce() {
+                document.querySelectorAll("[data-i18n]").forEach((el) => {
+                    if (el.dataset.i18nEn === undefined)
+                        el.dataset.i18nEn = el.innerHTML;
+                });
+            }
+
+            // Furigana density follows the computed tier (JA mode only).
+            function updateFuriganaLevel() {
+                let mode = "all";
+                if (currentLang === "ja" && lastBandIdx) {
+                    const jgr = bandByIdx(lastBandIdx).jgr;
+                    if (jgr === "H" || jgr === "X") mode = "none";
+                    else if (["D", "E", "F", "G"].includes(jgr)) mode = "some";
+                }
+                root.setAttribute(
+                    "data-furigana",
+                    currentLang === "ja" ? mode : "all",
+                );
+            }
+
+            function applyLanguage(lang) {
+                currentLang = lang;
+                cacheEnglishOnce();
+                document.querySelectorAll("[data-i18n]").forEach((el) => {
+                    const key = el.dataset.i18n;
+                    if (
+                        lang === "ja" &&
+                        typeof I18N_JA !== "undefined" &&
+                        I18N_JA[key] !== undefined
+                    ) {
+                        el.innerHTML = I18N_JA[key];
+                    } else {
+                        el.innerHTML = el.dataset.i18nEn;
+                    }
+                });
+                root.setAttribute("lang", lang === "ja" ? "ja" : "en");
+                document.querySelectorAll(".lang-btn").forEach((b) =>
+                    b.classList.toggle("active", b.dataset.langSet === lang),
+                );
+                updateFuriganaLevel();
+                // Re-render the result so its blurbs match the language.
+                if (lastBandIdx)
+                    renderResult(lastBandIdx, { scroll: false });
+                try {
+                    localStorage.setItem("lang", lang);
+                } catch (e) {}
+            }
+
+            document.querySelectorAll(".lang-btn").forEach((b) => {
+                b.addEventListener("click", () => applyLanguage(b.dataset.langSet));
+            });
+
+            // Japanese strings. <ruby> furigana; class="adv" marks harder
+            // readings that persist in "some" mode (lower-intermediate tiers).
+            const I18N_JA = {
+                "nav.find": `レベル<ruby class="adv">診断<rt>しんだん</rt></ruby>`,
+                "nav.crosswalk": `<ruby class="adv">対照表<rt>たいしょうひょう</rt></ruby>`,
+                "nav.resources": `<ruby class="adv">教材<rt>きょうざい</rt></ruby>`,
+                "nav.why": `i+1 とは？`,
+                "hero.headline": `<ruby>今<rt>いま</rt></ruby>、だいたい<br /><span class="accent">どのへん？</span><span class="small-ja"><ruby>知<rt>し</rt></ruby>っていることを<ruby class="adv">入力<rt>にゅうりょく</rt></ruby>すれば、<ruby class="adv">残<rt>のこ</rt></ruby>りは<ruby class="adv">計算<rt>けいさん</rt></ruby>します</span>`,
+                "hero.deck": `<ruby class="adv">四<rt>よっ</rt></ruby>つの<ruby class="adv">尺度<rt>しゃくど</rt></ruby>のうち<strong>どれか<ruby>一<rt>ひと</rt></ruby>つ</strong>のスコア（JGRPG さくら<ruby class="adv">語彙<rt>ごい</rt></ruby>テスト、CIJ の<ruby class="adv">動画<rt>どうが</rt></ruby><ruby class="adv">難易度<rt>なんいど</rt></ruby>、JLPT、Duolingo スコア）を<ruby class="adv">入力<rt>にゅうりょく</rt></ruby>すると、<ruby>四<rt>よっ</rt></ruby>つすべてでのおおよその<ruby class="adv">位置<rt>いち</rt></ruby>と、あなたの <strong>i+1</strong> <ruby class="adv">成長<rt>せいちょう</rt></ruby>ゾーンに<ruby>合<rt>あ</rt></ruby>わせたポッドキャスト・YouTube・<ruby class="adv">読書<rt>どくしょ</rt></ruby>・マンガ＆アニメのおすすめが<ruby class="adv">表示<rt>ひょうじ</rt></ruby>されます。`,
+                "hero.cta1": `レベルを<ruby class="adv">診断<rt>しんだん</rt></ruby> ↓`,
+                "hero.cta2": `まず <em>i+1</em> とは？ →`,
+                "input.label": `ステップ 一 ・ <ruby class="adv">入力<rt>にゅうりょく</rt></ruby>`,
+                "input.title": `<span class="ja">入力</span><ruby>知<rt>し</rt></ruby>っていることを<ruby>選<rt>えら</rt></ruby>ぶ`,
+                "input.intro": `スコアを<ruby>持<rt>も</rt></ruby>っている<ruby class="adv">尺度<rt>しゃくど</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください。<ruby class="adv">必要<rt>ひつよう</rt></ruby>なのは<ruby>一<rt>ひと</rt></ruby>つだけ — <ruby class="adv">残<rt>のこ</rt></ruby>りは<ruby class="adv">自動<rt>じどう</rt></ruby>で<ruby class="adv">計算<rt>けいさん</rt></ruby>されます。<ruby class="adv">多<rt>おお</rt></ruby>くの<ruby class="adv">学習者<rt>がくしゅうしゃ</rt></ruby>は <strong>JLPT</strong> か <strong>Duolingo</strong> のレベルを<ruby>知<rt>し</rt></ruby>っています。<strong>JGRPG</strong> さくら<ruby class="adv">語彙<rt>ごい</rt></ruby>テストを<ruby>受<rt>う</rt></ruby>けたことがあれば、それが<ruby class="adv">最<rt>もっと</rt></ruby>も<ruby class="adv">正確<rt>せいかく</rt></ruby>な<ruby class="adv">入力<rt>にゅうりょく</rt></ruby>です。`,
+                "btn.calculate": `<ruby class="adv">計算<rt>けいさん</rt></ruby>する ↓`,
+                "btn.reset": `リセット`,
+                "cross.label": `<ruby class="adv">対照表<rt>たいしょうひょう</rt></ruby> 二`,
+                "cross.title": `<span class="ja">対照表</span>すべての<ruby class="adv">対照<rt>たいしょう</rt></ruby>`,
+                "cross.intro": `<ruby class="adv">横<rt>よこ</rt></ruby>に<ruby>見<rt>み</rt></ruby>て、だいたいの<ruby class="adv">対応<rt>たいおう</rt></ruby>を<ruby class="adv">確認<rt>かくにん</rt></ruby>しましょう。バンドは<ruby class="adv">重<rt>かさ</rt></ruby>なり、<ruby class="adv">境界<rt>きょうかい</rt></ruby>はあいまいです — <ruby class="adv">測定<rt>そくてい</rt></ruby>ではなく<ruby class="adv">目安<rt>めやす</rt></ruby>として<ruby>使<rt>つか</rt></ruby>ってください。<ruby class="adv">各<rt>かく</rt></ruby><ruby class="adv">行<rt>ぎょう</rt></ruby>をクリックすると、そのレベルの<ruby class="adv">教材<rt>きょうざい</rt></ruby>が<ruby class="adv">表示<rt>ひょうじ</rt></ruby>されます。`,
+                "res.label": `ステップ 三 ・ <ruby class="adv">教材<rt>きょうざい</rt></ruby>`,
+                "res.title": `<span class="ja">教材</span>レベル<ruby>別<rt>べつ</rt></ruby>の<ruby class="adv">教材<rt>きょうざい</rt></ruby>`,
+                "res.intro": `<ruby class="adv">学習者<rt>がくしゅうしゃ</rt></ruby><ruby>向<rt>む</rt></ruby>けに<ruby class="adv">厳選<rt>げんせん</rt></ruby>したポッドキャスト、YouTube チャンネル、<ruby>読<rt>よ</rt></ruby>みもの、マンガ＆アニメ — あなたのレベル<em>と、その<ruby>一<rt>ひと</rt></ruby>つ<ruby>上<rt>うえ</rt></ruby></em>のバンドから i+1 の<ruby class="adv">入力<rt>にゅうりょく</rt></ruby>として<ruby>選<rt>えら</rt></ruby>びました。`,
+                "result.position": `— あなたのおおよその<ruby class="adv">位置<rt>いち</rt></ruby> —`,
+                "result.share": `リンクをコピー`,
+                "result.reczone": `— あなたの i+1 ゾーンのおすすめ —`,
+                "colophon.tagline": `インタラクティブな<ruby class="adv">習熟度<rt>しゅうじゅくど</rt></ruby><ruby class="adv">参照<rt>さんしょう</rt></ruby>ツール`,
+            };
+
             // ============== Calculator state ==============
             let selectedJgr = null;
             let selectedJlpt = null;
@@ -5485,6 +5671,8 @@
                     .forEach((r) => r.classList.remove("highlighted"));
                 saveState();
                 if (typeof applyTierFilter === "function") applyTierFilter();
+                if (typeof updateFuriganaLevel === "function")
+                    updateFuriganaLevel();
             }
 
             // ============== Tab switching ==============
@@ -5686,6 +5874,7 @@
                 const band = bandByIdx(bandIdx);
                 if (!band) return;
                 lastBandIdx = bandIdx;
+                const ja = currentLang === "ja";
 
                 const resultCard = document.getElementById("result");
                 resultCard.dataset.kanji = band.kanji;
@@ -5703,8 +5892,19 @@
                     8: "Advanced",
                     9: "Near-native fluency",
                 };
-                document.getElementById("result-title").textContent =
-                    titles[bandIdx];
+                const titlesJA = {
+                    1: `はじめたばかり`,
+                    2: `<ruby class="adv">初級<rt>しょきゅう</rt></ruby>のはじめ`,
+                    3: `<ruby class="adv">基礎<rt>きそ</rt></ruby>を<ruby>固<rt>かた</rt></ruby>める`,
+                    4: `<ruby class="adv">初級<rt>しょきゅう</rt></ruby><ruby class="adv">後半<rt>こうはん</rt></ruby> ・ N4`,
+                    5: `<ruby class="adv">中級<rt>ちゅうきゅう</rt></ruby>への<ruby class="adv">橋渡<rt>はしわた</rt></ruby>し`,
+                    6: `しっかり<ruby class="adv">中級<rt>ちゅうきゅう</rt></ruby> ・ N3`,
+                    7: `<ruby class="adv">中級<rt>ちゅうきゅう</rt></ruby>の<ruby>上<rt>うえ</rt></ruby>`,
+                    8: `<ruby class="adv">上級<rt>じょうきゅう</rt></ruby>`,
+                    9: `ネイティブに<ruby>近<rt>ちか</rt></ruby>い`,
+                };
+                document.getElementById("result-title").innerHTML =
+                    ja && titlesJA[bandIdx] ? titlesJA[bandIdx] : titles[bandIdx];
 
                 const summaries = {
                     1: "Foundation phase. Focus on building a core vocabulary and getting comfortable with hiragana, katakana, and the most common kanji. High-repetition input is your friend.",
@@ -5717,25 +5917,47 @@
                     8: "You can engage with most native content. Specialized vocabulary (academic, legal, literary) is the remaining frontier.",
                     9: "Native-adjacent through fully native — a wide span. A 10k-word reader and a 30k-word native have very different experiences, but standardized tests no longer meaningfully separate them. Real growth now comes from breadth: specialist domains, literary and classical registers, regional dialects.",
                 };
-                document.getElementById("result-summary").textContent =
-                    summaries[bandIdx];
+                const summariesJA = {
+                    1: `<ruby class="adv">基礎<rt>きそ</rt></ruby>の<ruby class="adv">時期<rt>じき</rt></ruby>です。ひらがな・カタカナと、よく<ruby>使<rt>つか</rt></ruby>う<ruby>漢字<rt>かんじ</rt></ruby>に<ruby>慣<rt>な</rt></ruby>れて、<ruby>基本<rt>きほん</rt></ruby>の<ruby class="adv">語彙<rt>ごい</rt></ruby>を<ruby>増<rt>ふ</rt></ruby>やしましょう。<ruby>何度<rt>なんど</rt></ruby>も<ruby>聞<rt>き</rt></ruby>いて<ruby>読<rt>よ</rt></ruby>むのが<ruby class="adv">近道<rt>ちかみち</rt></ruby>です。`,
+                    2: `ゼロは<ruby>超<rt>こ</rt></ruby>えました。<ruby>簡単<rt>かんたん</rt></ruby>な<ruby>会話<rt>かいわ</rt></ruby>ならできます。この<ruby class="adv">段階<rt>だんかい</rt></ruby>では、<ruby>文法<rt>ぶんぽう</rt></ruby>の<ruby class="adv">練習<rt>れんしゅう</rt></ruby>より<ruby class="adv">大量<rt>たいりょう</rt></ruby>のインプットが<ruby>大切<rt>たいせつ</rt></ruby>です。`,
+                    3: `<ruby class="adv">勢<rt>いきお</rt></ruby>いがついてきました。<ruby class="adv">語彙<rt>ごい</rt></ruby>が<ruby>広<rt>ひろ</rt></ruby>がり、<ruby>文法<rt>ぶんぽう</rt></ruby>のパターンにも<ruby>慣<rt>な</rt></ruby>れてきます。<ruby class="adv">段階別<rt>だんかいべつ</rt></ruby>の<ruby class="adv">教材<rt>きょうざい</rt></ruby>に<ruby>加<rt>くわ</rt></ruby>えて、ネイティブに<ruby>近<rt>ちか</rt></ruby>いインプットも<ruby>足<rt>た</rt></ruby>していきましょう。`,
+                    4: `<ruby class="adv">語彙<rt>ごい</rt></ruby>の<ruby>広<rt>ひろ</rt></ruby>さが<ruby>今<rt>いま</rt></ruby>のボトルネックです（<ruby>文法<rt>ぶんぽう</rt></ruby>は<ruby class="adv">先<rt>さき</rt></ruby>に<ruby class="adv">進<rt>すす</rt></ruby>んでいるかもしれません）。このレベルでの<ruby class="adv">大量<rt>たいりょう</rt></ruby>の「<ruby class="adv">理解<rt>りかい</rt></ruby>できるインプット」が、<ruby>次<rt>つぎ</rt></ruby>の<ruby class="adv">段階<rt>だんかい</rt></ruby>を<ruby>開<rt>ひら</rt></ruby>く<ruby>鍵<rt>かぎ</rt></ruby>です。`,
+                    5: `<ruby class="adv">中級<rt>ちゅうきゅう</rt></ruby>の<ruby class="adv">入口<rt>いりぐち</rt></ruby>です。N3 の<ruby class="adv">教材<rt>きょうざい</rt></ruby>は<ruby>一部<rt>いちぶ</rt></ruby><ruby class="adv">理解<rt>りかい</rt></ruby>でき、<ruby>一部<rt>いちぶ</rt></ruby>はまだ<ruby class="adv">背伸<rt>せの</rt></ruby>びです。マンガ・<ruby class="adv">小説<rt>しょうせつ</rt></ruby>・ニュースから<ruby class="adv">語彙<rt>ごい</rt></ruby>を<ruby class="adv">拾<rt>ひろ</rt></ruby>うと<ruby class="adv">効果的<rt>こうかてき</rt></ruby>です。`,
+                    6: `<ruby>努力<rt>どりょく</rt></ruby>すれば<ruby class="adv">本物<rt>ほんもの</rt></ruby>のネイティブ<ruby class="adv">教材<rt>きょうざい</rt></ruby>を<ruby class="adv">扱<rt>あつか</rt></ruby>えます。<ruby class="adv">日常系<rt>にちじょうけい</rt></ruby>アニメ、やさしい NHK ニュース、<ruby class="adv">軽<rt>かる</rt></ruby>めの<ruby class="adv">小説<rt>しょうせつ</rt></ruby>が<ruby class="adv">使<rt>つか</rt></ruby>えます。`,
+                    7: `<ruby class="adv">日常<rt>にちじょう</rt></ruby>のほとんどの<ruby class="adv">内容<rt>ないよう</rt></ruby>が<ruby class="adv">理解<rt>りかい</rt></ruby>できます。<ruby>残<rt>のこ</rt></ruby>る<ruby class="adv">課題<rt>かだい</rt></ruby>は、スピード、<ruby class="adv">産出<rt>さんしゅつ</rt></ruby><ruby class="adv">能力<rt>のうりょく</rt></ruby>、そして<ruby class="adv">頻度<rt>ひんど</rt></ruby>の<ruby>低<rt>ひく</rt></ruby>い<ruby class="adv">語彙<rt>ごい</rt></ruby>です。`,
+                    8: `ほとんどのネイティブ<ruby class="adv">教材<rt>きょうざい</rt></ruby>に<ruby class="adv">取<rt>と</rt></ruby>り<ruby>組<rt>く</rt></ruby>めます。<ruby class="adv">専門<rt>せんもん</rt></ruby><ruby class="adv">語彙<rt>ごい</rt></ruby>（<ruby class="adv">学術<rt>がくじゅつ</rt></ruby>・<ruby class="adv">法律<rt>ほうりつ</rt></ruby>・<ruby class="adv">文学<rt>ぶんがく</rt></ruby>）が<ruby>最後<rt>さいご</rt></ruby>の<ruby class="adv">壁<rt>かべ</rt></ruby>です。`,
+                    9: `ネイティブに<ruby>近<rt>ちか</rt></ruby>い〜<ruby class="adv">完全<rt>かんぜん</rt></ruby>にネイティブまで<ruby class="adv">幅<rt>はば</rt></ruby>があります。<ruby class="adv">標準<rt>ひょうじゅん</rt></ruby>テストではもう<ruby class="adv">差<rt>さ</rt></ruby>がつきません。<ruby class="adv">成長<rt>せいちょう</rt></ruby>は、<ruby class="adv">専門<rt>せんもん</rt></ruby><ruby class="adv">分野<rt>ぶんや</rt></ruby>・<ruby class="adv">文語<rt>ぶんご</rt></ruby>や<ruby class="adv">古典<rt>こてん</rt></ruby>・<ruby class="adv">方言<rt>ほうげん</rt></ruby>など、<ruby class="adv">幅<rt>はば</rt></ruby>を<ruby>広<rt>ひろ</rt></ruby>げることで<ruby>得<rt>え</rt></ruby>られます。`,
+                };
+                document.getElementById("result-summary").innerHTML =
+                    ja && summariesJA[bandIdx]
+                        ? summariesJA[bandIdx]
+                        : summaries[bandIdx];
 
                 document.getElementById("r-jgr").textContent =
                     band.jgr === "X" ? "N/A" : band.jgr;
-                document.getElementById("r-jgr-sub").textContent =
+                document.getElementById("r-jgr-sub").innerHTML =
                     band.jgr === "X"
-                        ? "beyond JGRPG ceiling"
-                        : `${band.words.toLocaleString()} words`;
+                        ? ja
+                            ? `JGRPG の<ruby class="adv">上限<rt>じょうげん</rt></ruby>を<ruby>超<rt>こ</rt></ruby>える`
+                            : "beyond JGRPG ceiling"
+                        : ja
+                          ? `${band.words.toLocaleString()} <ruby class="adv">語<rt>ご</rt></ruby>`
+                          : `${band.words.toLocaleString()} words`;
                 document.getElementById("r-cij").textContent =
                     `${band.cij[0]}–${band.cij[1]}`;
                 document.getElementById("r-cij-sub").textContent = band.cijTier;
                 document.getElementById("r-jlpt").textContent = band.jlpt;
-                document.getElementById("r-jlpt-sub").textContent =
-                    bandIdx <= 4
-                        ? "beginner test"
+                document.getElementById("r-jlpt-sub").innerHTML = ja
+                    ? bandIdx <= 4
+                        ? `<ruby class="adv">初級<rt>しょきゅう</rt></ruby>テスト`
                         : bandIdx <= 6
-                          ? "intermediate test"
-                          : "advanced test";
+                          ? `<ruby class="adv">中級<rt>ちゅうきゅう</rt></ruby>テスト`
+                          : `<ruby class="adv">上級<rt>じょうきゅう</rt></ruby>テスト`
+                    : bandIdx <= 4
+                      ? "beginner test"
+                      : bandIdx <= 6
+                        ? "intermediate test"
+                        : "advanced test";
                 document.getElementById("r-duo").textContent =
                     band.duo[0] === band.duo[1]
                         ? `${band.duo[0]}+`
@@ -5744,20 +5966,33 @@
 
                 const nextBand = bandByIdx(Math.min(bandIdx + 1, 9));
                 const jgrLabel = (b) => (b.jgr === "X" ? "超" : b.jgr);
-                document.getElementById("result-advice-label").textContent =
-                    bandIdx === 9
-                        ? `i: ${jgrLabel(band)} (native-adjacent) · past the i+1 scale`
-                        : `i: ${jgrLabel(band)} (you) · i+1: ${jgrLabel(nextBand)} (grow here)`;
+                document.getElementById("result-advice-label").innerHTML = ja
+                    ? bandIdx === 9
+                        ? `i: ${jgrLabel(band)}（ネイティブに<ruby>近<rt>ちか</rt></ruby>い）・ i+1 の<ruby class="adv">範囲<rt>はんい</rt></ruby>を<ruby>超<rt>こ</rt></ruby>えています`
+                        : `i: ${jgrLabel(band)}（<ruby>今<rt>いま</rt></ruby>）・ i+1: ${jgrLabel(nextBand)}（ここで<ruby class="adv">成長<rt>せいちょう</rt></ruby>）`
+                    : bandIdx === 9
+                      ? `i: ${jgrLabel(band)} (native-adjacent) · past the i+1 scale`
+                      : `i: ${jgrLabel(band)} (you) · i+1: ${jgrLabel(nextBand)} (grow here)`;
                 let advice;
-                if (bandIdx === 9) {
+                if (ja) {
+                    if (bandIdx === 9) {
+                        advice = `<ruby class="adv">構造化<rt>こうぞうか</rt></ruby>されたツールでは<ruby class="adv">測<rt>はか</rt></ruby>れない<ruby class="adv">段階<rt>だんかい</rt></ruby>です。<ruby class="adv">興味<rt>きょうみ</rt></ruby>のある<ruby class="adv">分野<rt>ぶんや</rt></ruby>に<ruby class="adv">集中<rt>しゅうちゅう</rt></ruby>しましょう — <ruby class="adv">専門<rt>せんもん</rt></ruby><ruby class="adv">語彙<rt>ごい</rt></ruby>、<ruby class="adv">文学的<rt>ぶんがくてき</rt></ruby>な<ruby>日本語<rt>にほんご</rt></ruby>、<ruby class="adv">方言<rt>ほうげん</rt></ruby>など。`;
+                    } else {
+                        const cijHigh = nextBand.cij[1];
+                        const lvlLabel =
+                            nextBand.jgr === "X"
+                                ? `ネイティブに<ruby>近<rt>ちか</rt></ruby>い`
+                                : `レベル ${nextBand.jgr}`;
+                        advice = `このバンドはあなたの〜95%<ruby class="adv">理解<rt>りかい</rt></ruby>ゾーン（<ruby>楽<rt>らく</rt></ruby>に<ruby>分<rt>わ</rt></ruby>かるインプット）です。i+1 の<ruby class="adv">成長<rt>せいちょう</rt></ruby>には、CIJ の<ruby class="adv">動画<rt>どうが</rt></ruby>を ${band.cij[0]}〜${nextBand.cij[0]} で<ruby>楽<rt>らく</rt></ruby>に、${nextBand.cij[0]}〜${cijHigh}（${lvlLabel}）を<ruby class="adv">背伸<rt>せの</rt></ruby>びとして<ruby class="adv">狙<rt>ねら</rt></ruby>いましょう。<ruby>下<rt>した</rt></ruby>の<ruby class="adv">教材<rt>きょうざい</rt></ruby>はあなたの i+1 ゾーンから<ruby class="adv">選<rt>えら</rt></ruby>びました。`;
+                    }
+                } else if (bandIdx === 9) {
                     advice =
                         "You're past the point where structured tools measure meaningfully. Focus on areas of personal interest — specialized vocabulary, literary Japanese, regional dialects.";
                 } else {
                     const cijHigh = nextBand.cij[1];
                     advice = `This band represents your ~95% comprehension zone (comfortable input). For i+1 growth, target CIJ videos in the ${band.cij[0]}–${nextBand.cij[0]} range as comfortable, with stretch into ${nextBand.cij[0]}–${cijHigh} for ${nextBand.jgr === "X" ? "native-adjacent" : "level " + nextBand.jgr} content. The resources below are picked from your i+1 zone — comfortable enough to follow, hard enough to grow.`;
                 }
-                document.getElementById("result-advice-text").textContent =
-                    advice;
+                document.getElementById("result-advice-text").innerHTML = advice;
 
                 // Render resources for current tier
                 renderResourcesGrid(
@@ -5781,6 +6016,9 @@
 
                 // Keep the crosswalk filter (if active) pointed at the new tier
                 if (typeof applyTierFilter === "function") applyTierFilter();
+                // Furigana density tracks the computed tier
+                if (typeof updateFuriganaLevel === "function")
+                    updateFuriganaLevel();
 
                 if (scroll) {
                     setTimeout(
@@ -6156,6 +6394,9 @@
 
             // Restore a shared (?s=…) or remembered result, if any
             restoreState();
+
+            // Apply saved language (swaps in Japanese + graded furigana)
+            applyLanguage(currentLang);
         </script>
     </body>
 </html>
