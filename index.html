@@ -1096,6 +1096,46 @@
                 margin-bottom: 16px;
             }
 
+            .result-topline {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 16px;
+            }
+
+            .btn-share {
+                flex-shrink: 0;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: transparent;
+                border: 1px solid var(--result-rule-strong);
+                color: var(--result-fg-soft);
+                font-family: "JetBrains Mono", monospace;
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                padding: 6px 10px;
+                border-radius: 3px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+            }
+
+            .btn-share:hover {
+                border-color: var(--vermilion);
+                color: var(--vermilion);
+            }
+
+            .btn-share.copied {
+                border-color: var(--vermilion);
+                color: var(--vermilion);
+            }
+
+            .btn-share .share-icon {
+                font-size: 11px;
+            }
+
             .result-card h2 {
                 font-family: "Shippori Mincho", serif;
                 font-size: 44px;
@@ -2194,21 +2234,15 @@
                 </h2>
                 <p class="section-intro">
                     Pick the scale you have a score on. You only need one — the
-                    rest is calculated. If you have multiple, the most precise
-                    input is JGR Sakura vocab test results.
+                    rest is calculated live as you choose. Most learners know
+                    their <strong>JLPT</strong> or <strong>Duolingo</strong>
+                    level; the <strong>JGR</strong> Sakura vocab test is the most
+                    precise input if you've taken it.
                 </p>
 
                 <div class="calculator">
                     <div class="calc-tabs">
-                        <button class="calc-tab active" data-tab="jgr">
-                            <span class="tab-ja">JGR</span>
-                            Sakura vocab
-                        </button>
-                        <button class="calc-tab" data-tab="cij">
-                            <span class="tab-ja">CIJ</span>
-                            Video difficulty
-                        </button>
-                        <button class="calc-tab" data-tab="jlpt">
+                        <button class="calc-tab active" data-tab="jlpt">
                             <span class="tab-ja">JLPT</span>
                             Test level
                         </button>
@@ -2216,10 +2250,18 @@
                             <span class="tab-ja">Duo</span>
                             Duolingo Score
                         </button>
+                        <button class="calc-tab" data-tab="cij">
+                            <span class="tab-ja">CIJ</span>
+                            Video difficulty
+                        </button>
+                        <button class="calc-tab" data-tab="jgr">
+                            <span class="tab-ja">JGR</span>
+                            Sakura vocab
+                        </button>
                     </div>
 
                     <!-- JGR Panel -->
-                    <div class="calc-panel active" data-panel="jgr">
+                    <div class="calc-panel" data-panel="jgr">
                         <div class="panel-header">
                             <div class="panel-name">
                                 JGR Sakura Vocabulary Test
@@ -2424,7 +2466,7 @@
                     </div>
 
                     <!-- JLPT Panel -->
-                    <div class="calc-panel" data-panel="jlpt">
+                    <div class="calc-panel active" data-panel="jlpt">
                         <div class="panel-header">
                             <div class="panel-name">JLPT Level</div>
                             <div class="panel-desc">
@@ -2520,14 +2562,39 @@
                 </div>
 
                 <!-- Result -->
-                <div class="result-card" id="result" data-kanji="現">
+                <div
+                    class="result-card"
+                    id="result"
+                    data-kanji="現"
+                    role="region"
+                    aria-label="Your result"
+                >
                     <div class="result-inner">
-                        <div class="label">— Your approximate position —</div>
+                        <div class="result-topline">
+                            <div class="label">
+                                — Your approximate position —
+                            </div>
+                            <button
+                                class="btn-share"
+                                id="share-btn"
+                                type="button"
+                                title="Copy a shareable link to this result"
+                            >
+                                <span class="share-icon" aria-hidden="true"
+                                    >🔗</span
+                                ><span id="share-label">Copy link</span>
+                            </button>
+                        </div>
                         <h2>
                             <span class="ja" id="result-kanji">現</span
                             ><span id="result-title">Result</span>
                         </h2>
-                        <p class="result-summary" id="result-summary"></p>
+                        <p
+                            class="result-summary"
+                            id="result-summary"
+                            role="status"
+                            aria-live="polite"
+                        ></p>
 
                         <div class="result-stats">
                             <div class="result-stat">
@@ -5066,6 +5133,68 @@
                 });
             });
 
+            // ============== Calculator state ==============
+            let selectedJgr = null;
+            let selectedJlpt = null;
+            let lastBandIdx = null;
+            const cijSlider = document.getElementById("cij-slider");
+            const cijValue = document.getElementById("cij-value");
+            const duoSlider = document.getElementById("duo-slider");
+            const duoValue = document.getElementById("duo-value");
+
+            function activeTab() {
+                return document.querySelector(".calc-tab.active").dataset.tab;
+            }
+
+            // Resolve the active tab's inputs to a band index, or null if
+            // the user hasn't supplied enough to compute one yet.
+            function computeActiveBandIdx() {
+                const tab = activeTab();
+                if (tab === "jgr") {
+                    const scores = {};
+                    let anyScore = false;
+                    document
+                        .querySelectorAll("[data-jgr-score]")
+                        .forEach((input) => {
+                            const v = parseFloat(input.value);
+                            if (!isNaN(v)) {
+                                scores[input.dataset.jgrScore] = v;
+                                anyScore = true;
+                            }
+                        });
+                    const lvl = anyScore
+                        ? jgrPercentagesToBand(scores)
+                        : selectedJgr;
+                    if (!lvl) return null;
+                    const band = bandByJgr(lvl);
+                    return band ? band.idx : null;
+                } else if (tab === "cij") {
+                    return cijScoreToBandIdx(parseInt(cijSlider.value));
+                } else if (tab === "jlpt") {
+                    return selectedJlpt ? jlptToBandIdx(selectedJlpt) : null;
+                } else if (tab === "duo") {
+                    return duoToBandIdx(parseInt(duoSlider.value));
+                }
+                return null;
+            }
+
+            // Live: recompute and re-render without scrolling the page.
+            function recomputeLive() {
+                clearCalcError();
+                const idx = computeActiveBandIdx();
+                if (idx) renderResult(idx, { scroll: false });
+                else hideResult();
+            }
+
+            function hideResult() {
+                document.getElementById("result").classList.remove("shown");
+                lastBandIdx = null;
+                document
+                    .querySelectorAll(".chart-row")
+                    .forEach((r) => r.classList.remove("highlighted"));
+                saveState();
+            }
+
             // ============== Tab switching ==============
             document.querySelectorAll(".calc-tab").forEach((tab) => {
                 tab.addEventListener("click", () => {
@@ -5080,65 +5209,69 @@
                         `[data-panel="${tab.dataset.tab}"]`,
                     );
                     if (panel) panel.classList.add("active");
-                    const errEl = document.getElementById("calc-error");
-                    if (errEl) {
-                        errEl.textContent = "";
-                        errEl.hidden = true;
-                    }
+                    recomputeLive();
                 });
             });
 
             // ============== JGR picker ==============
-            let selectedJgr = null;
             document.querySelectorAll(".jgr-option").forEach((opt) => {
+                opt.setAttribute("aria-pressed", "false");
                 opt.addEventListener("click", () => {
-                    document
-                        .querySelectorAll(".jgr-option")
-                        .forEach((o) => o.classList.remove("selected"));
+                    document.querySelectorAll(".jgr-option").forEach((o) => {
+                        o.classList.remove("selected");
+                        o.setAttribute("aria-pressed", "false");
+                    });
                     opt.classList.add("selected");
+                    opt.setAttribute("aria-pressed", "true");
                     selectedJgr = opt.dataset.level;
+                    // A manual level pick overrides any per-level scores.
+                    document
+                        .querySelectorAll("[data-jgr-score]")
+                        .forEach((i) => (i.value = ""));
+                    recomputeLive();
                 });
             });
 
             // ============== JLPT picker ==============
-            let selectedJlpt = null;
             document.querySelectorAll(".jlpt-option").forEach((opt) => {
+                opt.setAttribute("aria-pressed", "false");
                 opt.addEventListener("click", () => {
-                    document
-                        .querySelectorAll(".jlpt-option")
-                        .forEach((o) => o.classList.remove("selected"));
+                    document.querySelectorAll(".jlpt-option").forEach((o) => {
+                        o.classList.remove("selected");
+                        o.setAttribute("aria-pressed", "false");
+                    });
                     opt.classList.add("selected");
+                    opt.setAttribute("aria-pressed", "true");
                     selectedJlpt = opt.dataset.level;
+                    recomputeLive();
                 });
             });
 
-            // ============== JGR score input clamp ==============
+            // ============== JGR score inputs (clamp + live) ==============
             document
                 .querySelectorAll("[data-jgr-score]")
                 .forEach((input) => {
                     input.addEventListener("input", () => {
-                        if (input.value === "") return;
-                        const v = parseFloat(input.value);
-                        if (isNaN(v)) return;
-                        if (v > 100) input.value = "100";
-                        else if (v < 0) input.value = "0";
+                        if (input.value !== "") {
+                            const v = parseFloat(input.value);
+                            if (!isNaN(v)) {
+                                if (v > 100) input.value = "100";
+                                else if (v < 0) input.value = "0";
+                            }
+                        }
+                        recomputeLive();
                     });
                 });
 
             // ============== Sliders ==============
-            const cijSlider = document.getElementById("cij-slider");
-            const cijValue = document.getElementById("cij-value");
-            cijSlider.addEventListener(
-                "input",
-                () => (cijValue.textContent = cijSlider.value),
-            );
-
-            const duoSlider = document.getElementById("duo-slider");
-            const duoValue = document.getElementById("duo-value");
-            duoSlider.addEventListener(
-                "input",
-                () => (duoValue.textContent = duoSlider.value),
-            );
+            cijSlider.addEventListener("input", () => {
+                cijValue.textContent = cijSlider.value;
+                recomputeLive();
+            });
+            duoSlider.addEventListener("input", () => {
+                duoValue.textContent = duoSlider.value;
+                recomputeLive();
+            });
 
             // ============== Conversion logic ==============
             function jgrPercentagesToBand(scores) {
@@ -5276,9 +5409,10 @@
             }
 
             // ============== Render result ==============
-            function renderResult(bandIdx) {
+            function renderResult(bandIdx, { scroll = false } = {}) {
                 const band = bandByIdx(bandIdx);
                 if (!band) return;
+                lastBandIdx = bandIdx;
 
                 const resultCard = document.getElementById("result");
                 resultCard.dataset.kanji = band.kanji;
@@ -5363,17 +5497,23 @@
                 if (targetRow) targetRow.classList.add("highlighted");
 
                 resultCard.classList.add("shown");
-                setTimeout(
-                    () =>
-                        resultCard.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start",
-                        }),
-                    100,
-                );
+
+                // Persist + reflect state in the URL so it's shareable
+                saveState();
+
+                if (scroll) {
+                    setTimeout(
+                        () =>
+                            resultCard.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                            }),
+                        100,
+                    );
+                }
             }
 
-            // ============== Calculate ==============
+            // ============== Calculate (explicit trigger + scroll) ==============
             const calcError = document.getElementById("calc-error");
             function showCalcError(msg) {
                 calcError.textContent = msg;
@@ -5387,48 +5527,20 @@
             document
                 .getElementById("calc-btn")
                 .addEventListener("click", () => {
-                    const activeTab =
-                        document.querySelector(".calc-tab.active").dataset.tab;
-                    let bandIdx = null;
                     clearCalcError();
-
-                    if (activeTab === "jgr") {
-                        const scores = {};
-                        let anyScore = false;
-                        document
-                            .querySelectorAll("[data-jgr-score]")
-                            .forEach((input) => {
-                                const v = parseFloat(input.value);
-                                if (!isNaN(v)) {
-                                    scores[input.dataset.jgrScore] = v;
-                                    anyScore = true;
-                                }
-                            });
-                        let detectedLvl = anyScore
-                            ? jgrPercentagesToBand(scores)
-                            : null;
-                        const lvl = detectedLvl || selectedJgr;
-                        if (!lvl) {
+                    const idx = computeActiveBandIdx();
+                    if (!idx) {
+                        const tab = activeTab();
+                        if (tab === "jgr")
                             showCalcError(
                                 "Pick a recommended JGR level above, or enter at least one per-level score.",
                             );
-                            return;
-                        }
-                        const band = bandByJgr(lvl);
-                        bandIdx = band ? band.idx : null;
-                    } else if (activeTab === "cij") {
-                        bandIdx = cijScoreToBandIdx(parseInt(cijSlider.value));
-                    } else if (activeTab === "jlpt") {
-                        if (!selectedJlpt) {
+                        else if (tab === "jlpt")
                             showCalcError("Pick a JLPT level above.");
-                            return;
-                        }
-                        bandIdx = jlptToBandIdx(selectedJlpt);
-                    } else if (activeTab === "duo") {
-                        bandIdx = duoToBandIdx(parseInt(duoSlider.value));
+                        else showCalcError("Choose a value to calculate.");
+                        return;
                     }
-
-                    if (bandIdx) renderResult(bandIdx);
+                    renderResult(idx, { scroll: true });
                 });
 
             // ============== Reset ==============
@@ -5439,7 +5551,10 @@
                     selectedJlpt = null;
                     document
                         .querySelectorAll(".jgr-option, .jlpt-option")
-                        .forEach((o) => o.classList.remove("selected"));
+                        .forEach((o) => {
+                            o.classList.remove("selected");
+                            o.setAttribute("aria-pressed", "false");
+                        });
                     document
                         .querySelectorAll("[data-jgr-score]")
                         .forEach((i) => (i.value = ""));
@@ -5449,10 +5564,177 @@
                     duoValue.textContent = "50";
                     clearCalcError();
                     document.getElementById("result").classList.remove("shown");
+                    lastBandIdx = null;
                     document
                         .querySelectorAll(".chart-row")
                         .forEach((r) => r.classList.remove("highlighted"));
+                    try {
+                        localStorage.removeItem("jpc-state");
+                    } catch (e) {}
+                    history.replaceState(
+                        null,
+                        "",
+                        location.pathname + location.hash,
+                    );
                 });
+
+            // ============== Persistence + sharing ==============
+            // State lives in the query string (?s=jlpt&v=N3) so in-page
+            // #anchors keep working; mirrored to localStorage so returning
+            // visitors land on their last result.
+            function saveState() {
+                const tab = activeTab();
+                const params = new URLSearchParams();
+                params.set("s", tab);
+                if (tab === "jlpt") {
+                    if (selectedJlpt) params.set("v", selectedJlpt);
+                } else if (tab === "duo") {
+                    params.set("v", duoSlider.value);
+                } else if (tab === "cij") {
+                    params.set("v", cijSlider.value);
+                } else if (tab === "jgr") {
+                    const parts = [];
+                    document
+                        .querySelectorAll("[data-jgr-score]")
+                        .forEach((i) => {
+                            if (i.value !== "")
+                                parts.push(i.dataset.jgrScore + ":" + i.value);
+                        });
+                    if (parts.length) params.set("g", parts.join(","));
+                    else if (selectedJgr) params.set("v", selectedJgr);
+                }
+                const shown = document
+                    .getElementById("result")
+                    .classList.contains("shown");
+                const qs = shown ? "?" + params.toString() : "";
+                history.replaceState(
+                    null,
+                    "",
+                    location.pathname + qs + location.hash,
+                );
+                try {
+                    if (shown)
+                        localStorage.setItem("jpc-state", params.toString());
+                    else localStorage.removeItem("jpc-state");
+                } catch (e) {}
+            }
+
+            function restoreState() {
+                let params = null;
+                let fromUrl = false;
+                const search = location.search.replace(/^\?/, "");
+                if (search) {
+                    params = new URLSearchParams(search);
+                    fromUrl = true;
+                } else {
+                    try {
+                        const saved = localStorage.getItem("jpc-state");
+                        if (saved) params = new URLSearchParams(saved);
+                    } catch (e) {}
+                }
+                if (!params || !params.get("s")) return;
+                const tab = params.get("s");
+                const tabBtn = document.querySelector(
+                    `.calc-tab[data-tab="${tab}"]`,
+                );
+                if (!tabBtn) return;
+                document
+                    .querySelectorAll(".calc-tab")
+                    .forEach((t) => t.classList.remove("active"));
+                document
+                    .querySelectorAll(".calc-panel")
+                    .forEach((p) => p.classList.remove("active"));
+                tabBtn.classList.add("active");
+                const panel = document.querySelector(`[data-panel="${tab}"]`);
+                if (panel) panel.classList.add("active");
+
+                if (tab === "jlpt") {
+                    const v = params.get("v");
+                    const opt =
+                        v &&
+                        document.querySelector(
+                            `.jlpt-option[data-level="${v}"]`,
+                        );
+                    if (opt) {
+                        opt.classList.add("selected");
+                        opt.setAttribute("aria-pressed", "true");
+                        selectedJlpt = v;
+                    }
+                } else if (tab === "duo") {
+                    const v = params.get("v");
+                    if (v !== null) {
+                        duoSlider.value = v;
+                        duoValue.textContent = v;
+                    }
+                } else if (tab === "cij") {
+                    const v = params.get("v");
+                    if (v !== null) {
+                        cijSlider.value = v;
+                        cijValue.textContent = v;
+                    }
+                } else if (tab === "jgr") {
+                    const g = params.get("g");
+                    if (g) {
+                        g.split(",").forEach((pair) => {
+                            const [lvl, val] = pair.split(":");
+                            const input = document.querySelector(
+                                `[data-jgr-score="${lvl}"]`,
+                            );
+                            if (input) input.value = val;
+                        });
+                    } else {
+                        const v = params.get("v");
+                        const opt =
+                            v &&
+                            document.querySelector(
+                                `.jgr-option[data-level="${v}"]`,
+                            );
+                        if (opt) {
+                            opt.classList.add("selected");
+                            opt.setAttribute("aria-pressed", "true");
+                            selectedJgr = v;
+                        }
+                    }
+                }
+
+                const idx = computeActiveBandIdx();
+                if (idx) renderResult(idx, { scroll: fromUrl });
+            }
+
+            // ============== Share / copy link ==============
+            (function () {
+                const shareBtn = document.getElementById("share-btn");
+                if (!shareBtn) return;
+                shareBtn.addEventListener("click", async () => {
+                    saveState();
+                    const url = location.href;
+                    let ok = true;
+                    try {
+                        await navigator.clipboard.writeText(url);
+                    } catch (e) {
+                        try {
+                            const ta = document.createElement("textarea");
+                            ta.value = url;
+                            ta.style.position = "fixed";
+                            ta.style.opacity = "0";
+                            document.body.appendChild(ta);
+                            ta.select();
+                            document.execCommand("copy");
+                            document.body.removeChild(ta);
+                        } catch (e2) {
+                            ok = false;
+                        }
+                    }
+                    const label = document.getElementById("share-label");
+                    const prev = label.textContent;
+                    label.textContent = ok ? "Copied!" : "Copy failed";
+                    shareBtn.classList.add("copied");
+                    setTimeout(() => {
+                        label.textContent = prev;
+                        shareBtn.classList.remove("copied");
+                    }, 1600);
+                });
+            })();
 
             // ============== Reference table row click ==============
             document.querySelectorAll(".chart-row").forEach((row) => {
@@ -5523,6 +5805,9 @@
 
             // Initial render
             renderResourcesGrid(browseContent, "A");
+
+            // Restore a shared (?s=…) or remembered result, if any
+            restoreState();
         </script>
     </body>
 </html>
