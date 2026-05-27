@@ -1116,6 +1116,14 @@
                 color: var(--paper);
             }
 
+            .resource-item .res-name .res-tag.level {
+                background: transparent;
+                color: var(--vermilion);
+                border: 1px solid var(--result-rule-strong);
+                text-transform: none;
+                letter-spacing: 0.04em;
+            }
+
             .resource-item .res-name .res-via {
                 display: inline-block;
                 font-family: "JetBrains Mono", monospace;
@@ -1869,8 +1877,9 @@
                     Enter a score from <strong>any one</strong> of four scales —
                     JGR Sakura vocab test, CIJ video comfort, JLPT, or Duolingo
                     Score — and see your approximate position across all four,
-                    along with podcast, YouTube, and reading recommendations
-                    tuned to your <strong>i+1</strong> growth zone.
+                    along with podcast, YouTube, reading, and manga &amp; anime
+                    recommendations tuned to your <strong>i+1</strong> growth
+                    zone.
                 </p>
             </section>
 
@@ -2960,6 +2969,315 @@
                     kanji: "極",
                 },
             ];
+
+            // ============== Manga & anime by vocabulary band ==============
+            // Difficulty anchored to LearnNatively L-levels (community Elo-rated,
+            // mapped to JLPT bands) and jpdb.io X/10 ML difficulty ratings — the
+            // same datasets these vocab tiers are designed to mesh with.
+            const MEDIA_BANDS = [
+                {
+                    // 0–1k words · pre-N5 / N5
+                    tiers: ["A", "B"],
+                    manga: [
+                        {
+                            name: "よつばと！ (Yotsuba&!)",
+                            rating: "Natively L17",
+                            why: "The genre-defining beginner pick. Yotsuba speaks in full hiragana; short, context-rich bubbles; standard Tokyo Japanese, no dialect.",
+                        },
+                        {
+                            name: "チーズスイートホーム (Chi's Sweet Home)",
+                            rating: "Beginner",
+                            why: "A kitten narrates in childish, mostly-kana speech. Full furigana, heavily repetitive home/food vocab, zero dialect.",
+                        },
+                        {
+                            name: "しろくまカフェ (Shirokuma Cafe)",
+                            rating: "Natively L20–21",
+                            why: "Full furigana, café/everyday vocab, polite-form heavy. Lots of oyaji-gag puns — fun, but some will go over your head.",
+                        },
+                        {
+                            name: "ドラえもん (Doraemon)",
+                            rating: "Natively L19",
+                            why: "Full furigana, kodomomuke register, easy gadget vocab (mostly katakana). Episodic, so any volume works.",
+                        },
+                        {
+                            name: "ちびまる子ちゃん (Chibi Maruko-chan)",
+                            rating: "Beginner",
+                            why: "Full furigana, very simple sentences, family conversation vocab. Mild Shizuoka-ben coloring from the grandparents.",
+                        },
+                    ],
+                    anime: [
+                        {
+                            name: "しろくまカフェ (Shirokuma Cafe)",
+                            rating: "Beginner",
+                            why: "The polar bear's deliberate, near-monotone delivery is the easiest listening in TV anime. Standard polite Japanese, café vocab.",
+                        },
+                        {
+                            name: "チーズスイートホーム (Chi's Sweet Home)",
+                            rating: "Beginner",
+                            why: "~3-minute episodes; baby-talk speech, extreme repetition, household vocab.",
+                        },
+                        {
+                            name: "ドラえもん (Doraemon)",
+                            rating: "Beginner",
+                            why: "Clear, child-targeted voice acting; predictable situations; gadget names are mostly katakana.",
+                        },
+                        {
+                            name: "となりのトトロ (My Neighbor Totoro)",
+                            rating: "Beginner",
+                            why: "Crisp Tokyo standard Japanese, slow rural pace, simple family/nature vocab, no slang.",
+                        },
+                        {
+                            name: "サザエさん (Sazae-san)",
+                            rating: "Beginner",
+                            why: "Slow standard polite Japanese — ideal for hearing clean Tokyo speech, though the cultural register is a bit dated.",
+                        },
+                    ],
+                },
+                {
+                    // 1–3k words · N5 / N4 — the late-N4/early-N3 sweet spot
+                    tiers: ["C", "D", "E"],
+                    manga: [
+                        {
+                            name: "からかい上手の高木さん (Teasing Master Takagi-san)",
+                            rating: "Natively L17–19",
+                            why: "Vignette school comedy, full furigana, almost entirely two-character dialogue. Repetitive school-life vocab — a perfect mining target.",
+                        },
+                        {
+                            name: "ふらいんぐうぃっち (Flying Witch)",
+                            rating: "Natively L20",
+                            why: "Gentle slice-of-life set in Aomori; surprisingly accessible language. Caveat: occasional light Tsugaru-ben from older locals.",
+                        },
+                        {
+                            name: "のんのんびより (Non Non Biyori)",
+                            rating: "Beginner",
+                            why: "Furigana included; rural school setting; low information density. Some country-flavored mild dialect.",
+                        },
+                        {
+                            name: "ARIA / AQUA",
+                            rating: "Upper-beginner",
+                            why: "Iyashikei classic; full furigana, deliberately gentle pace. Akari's flowery monologues nudge it to the top of this band.",
+                        },
+                        {
+                            name: "ご注文はうさぎですか？ (Is the Order a Rabbit?)",
+                            rating: "Beginner",
+                            why: "Full furigana, café vocab, very gentle CGDCT speech.",
+                        },
+                    ],
+                    anime: [
+                        {
+                            name: "のんのんびより (Non Non Biyori)",
+                            rating: "jpdb 2/10",
+                            why: "Standard Japanese with mild rural inflection; deliberate pacing; iyashikei means low info density per minute.",
+                        },
+                        {
+                            name: "けいおん！ (K-On!)",
+                            rating: "jpdb 2/10",
+                            why: "Daily-life vocab plus a narrow music/club jargon set. Fast cute-girl tempo, but vocabulary is repetitive.",
+                        },
+                        {
+                            name: "からかい上手の高木さん (Takagi-san)",
+                            rating: "jpdb 2/10",
+                            why: "Two-character school dialogue; standard Japanese; slow-to-moderate speech speed.",
+                        },
+                        {
+                            name: "カードキャプターさくら (Cardcaptor Sakura)",
+                            rating: "Beginner",
+                            why: "Standard, beginner-friendly speech; mild Kansai-ben from Kero-chan for early dialect exposure.",
+                        },
+                        {
+                            name: "月刊少女野崎くん (Gekkan Shōjo Nozaki-kun)",
+                            rating: "jpdb 3/10",
+                            why: "Clear speech, standard Japanese, manga-industry vocab; shōjo-meta comedy.",
+                        },
+                    ],
+                },
+                {
+                    // 3–6k words · N3
+                    tiers: ["F", "G"],
+                    manga: [
+                        {
+                            name: "ホリミヤ (Horimiya)",
+                            rating: "Natively L23",
+                            why: "High-school slang, casual contractions, incomplete sentences — excellent slang training. Furigana included.",
+                        },
+                        {
+                            name: "夏目友人帳 (Natsume's Book of Friends)",
+                            rating: "~Natively L24–26",
+                            why: "Full furigana, but dense with yōkai/folklore terms (神様, 妖怪) and a reflective, literary register.",
+                        },
+                        {
+                            name: "極主夫道 (The Way of the Househusband)",
+                            rating: "Intermediate",
+                            why: "Yakuza speech juxtaposed with housewife vocab — learn both polite domestic language and rough male speech (〜じゃねえか). Furigana present.",
+                        },
+                        {
+                            name: "名探偵コナン (Detective Conan)",
+                            rating: "Natively L27",
+                            why: "Mystery vocab (容疑者, 証拠, 推理) and long deductive monologues. Furigana included. A stretch goal into the next band.",
+                        },
+                        {
+                            name: "薬屋のひとりごと (The Apothecary Diaries)",
+                            rating: "Intermediate",
+                            why: "Imperial-court setting, herbal/medicine vocab, pseudo-classical phrasing in spots. Furigana included.",
+                        },
+                    ],
+                    anime: [
+                        {
+                            name: "SPY×FAMILY",
+                            rating: "jpdb 5/10",
+                            why: "Standard Japanese; Anya's intentionally plain, childish speech; Loid's keigo-vs-casual code-switching is a useful keigo lesson.",
+                        },
+                        {
+                            name: "夏目友人帳 (Natsume Yuujinchou)",
+                            rating: "Natively L25",
+                            why: "Reflective monologues, yōkai vocab, slow pace. Frequently recommended as the N3 anime.",
+                        },
+                        {
+                            name: "僕のヒーローアカデミア (My Hero Academia)",
+                            rating: "Intermediate",
+                            why: "Quirk/power vocab, varied politeness levels (Iida's keigo vs. Bakugō's rough speech), action commentary.",
+                        },
+                        {
+                            name: "名探偵コナン (Detective Conan)",
+                            rating: "Intermediate",
+                            why: "Deduction vocab and police/courtroom register; long climax monologues. Hattori Heiji segments feature Kansai-ben.",
+                        },
+                        {
+                            name: "ヴァイオレット・エヴァーガーデン (Violet Evergarden)",
+                            rating: "Intermediate+",
+                            why: "Polished keigo throughout, slower pace, but vocabulary skews literary/emotional. Top of this band.",
+                        },
+                    ],
+                },
+                {
+                    // 6–10k words · N2
+                    tiers: ["H"],
+                    manga: [
+                        {
+                            name: "3月のライオン (March Comes in Like a Lion)",
+                            rating: "Upper-intermediate",
+                            why: "Seinen, sparse furigana, introspective literary register, shōgi vocab.",
+                        },
+                        {
+                            name: "20世紀少年 (20th Century Boys)",
+                            rating: "Natively L32",
+                            why: "Seinen thriller; little-to-no furigana; large cast with varied registers; technical/conspiracy vocab.",
+                        },
+                        {
+                            name: "銀の匙 (Silver Spoon)",
+                            rating: "Upper-intermediate",
+                            why: "Agricultural-school vocab, dairy/livestock terminology, occasional Hokkaidō-ben. Furigana sparse.",
+                        },
+                        {
+                            name: "デスノート (Death Note)",
+                            rating: "Upper-intermediate",
+                            why: "Police/legal/strategy vocab, long monologues, formal Japanese; furigana often included despite the seinen feel.",
+                        },
+                        {
+                            name: "進撃の巨人 (Attack on Titan)",
+                            rating: "Upper-intermediate",
+                            why: "Military-themed seinen with custom titan/regiment vocab; partial furigana.",
+                        },
+                    ],
+                    anime: [
+                        {
+                            name: "進撃の巨人 (Attack on Titan)",
+                            rating: "jpdb 7/10",
+                            why: "Military jargon, rapid combat dialogue, dramatic monologues.",
+                        },
+                        {
+                            name: "鬼滅の刃 (Demon Slayer)",
+                            rating: "jpdb 6/10",
+                            why: "Taishō-era flavoring and archaic-ish phrasing for some characters; demon/sword vocab. The 'Unwavering Resolve' arc is rated Natively L27.",
+                        },
+                        {
+                            name: "STEINS;GATE",
+                            rating: "jpdb 6/10",
+                            why: "Internet slang, pseudo-scientific babble (CERN, time-travel theory), Okabe's chūnibyō register. Famously vocabulary-rich.",
+                        },
+                        {
+                            name: "DEATH NOTE",
+                            rating: "jpdb 7/10",
+                            why: "Police/legal/strategy vocab; long inner monologues; formal news/legal register.",
+                        },
+                        {
+                            name: "化物語 (Bakemonogatari)",
+                            rating: "jpdb 6/10 · Natively L36",
+                            why: "Heavy wordplay, puns, literary references — easier vocab than the novels, but the pacing is brutal. Top of this band.",
+                        },
+                    ],
+                },
+                {
+                    // 10k+ words · N1
+                    tiers: ["X"],
+                    manga: [
+                        {
+                            name: "物語シリーズ (Monogatari Series, light novels)",
+                            rating: "jpdb 9/10",
+                            why: "NisiOisin's rapid-fire wordplay, classical allusions, intentionally obscure vocab, kanji-pun puzzles. A long-term endgame project.",
+                        },
+                        {
+                            name: "バガボンド (Vagabond)",
+                            rating: "Advanced",
+                            why: "Samurai-era speech, classical-flavored register; sparse furigana.",
+                        },
+                        {
+                            name: "ゴールデンカムイ (Golden Kamuy)",
+                            rating: "Advanced",
+                            why: "Meiji-era Hokkaidō; heavy Ainu vocab explained in footnotes; military/hunting/dialect content. Famously specialist.",
+                        },
+                        {
+                            name: "ベルセルク (Berserk)",
+                            rating: "Advanced",
+                            why: "Dark fantasy with pseudo-medieval speech, heavy military/violence vocab; no furigana.",
+                        },
+                        {
+                            name: "おやすみプンプン (Goodnight Punpun)",
+                            rating: "Advanced",
+                            why: "Adult literary seinen; sparse-to-no furigana; psychological vocab; introspective register.",
+                        },
+                    ],
+                    anime: [
+                        {
+                            name: "物語シリーズ (Monogatari Series)",
+                            rating: "Advanced",
+                            why: "Wordplay, classical references, extreme dialogue density, SHAFT's rapid text-card cuts.",
+                        },
+                        {
+                            name: "PSYCHO-PASS",
+                            rating: "Advanced",
+                            why: "N1-grammar density; legal/philosophical vocab; long ethical monologues.",
+                        },
+                        {
+                            name: "攻殻機動隊 (Ghost in the Shell: SAC)",
+                            rating: "Advanced",
+                            why: "Cyberpunk/political/military technobabble; among the densest adult Japanese in animation.",
+                        },
+                        {
+                            name: "新世紀エヴァンゲリオン (Neon Genesis Evangelion)",
+                            rating: "Advanced",
+                            why: "Religious/philosophical jargon, technical NERV/EVA vocab, fast military command speech.",
+                        },
+                        {
+                            name: "十二国記 (The Twelve Kingdoms)",
+                            rating: "Advanced",
+                            why: "Famous for its classical, Chinese-derived court vocabulary.",
+                        },
+                    ],
+                },
+            ];
+
+            // Expand bands into a per-tier index
+            const MEDIA = {};
+            for (const tier of ["A", "B", "C", "D", "E", "F", "G", "H", "X"]) {
+                MEDIA[tier] = { manga: [], anime: [] };
+            }
+            for (const band of MEDIA_BANDS) {
+                for (const t of band.tiers) {
+                    MEDIA[t].manga = band.manga;
+                    MEDIA[t].anime = band.anime;
+                }
+            }
 
             // ============== RESOURCES per tier ==============
             // Each tier has podcasts, youtube, and websites arrays
@@ -4631,7 +4949,7 @@
 
                 const renderItem = (r) => `
       <div class="resource-item">
-        <div class="res-name"><a href="${r.url}" target="_blank" rel="noopener">${r.name}</a><span class="res-tag ${r.tag}">${r.tag}</span>${r.via === "cij" ? '<span class="res-via" title="Recommended on cijapanese.com/resources">via CIJ</span>' : ""}</div>
+        <div class="res-name">${r.url ? `<a href="${r.url}" target="_blank" rel="noopener">${r.name}</a>` : r.name}${r.tag ? `<span class="res-tag ${r.tag}">${r.tag}</span>` : ""}${r.rating ? `<span class="res-tag level">${r.rating}</span>` : ""}${r.via === "cij" ? '<span class="res-via" title="Recommended on cijapanese.com/resources">via CIJ</span>' : ""}</div>
         <div class="res-why">${r.why}</div>
       </div>
     `;
@@ -4655,6 +4973,30 @@
     `,
                     )
                     .join("");
+
+                // Manga & anime section (if any for this tier)
+                const media = MEDIA[jgrKey];
+                if (media && (media.manga.length || media.anime.length)) {
+                    const mediaSections = [
+                        { key: "manga", ja: "漫画", title: "Manga" },
+                        { key: "anime", ja: "アニメ", title: "Anime" },
+                    ];
+                    html += `<div class="resources-subsection-divider">↓ Manga &amp; anime to read &amp; watch at this level</div>`;
+                    html += mediaSections
+                        .map(
+                            (sec) => `
+        <div class="resource-col">
+          <h4><span class="col-ja">${sec.ja}</span>${sec.title}</h4>
+          ${
+              media[sec.key].length > 0
+                  ? media[sec.key].map(renderItem).join("")
+                  : '<div class="res-why" style="opacity:0.5;">— none for this tier —</div>'
+          }
+        </div>
+      `,
+                        )
+                        .join("");
+                }
 
                 // CIJ-recommended section (if any items for this tier)
                 if (hasCijItems) {
