@@ -155,25 +155,139 @@
                 z-index: 1;
             }
 
+            html {
+                scroll-behavior: smooth;
+            }
+
             .container {
                 max-width: 1240px;
                 margin: 0 auto;
                 padding: 60px 48px 100px;
                 position: relative;
                 z-index: 2;
+                display: flex;
+                flex-direction: column;
             }
 
-            /* Theme toggle */
-            .theme-toggle {
-                position: fixed;
-                top: 24px;
-                right: 24px;
+            /* Tool-first ordering: tool sits right under the hero,
+               the i+1 primer follows for the curious. (Order only —
+               DOM order is preserved for assistive tech, and the
+               primer has no focusable elements.) */
+            #input {
+                order: 1;
+            }
+            .explainer {
+                order: 2;
+                margin-bottom: 64px;
+            }
+            #crosswalk {
+                order: 3;
+            }
+            #resources {
+                order: 4;
+            }
+            .sources {
+                order: 5;
+            }
+            .colophon {
+                order: 6;
+            }
+
+            /* Sticky site navigation */
+            .site-nav {
+                position: sticky;
+                top: 0;
                 z-index: 100;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                padding: 10px 24px;
+                background: color-mix(in srgb, var(--paper) 85%, transparent);
+                backdrop-filter: saturate(140%) blur(10px);
+                -webkit-backdrop-filter: saturate(140%) blur(10px);
+                border-bottom: 1px solid var(--rule);
+            }
+
+            .site-nav .nav-wordmark {
+                font-family: "Shippori Mincho", serif;
+                font-weight: 700;
+                font-size: 16px;
+                color: var(--ink);
+                text-decoration: none;
+                white-space: nowrap;
+                letter-spacing: 0.02em;
+            }
+
+            .site-nav .nav-wordmark .nav-ja {
+                color: var(--vermilion);
+                margin-right: 6px;
+            }
+
+            .site-nav .nav-links {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                margin-left: auto;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+
+            .site-nav .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .site-nav .nav-link {
+                font-family: "JetBrains Mono", monospace;
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--ink-soft);
+                text-decoration: none;
+                padding: 7px 11px;
+                border-radius: 3px;
+                white-space: nowrap;
+                transition: all 0.15s ease;
+            }
+
+            .site-nav .nav-link:hover {
+                background: rgba(200, 68, 58, 0.1);
+                color: var(--vermilion-deep);
+            }
+
+            .site-nav .nav-link.primary {
+                background: var(--vermilion);
+                color: var(--paper);
+            }
+
+            .site-nav .nav-link.primary:hover {
+                background: var(--vermilion-deep);
+                color: var(--paper);
+            }
+
+            .site-nav .nav-divider {
+                width: 1px;
+                align-self: stretch;
+                background: var(--rule);
+                opacity: 0.4;
+                margin: 4px 4px;
+            }
+
+            /* Scroll anchoring offset for sticky nav */
+            .section,
+            .explainer,
+            #input {
+                scroll-margin-top: 64px;
+            }
+
+            /* Theme toggle (now nested in site-nav) */
+            .theme-toggle {
                 display: flex;
                 background: var(--paper-warm);
                 border: 1px solid var(--rule);
                 box-shadow: 2px 2px 0 var(--rule);
                 padding: 0;
+                flex-shrink: 0;
             }
 
             .theme-btn {
@@ -273,9 +387,36 @@
             .hero {
                 display: grid;
                 grid-template-columns: 1.2fr 1fr;
-                gap: 48px;
+                gap: 48px 48px;
                 align-items: end;
                 margin-bottom: 64px;
+            }
+
+            .hero-cta {
+                grid-column: 1 / -1;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px 28px;
+                margin-top: 8px;
+            }
+
+            .hero-cta-btn {
+                display: inline-block;
+                text-decoration: none;
+            }
+
+            .hero-cta-link {
+                font-family: "Fraunces", serif;
+                font-size: 16px;
+                color: var(--ink-soft);
+                text-decoration: none;
+                border-bottom: 1px dotted var(--vermilion);
+                transition: color 0.15s ease;
+            }
+
+            .hero-cta-link:hover {
+                color: var(--vermilion-deep);
             }
 
             .hero-headline {
@@ -852,6 +993,20 @@
                 gap: 12px;
                 align-items: center;
                 flex-wrap: wrap;
+            }
+
+            .calc-error {
+                font-family: "Fraunces", serif;
+                font-size: 14px;
+                font-style: italic;
+                color: var(--vermilion-deep);
+                padding: 8px 14px;
+                border-left: 3px solid var(--vermilion);
+                background: rgba(200, 68, 58, 0.08);
+            }
+
+            .calc-error[hidden] {
+                display: none;
             }
 
             .btn-primary {
@@ -1726,19 +1881,29 @@
                 .container {
                     padding: 32px 20px 60px;
                 }
-                .theme-toggle {
-                    top: 12px;
-                    right: 12px;
+                .site-nav {
+                    padding: 8px 14px;
+                    gap: 10px;
+                }
+                .site-nav .nav-wordmark .nav-en {
+                    display: none;
+                }
+                .site-nav .nav-link {
+                    padding: 6px 8px;
+                    font-size: 10px;
+                    letter-spacing: 0.06em;
                 }
                 .theme-btn {
                     padding: 8px 10px;
                     font-size: 10px;
                 }
+                .theme-btn .theme-label {
+                    display: none;
+                }
                 .masthead {
                     grid-template-columns: 1fr;
                     text-align: center;
                     gap: 12px;
-                    padding-top: 50px;
                 }
                 .masthead-right {
                     text-align: center;
@@ -1839,37 +2004,60 @@
         </style>
     </head>
     <body>
-        <!-- Theme toggle -->
-        <div class="theme-toggle" role="group" aria-label="Theme">
-            <button class="theme-btn" data-theme-set="light" title="Light mode">
-                <svg class="theme-icon" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="4" />
-                    <path
-                        d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-                    />
-                </svg>
-                Light
-            </button>
-            <button
-                class="theme-btn"
-                data-theme-set="auto"
-                title="Follow system"
-            >
-                <svg class="theme-icon" viewBox="0 0 24 24">
-                    <rect x="3" y="4" width="18" height="14" rx="1" />
-                    <path d="M8 22h8M12 18v4" />
-                </svg>
-                Auto
-            </button>
-            <button class="theme-btn" data-theme-set="dark" title="Dark mode">
-                <svg class="theme-icon" viewBox="0 0 24 24">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg>
-                Dark
-            </button>
-        </div>
+        <!-- Sticky navigation -->
+        <nav class="site-nav" aria-label="Site">
+            <a href="#top" class="nav-wordmark">
+                <span class="nav-ja">日本語</span
+                ><span class="nav-en">Proficiency Crosswalk</span>
+            </a>
+            <div class="nav-links">
+                <a href="#input" class="nav-link primary">Find my level</a>
+                <a href="#crosswalk" class="nav-link">Crosswalk</a>
+                <a href="#resources" class="nav-link">Resources</a>
+                <a href="#explainer" class="nav-link">Why i+1?</a>
+                <span class="nav-divider" aria-hidden="true"></span>
+                <div class="theme-toggle" role="group" aria-label="Theme">
+                    <button
+                        class="theme-btn"
+                        data-theme-set="light"
+                        title="Light mode"
+                    >
+                        <svg class="theme-icon" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" />
+                            <path
+                                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+                            />
+                        </svg>
+                        <span class="theme-label">Light</span>
+                    </button>
+                    <button
+                        class="theme-btn"
+                        data-theme-set="auto"
+                        title="Follow system"
+                    >
+                        <svg class="theme-icon" viewBox="0 0 24 24">
+                            <rect x="3" y="4" width="18" height="14" rx="1" />
+                            <path d="M8 22h8M12 18v4" />
+                        </svg>
+                        <span class="theme-label">Auto</span>
+                    </button>
+                    <button
+                        class="theme-btn"
+                        data-theme-set="dark"
+                        title="Dark mode"
+                    >
+                        <svg class="theme-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                            />
+                        </svg>
+                        <span class="theme-label">Dark</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
 
-        <div class="container">
+        <div class="container" id="top">
             <!-- Masthead -->
             <header class="masthead fade-in">
                 <div class="masthead-left">
@@ -1903,10 +2091,18 @@
                     recommendations tuned to your <strong>i+1</strong> growth
                     zone.
                 </p>
+                <div class="hero-cta fade-in">
+                    <a href="#input" class="btn-primary hero-cta-btn"
+                        >Find my level ↓</a
+                    >
+                    <a href="#explainer" class="hero-cta-link"
+                        >First, what does <em>i+1</em> mean? →</a
+                    >
+                </div>
             </section>
 
             <!-- i+1 Explainer -->
-            <section class="explainer">
+            <section class="explainer" id="explainer">
                 <aside class="explainer-aside">
                     <div class="explainer-kanji">i+1</div>
                     <div class="explainer-aside-label">A brief primer</div>
@@ -1991,7 +2187,7 @@
             </section>
 
             <!-- Calculator -->
-            <section class="section">
+            <section class="section" id="input">
                 <div class="section-label">Step 一 · Input</div>
                 <h2 class="section-title">
                     <span class="ja">入力</span>Choose what you know
@@ -2314,6 +2510,12 @@
                         <button class="btn-secondary" id="reset-btn">
                             Reset
                         </button>
+                        <div
+                            class="calc-error"
+                            id="calc-error"
+                            role="alert"
+                            hidden
+                        ></div>
                     </div>
                 </div>
 
@@ -2369,7 +2571,7 @@
             </section>
 
             <!-- Reference table -->
-            <section class="section">
+            <section class="section" id="crosswalk">
                 <div class="section-label">Reference table 二</div>
                 <h2 class="section-title">
                     <span class="ja">対照表</span>The full crosswalk
@@ -2689,7 +2891,7 @@
             </section>
 
             <!-- Browse all resources -->
-            <section class="section">
+            <section class="section" id="resources">
                 <div class="section-label">Step 三 · Resources</div>
                 <h2 class="section-title">
                     <span class="ja">教材</span>Browse resources by tier
@@ -4878,6 +5080,11 @@
                         `[data-panel="${tab.dataset.tab}"]`,
                     );
                     if (panel) panel.classList.add("active");
+                    const errEl = document.getElementById("calc-error");
+                    if (errEl) {
+                        errEl.textContent = "";
+                        errEl.hidden = true;
+                    }
                 });
             });
 
@@ -5167,12 +5374,23 @@
             }
 
             // ============== Calculate ==============
+            const calcError = document.getElementById("calc-error");
+            function showCalcError(msg) {
+                calcError.textContent = msg;
+                calcError.hidden = false;
+            }
+            function clearCalcError() {
+                calcError.textContent = "";
+                calcError.hidden = true;
+            }
+
             document
                 .getElementById("calc-btn")
                 .addEventListener("click", () => {
                     const activeTab =
                         document.querySelector(".calc-tab.active").dataset.tab;
                     let bandIdx = null;
+                    clearCalcError();
 
                     if (activeTab === "jgr") {
                         const scores = {};
@@ -5191,8 +5409,8 @@
                             : null;
                         const lvl = detectedLvl || selectedJgr;
                         if (!lvl) {
-                            alert(
-                                "Pick a recommended JGR level, or enter at least one per-level score.",
+                            showCalcError(
+                                "Pick a recommended JGR level above, or enter at least one per-level score.",
                             );
                             return;
                         }
@@ -5202,7 +5420,7 @@
                         bandIdx = cijScoreToBandIdx(parseInt(cijSlider.value));
                     } else if (activeTab === "jlpt") {
                         if (!selectedJlpt) {
-                            alert("Pick a JLPT level.");
+                            showCalcError("Pick a JLPT level above.");
                             return;
                         }
                         bandIdx = jlptToBandIdx(selectedJlpt);
@@ -5229,6 +5447,7 @@
                     cijValue.textContent = "25";
                     duoSlider.value = 50;
                     duoValue.textContent = "50";
+                    clearCalcError();
                     document.getElementById("result").classList.remove("shown");
                     document
                         .querySelectorAll(".chart-row")
