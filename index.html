@@ -2383,15 +2383,19 @@
             <section class="explainer" id="explainer">
                 <aside class="explainer-aside">
                     <div class="explainer-kanji">i+1</div>
-                    <div class="explainer-aside-label">A brief primer</div>
-                    <h2 class="explainer-aside-title">What "i+1" means</h2>
-                    <p class="explainer-aside-sub">
+                    <div class="explainer-aside-label" data-i18n="exp.primer">
+                        A brief primer
+                    </div>
+                    <h2 class="explainer-aside-title" data-i18n="exp.title">
+                        What "i+1" means
+                    </h2>
+                    <p class="explainer-aside-sub" data-i18n="exp.sub">
                         Stephen Krashen's input hypothesis — and why this tool
                         exists.
                     </p>
                 </aside>
                 <div class="explainer-body">
-                    <p>
+                    <p data-i18n="exp.p1">
                         The idea is simple:
                         <strong
                             >language is acquired when you understand input
@@ -2403,12 +2407,12 @@
                         enough to follow, hard enough to stretch.
                     </p>
 
-                    <span class="formula"
+                    <span class="formula" data-i18n="exp.formula"
                         >i (what you know) + 1 (one new piece) =
                         acquisition</span
                     >
 
-                    <p>
+                    <p data-i18n="exp.p2">
                         If input is too easy (<em>i</em> or below), you're
                         enjoying yourself but not growing. If it's too hard (<em
                             >i+2</em
@@ -2420,7 +2424,7 @@
                         gaps are guessable.
                     </p>
 
-                    <p>
+                    <p data-i18n="exp.p3">
                         This tool helps you find that band. The level you input
                         represents your
                         <strong>comfortable comprehension zone</strong> (your
@@ -2432,29 +2436,39 @@
 
                     <div class="explainer-signs">
                         <div class="sign-card too-easy">
-                            <div class="sign-label">↓ Too easy</div>
-                            <div class="sign-title">You're at <em>i</em></div>
-                            <div class="sign-desc">
+                            <div class="sign-label" data-i18n="exp.easy.label">
+                                ↓ Too easy
+                            </div>
+                            <div class="sign-title" data-i18n="exp.easy.title">
+                                You're at <em>i</em>
+                            </div>
+                            <div class="sign-desc" data-i18n="exp.easy.desc">
                                 100% comprehension, no new words or grammar.
                                 Fine for review and fluency, but you're not
                                 acquiring new language.
                             </div>
                         </div>
                         <div class="sign-card just-right">
-                            <div class="sign-label">★ Just right</div>
-                            <div class="sign-title">You're at <em>i+1</em></div>
-                            <div class="sign-desc">
+                            <div class="sign-label" data-i18n="exp.right.label">
+                                ★ Just right
+                            </div>
+                            <div class="sign-title" data-i18n="exp.right.title">
+                                You're at <em>i+1</em>
+                            </div>
+                            <div class="sign-desc" data-i18n="exp.right.desc">
                                 85–95% comprehension. You catch the meaning,
                                 miss a few specifics, and pick up new pieces
                                 from context naturally.
                             </div>
                         </div>
                         <div class="sign-card too-hard">
-                            <div class="sign-label">↑ Too hard</div>
-                            <div class="sign-title">
+                            <div class="sign-label" data-i18n="exp.hard.label">
+                                ↑ Too hard
+                            </div>
+                            <div class="sign-title" data-i18n="exp.hard.title">
                                 You're at <em>i+2</em>+
                             </div>
-                            <div class="sign-desc">
+                            <div class="sign-desc" data-i18n="exp.hard.desc">
                                 Below ~80% — you're decoding word-by-word.
                                 Switch to easier input or use heavy scaffolding
                                 (subs, dictionary, re-listens).
@@ -2485,29 +2499,29 @@
                     <div class="calc-tabs">
                         <button class="calc-tab active" data-tab="jlpt">
                             <span class="tab-ja">JLPT</span>
-                            Test level
+                            <span data-i18n="tab.jlpt">Test level</span>
                         </button>
                         <button class="calc-tab" data-tab="duo">
                             <span class="tab-ja">Duo</span>
-                            Duolingo Score
+                            <span data-i18n="tab.duo">Duolingo Score</span>
                         </button>
                         <button class="calc-tab" data-tab="cij">
                             <span class="tab-ja">CIJ</span>
-                            Video difficulty
+                            <span data-i18n="tab.cij">Video difficulty</span>
                         </button>
                         <button class="calc-tab" data-tab="jgr">
                             <span class="tab-ja">JGRPG</span>
-                            Sakura vocab
+                            <span data-i18n="tab.jgr">Sakura vocab</span>
                         </button>
                     </div>
 
                     <!-- JGR Panel -->
                     <div class="calc-panel" data-panel="jgr">
                         <div class="panel-header">
-                            <div class="panel-name">
+                            <div class="panel-name" data-i18n="panel.jgr.name">
                                 JGRPG Sakura Vocabulary Test (さくら多読ラボ)
                             </div>
-                            <div class="panel-desc">
+                            <div class="panel-desc" data-i18n="panel.jgr.desc">
                                 Either pick your recommended level, or enter
                                 your per-level percentages for a more precise
                                 read. The test is monolingual (Japanese-Japanese
@@ -2521,9 +2535,14 @@
                             <label
                                 class="field-label"
                                 style="color: var(--vermilion-deep)"
+                                data-i18n="panel.jgr.reclabel"
                                 >↳ What "recommended level" means</label
                             >
-                            <div class="field-help" style="margin-bottom: 0">
+                            <div
+                                class="field-help"
+                                style="margin-bottom: 0"
+                                data-i18n="panel.jgr.rechelp"
+                            >
                                 JGRPG aims for ~95% vocabulary coverage at your
                                 recommended level — i.e. your
                                 <strong>comfortable reading zone</strong>, not
@@ -2533,7 +2552,7 @@
                         </div>
 
                         <div class="field-group">
-                            <label class="field-label"
+                            <label class="field-label" data-i18n="panel.jgr.pick"
                                 >Recommended level (おすすめレベル)</label
                             >
                             <div class="jgr-picker" id="jgr-picker">
@@ -2565,11 +2584,11 @@
                         </div>
 
                         <div class="field-group">
-                            <label class="field-label"
+                            <label class="field-label" data-i18n="panel.jgr.scorelabel"
                                 >Or — enter scores per level (optional, %
                                 correct)</label
                             >
-                            <div class="field-help">
+                            <div class="field-help" data-i18n="panel.jgr.scorehelp">
                                 For a finer reading. Leave blank to use the
                                 recommended level above. Level A is the entry
                                 baseline and isn't scored — assumed mastered if
@@ -2665,20 +2684,20 @@
                     <!-- CIJ Panel -->
                     <div class="calc-panel" data-panel="cij">
                         <div class="panel-header">
-                            <div class="panel-name">
+                            <div class="panel-name" data-i18n="panel.cij.name">
                                 Comprehensible Japanese
                             </div>
-                            <div class="panel-desc">
+                            <div class="panel-desc" data-i18n="panel.cij.desc">
                                 What difficulty score (1–100) of CIJ video can
                                 you comfortably understand?
                             </div>
                         </div>
 
                         <div class="field-group">
-                            <label class="field-label"
+                            <label class="field-label" data-i18n="panel.cij.label"
                                 >Comfortable CIJ difficulty score</label
                             >
-                            <div class="field-help">
+                            <div class="field-help" data-i18n="panel.cij.help">
                                 "Comfortable" = you follow ~95% on first watch,
                                 with visual context filling gaps. Not your
                                 stretch zone.
@@ -2709,15 +2728,19 @@
                     <!-- JLPT Panel -->
                     <div class="calc-panel active" data-panel="jlpt">
                         <div class="panel-header">
-                            <div class="panel-name">JLPT Level</div>
-                            <div class="panel-desc">
+                            <div class="panel-name" data-i18n="panel.jlpt.name">
+                                JLPT Level
+                            </div>
+                            <div class="panel-desc" data-i18n="panel.jlpt.desc">
                                 Pick the highest JLPT level you have passed, or
                                 your current self-assessed level.
                             </div>
                         </div>
 
                         <div class="field-group">
-                            <label class="field-label">JLPT level</label>
+                            <label class="field-label" data-i18n="panel.jlpt.label"
+                                >JLPT level</label
+                            >
                             <div class="jlpt-picker" id="jlpt-picker">
                                 <button class="jlpt-option" data-level="N5">
                                     N5
@@ -2741,8 +2764,10 @@
                     <!-- Duolingo Panel -->
                     <div class="calc-panel" data-panel="duo">
                         <div class="panel-header">
-                            <div class="panel-name">Duolingo Score</div>
-                            <div class="panel-desc">
+                            <div class="panel-name" data-i18n="panel.duo.name">
+                                Duolingo Score
+                            </div>
+                            <div class="panel-desc" data-i18n="panel.duo.desc">
                                 Your Duolingo Score (0 – 160). Visible next to
                                 the language flag in-app. Note: the scale runs
                                 to 160 (C2), but the <em>Japanese</em> course's
@@ -2754,8 +2779,10 @@
                         </div>
 
                         <div class="field-group">
-                            <label class="field-label">Duolingo Score</label>
-                            <div class="field-help">
+                            <label class="field-label" data-i18n="panel.duo.label"
+                                >Duolingo Score</label
+                            >
+                            <div class="field-help" data-i18n="panel.duo.help">
                                 The Japanese course does expose a Score —
                                 visible in-app next to the language flag.
                             </div>
@@ -2920,44 +2947,61 @@
                         class="chart-filter-btn"
                         id="chart-filter-btn"
                         aria-pressed="false"
+                        data-i18n="cross.filter"
                     >
                         Show only my tier + i+1
                     </button>
-                    <span class="chart-controls-hint" id="chart-filter-hint"
+                    <span
+                        class="chart-controls-hint"
+                        id="chart-filter-hint"
+                        data-i18n="cross.filterhint"
                         >Calculate your level first to use this.</span
                     >
-                    <span class="chart-scroll-hint">↔ scroll for more columns</span>
+                    <span class="chart-scroll-hint" data-i18n="cross.scrollhint"
+                        >↔ scroll for more columns</span
+                    >
                 </div>
 
                 <div class="mapping-chart">
                     <div class="chart-header">
                         <div>
-                            <span>—</span><span class="col-meta">tier</span>
+                            <span>—</span
+                            ><span class="col-meta" data-i18n="col.tier"
+                                >tier</span
+                            >
                         </div>
                         <div>
                             <span>JGRPG Sakura</span
-                            ><span class="col-meta">vocab level</span>
+                            ><span class="col-meta" data-i18n="col.jgr"
+                                >vocab level</span
+                            >
                         </div>
                         <div>
                             <span>CIJ</span
-                            ><span class="col-meta">difficulty score</span>
+                            ><span class="col-meta" data-i18n="col.cij"
+                                >difficulty score</span
+                            >
                         </div>
                         <div>
                             <span>JLPT</span
-                            ><span class="col-meta">test level</span>
+                            ><span class="col-meta" data-i18n="col.jlpt"
+                                >test level</span
+                            >
                         </div>
                         <div>
                             <span>Duolingo · CEFR ≈</span
-                            ><span class="col-meta"
+                            ><span class="col-meta" data-i18n="col.duo"
                                 >score · framework (approx.)</span
                             >
                         </div>
                         <div>
-                            <span>Anki decks</span
-                            ><span class="col-meta">SRS milestone</span>
+                            <span data-i18n="col.anki.h">Anki decks</span
+                            ><span class="col-meta" data-i18n="col.anki"
+                                >SRS milestone</span
+                            >
                         </div>
                         <div>
-                            <span>Graded works ≈</span
+                            <span data-i18n="col.graded.h">Graded works ≈</span
                             ><span class="col-meta">jpdb · Natively</span>
                         </div>
                     </div>
@@ -3243,7 +3287,7 @@
                         </div>
                     </div>
 
-                    <div class="chart-footer">
+                    <div class="chart-footer" data-i18n="cross.footer">
                         ↳ JGRPG (さくら多読ラボ) aims for ~95% coverage at your
                         recommended level
                         (comfortable reading). The Duolingo Score scale runs
@@ -3275,22 +3319,24 @@
                 </div>
 
                 <div class="caveats">
-                    <div class="caveats-title">⚠ Important caveats</div>
+                    <div class="caveats-title" data-i18n="cav.title">
+                        ⚠ Important caveats
+                    </div>
                     <ol>
-                        <li>
+                        <li data-i18n="cav.1">
                             Proficiency is multi-dimensional. Vocabulary,
                             grammar, listening speed, kanji recognition, and
                             productive ability rarely sit at the same level for
                             any one learner.
                         </li>
-                        <li>
+                        <li data-i18n="cav.2">
                             JGRPG Sakura aims for ~95% vocabulary coverage at your
                             recommended level — meaning that level is calibrated
                             to your <em>comfortable reading</em> zone, not your
                             stretch goal. The level immediately above is your
                             i+1 growth edge.
                         </li>
-                        <li>
+                        <li data-i18n="cav.3">
                             JGRPG's vocabulary test uses Japanese-Japanese
                             synonym
                             matching, which is stricter than English-glossed
@@ -3298,13 +3344,13 @@
                             flashcard backgrounds may score lower than their
                             actual recognition vocabulary would suggest.
                         </li>
-                        <li>
+                        <li data-i18n="cav.4">
                             "1,000 words" on JGRPG is not the same as "1,000
                             words" on JLPT vocab lists — the sets overlap
                             heavily but aren't identical. Conjugated forms and
                             counting methods differ.
                         </li>
-                        <li>
+                        <li data-i18n="cav.5">
                             The Duolingo Score scale runs 0–160 (mapped to CEFR
                             up through C2), but content varies by course. The
                             <strong>Japanese</strong> course currently reaches
@@ -3316,26 +3362,26 @@
                             Duolingo has been expanding course content through
                             2025–2026.</em>
                         </li>
-                        <li>
+                        <li data-i18n="cav.6">
                             CEFR was designed for European languages. Its
                             application to Japanese is a recent adaptation and
                             remains an active research area — N5 ≈ A1 is a
                             useful approximation, not an equivalence.
                         </li>
-                        <li>
+                        <li data-i18n="cav.7">
                             The CIJ difficulty score is a statistical model of
                             video transcripts. Topic familiarity, visual
                             scaffolding, and personal interest can shift
                             effective difficulty up or down by 10–15 points.
                         </li>
-                        <li>
+                        <li data-i18n="cav.8">
                             Self-described JLPT levels on learner resources are
                             rough. Tadoku Level 5 (claimed N2–N1) often reads
                             closer to N3; Crystal Hunters' "natural" version
                             (claimed N4–N3) is closer to N4. Use as a starting
                             point, not a measurement.
                         </li>
-                        <li>
+                        <li data-i18n="cav.9">
                             Resource freshness as of 2025–2026:
                             <strong
                                 >NHK News Web Easy's free text articles appear to
@@ -3365,7 +3411,7 @@
             <!-- Sources -->
             <footer class="sources">
                 <div>
-                    <h3 class="sources-title">
+                    <h3 class="sources-title" data-i18n="sources.title">
                         <span style="color: var(--vermilion-deep)">出典</span
                         ><br />Sources
                     </h3>
@@ -5608,6 +5654,67 @@
                 "result.share": `リンクをコピー`,
                 "result.reczone": `— あなたの i+1 ゾーンのおすすめ —`,
                 "colophon.tagline": `インタラクティブな<ruby class="adv">習熟度<rt>しゅうじゅくど</rt></ruby><ruby class="adv">参照<rt>さんしょう</rt></ruby>ツール`,
+                "exp.primer": `かんたんな<ruby class="adv">解説<rt>かいせつ</rt></ruby>`,
+                "exp.title": `「i+1」とは？`,
+                "exp.sub": `スティーブン・クラッシェンの<ruby class="adv">入力<rt>にゅうりょく</rt></ruby><ruby class="adv">仮説<rt>かせつ</rt></ruby> — そして、このツールが<ruby class="adv">存在<rt>そんざい</rt></ruby>する<ruby>理由<rt>りゆう</rt></ruby>。`,
+                "exp.p1": `<ruby>考<rt>かんが</rt></ruby>え<ruby>方<rt>かた</rt></ruby>はシンプルです。<strong><ruby>今<rt>いま</rt></ruby>のレベルより<ruby>少<rt>すこ</rt></ruby>しだけ<ruby>上<rt>うえ</rt></ruby>のインプットを<ruby class="adv">理解<rt>りかい</rt></ruby>したとき、<ruby class="adv">言語<rt>げんご</rt></ruby>は<ruby class="adv">習得<rt>しゅうとく</rt></ruby>されます</strong>。<ruby class="adv">言語学者<rt>げんごがくしゃ</rt></ruby>のクラッシェンは、<ruby>今<rt>いま</rt></ruby>のレベルを <em>i</em>、<ruby class="adv">成長<rt>せいちょう</rt></ruby>に<ruby class="adv">最適<rt>さいてき</rt></ruby>な<ruby class="adv">地点<rt>ちてん</rt></ruby>を <em>i+1</em> と<ruby>呼<rt>よ</rt></ruby>びました — <ruby class="adv">一文<rt>いちぶん</rt></ruby>に<ruby>新<rt>あたら</rt></ruby>しい<ruby class="adv">要素<rt>ようそ</rt></ruby>が<ruby>一<rt>ひと</rt></ruby>つだけ、<ruby>追<rt>お</rt></ruby>えるくらいやさしく、<ruby class="adv">背伸<rt>せの</rt></ruby>びできるくらい<ruby>難<rt>むずか</rt></ruby>しい<ruby class="adv">素材<rt>そざい</rt></ruby>です。`,
+                "exp.formula": `i（<ruby>知<rt>し</rt></ruby>っていること）＋ 1（<ruby>新<rt>あたら</rt></ruby>しい<ruby class="adv">要素<rt>ようそ</rt></ruby><ruby>一<rt>ひと</rt></ruby>つ）＝ <ruby class="adv">習得<rt>しゅうとく</rt></ruby>`,
+                "exp.p2": `インプットが<ruby class="adv">簡単<rt>かんたん</rt></ruby>すぎると（<em>i</em> <ruby class="adv">以下<rt>いか</rt></ruby>）、<ruby>楽<rt>たの</rt></ruby>しいけれど<ruby class="adv">成長<rt>せいちょう</rt></ruby>しません。<ruby>難<rt>むずか</rt></ruby>しすぎると（<em>i+2</em> <ruby class="adv">以上<rt>いじょう</rt></ruby>）、<ruby class="adv">習得<rt>しゅうとく</rt></ruby>ではなく<ruby class="adv">解読<rt>かいどく</rt></ruby>になります — <ruby class="adv">文脈<rt>ぶんみゃく</rt></ruby>から<ruby>新<rt>あたら</rt></ruby>しい<ruby class="adv">要素<rt>ようそ</rt></ruby>を<ruby class="adv">拾<rt>ひろ</rt></ruby>う<ruby class="adv">足場<rt>あしば</rt></ruby>が<ruby>足<rt>た</rt></ruby>りないからです。<ruby class="adv">成長<rt>せいちょう</rt></ruby>は、<ruby class="adv">初<rt>はじ</rt></ruby>めて<ruby>見<rt>み</rt></ruby>て〜85〜95%<ruby class="adv">理解<rt>りかい</rt></ruby>でき、<ruby>残<rt>のこ</rt></ruby>りも<ruby class="adv">推測<rt>すいそく</rt></ruby>できる<ruby class="adv">狭<rt>せま</rt></ruby>い<ruby class="adv">範囲<rt>はんい</rt></ruby>で<ruby class="adv">起<rt>お</rt></ruby>きます。`,
+                "exp.p3": `このツールはその<ruby class="adv">範囲<rt>はんい</rt></ruby>を<ruby>見<rt>み</rt></ruby>つける<ruby class="adv">手助<rt>てだす</rt></ruby>けをします。<ruby class="adv">入力<rt>にゅうりょく</rt></ruby>したレベルはあなたの<strong><ruby class="adv">楽<rt>らく</rt></ruby>に<ruby class="adv">理解<rt>りかい</rt></ruby>できるゾーン</strong>（<em>i</em>）。おすすめする<ruby class="adv">教材<rt>きょうざい</rt></ruby>はその<ruby>一<rt>ひと</rt></ruby>つ<ruby>上<rt>うえ</rt></ruby>のバンド（<em>i+1</em>）から<ruby class="adv">選<rt>えら</rt></ruby>びます。<ruby class="adv">両方<rt>りょうほう</rt></ruby>を<ruby class="adv">混<rt>ま</rt></ruby>ぜましょう — <ruby class="adv">流暢<rt>りゅうちょう</rt></ruby>さのための<ruby class="adv">楽<rt>らく</rt></ruby>な<ruby class="adv">教材<rt>きょうざい</rt></ruby>と、<ruby class="adv">成長<rt>せいちょう</rt></ruby>のための<ruby class="adv">背伸<rt>せの</rt></ruby>び<ruby class="adv">教材<rt>きょうざい</rt></ruby>を。`,
+                "exp.easy.label": `↓ <ruby class="adv">簡単<rt>かんたん</rt></ruby>すぎ`,
+                "exp.easy.title": `<em>i</em> にいる`,
+                "exp.easy.desc": `100%<ruby class="adv">理解<rt>りかい</rt></ruby>、<ruby>新<rt>あたら</rt></ruby>しい<ruby class="adv">語彙<rt>ごい</rt></ruby>や<ruby>文法<rt>ぶんぽう</rt></ruby>がない。<ruby class="adv">復習<rt>ふくしゅう</rt></ruby>や<ruby class="adv">流暢<rt>りゅうちょう</rt></ruby>さには<ruby>良<rt>よ</rt></ruby>いが、<ruby>新<rt>あたら</rt></ruby>しい<ruby class="adv">言語<rt>げんご</rt></ruby>は<ruby class="adv">習得<rt>しゅうとく</rt></ruby>していない。`,
+                "exp.right.label": `★ ちょうど<ruby>良<rt>よ</rt></ruby>い`,
+                "exp.right.title": `<em>i+1</em> にいる`,
+                "exp.right.desc": `85〜95%<ruby class="adv">理解<rt>りかい</rt></ruby>。<ruby class="adv">意味<rt>いみ</rt></ruby>はつかめ、<ruby class="adv">細<rt>こま</rt></ruby>かい<ruby class="adv">部分<rt>ぶぶん</rt></ruby>は<ruby>少<rt>すこ</rt></ruby>し<ruby class="adv">逃<rt>のが</rt></ruby>すが、<ruby class="adv">文脈<rt>ぶんみゃく</rt></ruby>から<ruby>新<rt>あたら</rt></ruby>しい<ruby class="adv">要素<rt>ようそ</rt></ruby>を<ruby class="adv">自然<rt>しぜん</rt></ruby>に<ruby class="adv">拾<rt>ひろ</rt></ruby>える。`,
+                "exp.hard.label": `↑ <ruby>難<rt>むずか</rt></ruby>しすぎ`,
+                "exp.hard.title": `<em>i+2</em>+ にいる`,
+                "exp.hard.desc": `〜80%<ruby class="adv">未満<rt>みまん</rt></ruby> — <ruby class="adv">単語<rt>たんご</rt></ruby>ごとに<ruby class="adv">解読<rt>かいどく</rt></ruby>している。やさしいインプットに<ruby>変<rt>か</rt></ruby>えるか、<ruby class="adv">字幕<rt>じまく</rt></ruby>・<ruby class="adv">辞書<rt>じしょ</rt></ruby>・<ruby class="adv">聞<rt>き</rt></ruby>き<ruby class="adv">直<rt>なお</rt></ruby>しなどの<ruby class="adv">足場<rt>あしば</rt></ruby>を<ruby class="adv">使<rt>つか</rt></ruby>おう。`,
+                "tab.jlpt": `テストレベル`,
+                "tab.duo": `Duolingo スコア`,
+                "tab.cij": `<ruby class="adv">動画<rt>どうが</rt></ruby><ruby class="adv">難易度<rt>なんいど</rt></ruby>`,
+                "tab.jgr": `さくら<ruby class="adv">語彙<rt>ごい</rt></ruby>`,
+                "panel.jgr.name": `JGRPG さくら<ruby class="adv">語彙<rt>ごい</rt></ruby>テスト（さくら<ruby class="adv">多読<rt>たどく</rt></ruby>ラボ）`,
+                "panel.jgr.desc": `おすすめレベルを<ruby class="adv">選<rt>えら</rt></ruby>ぶか、レベルごとの<ruby class="adv">正答率<rt>せいとうりつ</rt></ruby>を<ruby class="adv">入力<rt>にゅうりょく</rt></ruby>すると、より<ruby class="adv">正確<rt>せいかく</rt></ruby>に<ruby class="adv">測<rt>はか</rt></ruby>れます。このテストは<ruby>日本語<rt>にほんご</rt></ruby>だけ（<ruby class="adv">類義語<rt>るいぎご</rt></ruby>マッチング）なので、<ruby>英語<rt>えいご</rt></ruby><ruby class="adv">訳<rt>やく</rt></ruby>つきのフラッシュカードより<ruby>少<rt>すこ</rt></ruby>し<ruby class="adv">厳<rt>きび</rt></ruby>しめに<ruby>出<rt>で</rt></ruby>ることがあります。`,
+                "panel.jgr.reclabel": `↳「おすすめレベル」とは`,
+                "panel.jgr.rechelp": `JGRPG はおすすめレベルで<ruby class="adv">語彙<rt>ごい</rt></ruby>の〜95% をカバーすることを<ruby class="adv">目指<rt>めざ</rt></ruby>します — つまり<strong><ruby class="adv">楽<rt>らく</rt></ruby>に<ruby>読<rt>よ</rt></ruby>めるゾーン</strong>であって、<ruby class="adv">背伸<rt>せの</rt></ruby>びの<ruby class="adv">目標<rt>もくひょう</rt></ruby>ではありません。<ruby>一<rt>ひと</rt></ruby>つ<ruby>上<rt>うえ</rt></ruby>のレベルが i+1 の<ruby class="adv">成長<rt>せいちょう</rt></ruby>の<ruby class="adv">境界<rt>きょうかい</rt></ruby>です。`,
+                "panel.jgr.pick": `おすすめレベル`,
+                "panel.jgr.scorelabel": `または — レベルごとにスコアを<ruby class="adv">入力<rt>にゅうりょく</rt></ruby>（<ruby class="adv">任意<rt>にんい</rt></ruby>、<ruby class="adv">正答率<rt>せいとうりつ</rt></ruby>%）`,
+                "panel.jgr.scorehelp": `より<ruby class="adv">細<rt>こま</rt></ruby>かく<ruby class="adv">測<rt>はか</rt></ruby>りたいとき<ruby class="adv">用<rt>よう</rt></ruby>。<ruby class="adv">空欄<rt>くうらん</rt></ruby>なら<ruby>上<rt>うえ</rt></ruby>のおすすめレベルを<ruby class="adv">使<rt>つか</rt></ruby>います。レベル A は<ruby class="adv">入口<rt>いりぐち</rt></ruby>の<ruby class="adv">基準<rt>きじゅん</rt></ruby>で<ruby class="adv">採点<rt>さいてん</rt></ruby>しません — テストが<ruby class="adv">受<rt>う</rt></ruby>けられる<ruby class="adv">時点<rt>じてん</rt></ruby>で<ruby class="adv">習得<rt>しゅうとく</rt></ruby><ruby class="adv">済<rt>ず</rt></ruby>みとみなします。`,
+                "panel.cij.name": `Comprehensible Japanese`,
+                "panel.cij.desc": `CIJ <ruby class="adv">動画<rt>どうが</rt></ruby>の<ruby class="adv">難易度<rt>なんいど</rt></ruby>スコア（1〜100）で、どのくらいまで<ruby class="adv">楽<rt>らく</rt></ruby>に<ruby class="adv">理解<rt>りかい</rt></ruby>できますか？`,
+                "panel.cij.label": `<ruby class="adv">楽<rt>らく</rt></ruby>に<ruby>分<rt>わ</rt></ruby>かる CIJ <ruby class="adv">難易度<rt>なんいど</rt></ruby>スコア`,
+                "panel.cij.help": `「<ruby class="adv">楽<rt>らく</rt></ruby>に」＝ <ruby class="adv">初<rt>はじ</rt></ruby>めて<ruby>見<rt>み</rt></ruby>て〜95%<ruby class="adv">理解<rt>りかい</rt></ruby>でき、<ruby class="adv">映像<rt>えいぞう</rt></ruby>の<ruby class="adv">文脈<rt>ぶんみゃく</rt></ruby>が<ruby class="adv">隙間<rt>すきま</rt></ruby>を<ruby class="adv">埋<rt>う</rt></ruby>める<ruby class="adv">状態<rt>じょうたい</rt></ruby>。<ruby class="adv">背伸<rt>せの</rt></ruby>びゾーンではありません。`,
+                "panel.jlpt.name": `JLPT レベル`,
+                "panel.jlpt.desc": `<ruby class="adv">合格<rt>ごうかく</rt></ruby>した<ruby class="adv">最<rt>もっと</rt></ruby>も<ruby>高<rt>たか</rt></ruby>い JLPT レベル、または<ruby>今<rt>いま</rt></ruby>の<ruby class="adv">自己<rt>じこ</rt></ruby><ruby class="adv">評価<rt>ひょうか</rt></ruby>レベルを<ruby class="adv">選<rt>えら</rt></ruby>んでください。`,
+                "panel.jlpt.label": `JLPT レベル`,
+                "panel.duo.name": `Duolingo スコア`,
+                "panel.duo.desc": `あなたの Duolingo スコア（0〜160）。アプリで<ruby>言語<rt>げんご</rt></ruby>の<ruby class="adv">旗<rt>はた</rt></ruby>の<ruby class="adv">隣<rt>となり</rt></ruby>に<ruby class="adv">表示<rt>ひょうじ</rt></ruby>されます。<ruby class="adv">注意<rt>ちゅうい</rt></ruby>：スケールは 160（C2）までありますが、<em><ruby>日本語<rt>にほんご</rt></ruby></em>コースの<ruby class="adv">内容<rt>ないよう</rt></ruby>は<ruby class="adv">現在<rt>げんざい</rt></ruby> B1〜B2 <ruby class="adv">前半<rt>ぜんはん</rt></ruby>くらい — 2026 <ruby>年<rt>ねん</rt></ruby><ruby class="adv">時点<rt>じてん</rt></ruby>でおよそ <strong>100〜110</strong> です。それ<ruby class="adv">以上<rt>いじょう</rt></ruby>はスケールの<ruby class="adv">余白<rt>よはく</rt></ruby>で、<ruby class="adv">到達<rt>とうたつ</rt></ruby>できる<ruby class="adv">内容<rt>ないよう</rt></ruby>ではありません。`,
+                "panel.duo.label": `Duolingo スコア`,
+                "panel.duo.help": `<ruby>日本語<rt>にほんご</rt></ruby>コースにもスコアがあり、アプリで<ruby>言語<rt>げんご</rt></ruby>の<ruby class="adv">旗<rt>はた</rt></ruby>の<ruby class="adv">隣<rt>となり</rt></ruby>に<ruby class="adv">表示<rt>ひょうじ</rt></ruby>されます。`,
+                "cross.filter": `<ruby class="adv">自分<rt>じぶん</rt></ruby>のレベルと i+1 だけ<ruby class="adv">表示<rt>ひょうじ</rt></ruby>`,
+                "cross.filterhint": `<ruby>先<rt>さき</rt></ruby>にレベルを<ruby class="adv">診断<rt>しんだん</rt></ruby>してください。`,
+                "cross.scrollhint": `↔ <ruby class="adv">横<rt>よこ</rt></ruby>スクロールで<ruby>他<rt>ほか</rt></ruby>の<ruby class="adv">列<rt>れつ</rt></ruby>`,
+                "col.tier": `<ruby class="adv">段<rt>だん</rt></ruby>`,
+                "col.jgr": `<ruby class="adv">語彙<rt>ごい</rt></ruby>レベル`,
+                "col.cij": `<ruby class="adv">難易度<rt>なんいど</rt></ruby>スコア`,
+                "col.jlpt": `テストレベル`,
+                "col.duo": `スコア・<ruby class="adv">枠組<rt>わくぐ</rt></ruby>み（<ruby class="adv">目安<rt>めやす</rt></ruby>）`,
+                "col.anki.h": `Anki デッキ`,
+                "col.anki": `SRS の<ruby class="adv">目安<rt>めやす</rt></ruby>`,
+                "col.graded.h": `<ruby class="adv">作品<rt>さくひん</rt></ruby>の<ruby class="adv">難易度<rt>なんいど</rt></ruby> ≈`,
+                "cross.footer": `↳ JGRPG（さくら<ruby class="adv">多読<rt>たどく</rt></ruby>ラボ）はおすすめレベルで〜95% をカバー（<ruby class="adv">楽<rt>らく</rt></ruby>に<ruby>読<rt>よ</rt></ruby>める）。Duolingo スコアは 0〜160 ですが、<ruby>日本語<rt>にほんご</rt></ruby>コースの<ruby class="adv">内容<rt>ないよう</rt></ruby>は<ruby class="adv">現在<rt>げんざい</rt></ruby>〜B1／B2 <ruby class="adv">前半<rt>ぜんはん</rt></ruby>（スコア≈100〜110）。CEFR ↔ JLPT の<ruby class="adv">行<rt>ぎょう</rt></ruby>は<ruby class="adv">目安<rt>めやす</rt></ruby>（≈）で<ruby class="adv">公式<rt>こうしき</rt></ruby>の<ruby class="adv">対応<rt>たいおう</rt></ruby>ではありません — <ruby class="adv">注意事項<rt>ちゅういじこう</rt></ruby>を<ruby>見<rt>み</rt></ruby>てください。`,
+                "cav.title": `⚠ <ruby class="adv">重要<rt>じゅうよう</rt></ruby>な<ruby class="adv">注意事項<rt>ちゅういじこう</rt></ruby>`,
+                "cav.1": `<ruby class="adv">習熟度<rt>しゅうじゅくど</rt></ruby>は<ruby class="adv">多面的<rt>ためんてき</rt></ruby>です。<ruby class="adv">語彙<rt>ごい</rt></ruby>・<ruby>文法<rt>ぶんぽう</rt></ruby>・<ruby class="adv">聴解<rt>ちょうかい</rt></ruby>スピード・<ruby class="adv">漢字<rt>かんじ</rt></ruby><ruby class="adv">認識<rt>にんしき</rt></ruby>・<ruby class="adv">産出<rt>さんしゅつ</rt></ruby><ruby class="adv">能力<rt>のうりょく</rt></ruby>が<ruby class="adv">同<rt>おな</rt></ruby>じレベルにそろうことは、まれです。`,
+                "cav.2": `JGRPG さくらはおすすめレベルで<ruby class="adv">語彙<rt>ごい</rt></ruby>の〜95% をカバーすることを<ruby class="adv">目指<rt>めざ</rt></ruby>します — つまりそのレベルは<em><ruby class="adv">楽<rt>らく</rt></ruby>に<ruby>読<rt>よ</rt></ruby>める</em>ゾーンに<ruby class="adv">合<rt>あ</rt></ruby>わせてあり、<ruby class="adv">背伸<rt>せの</rt></ruby>びの<ruby class="adv">目標<rt>もくひょう</rt></ruby>ではありません。すぐ<ruby>上<rt>うえ</rt></ruby>のレベルが i+1 の<ruby class="adv">成長<rt>せいちょう</rt></ruby>の<ruby class="adv">境界<rt>きょうかい</rt></ruby>です。`,
+                "cav.3": `JGRPG の<ruby class="adv">語彙<rt>ごい</rt></ruby>テストは<ruby>日本語<rt>にほんご</rt></ruby><ruby class="adv">同士<rt>どうし</rt></ruby>の<ruby class="adv">類義語<rt>るいぎご</rt></ruby>マッチングで、<ruby>英語<rt>えいご</rt></ruby><ruby class="adv">訳<rt>やく</rt></ruby>つきフラッシュカードの<ruby class="adv">認識<rt>にんしき</rt></ruby>より<ruby class="adv">厳<rt>きび</rt></ruby>しめです。<ruby class="adv">二<rt>に</rt></ruby><ruby class="adv">言語<rt>げんご</rt></ruby>カードで<ruby class="adv">学<rt>まな</rt></ruby>んできた<ruby>人<rt>ひと</rt></ruby>は、<ruby class="adv">実際<rt>じっさい</rt></ruby>の<ruby class="adv">認識<rt>にんしき</rt></ruby><ruby class="adv">語彙<rt>ごい</rt></ruby>より<ruby>低<rt>ひく</rt></ruby>く<ruby>出<rt>で</rt></ruby>ることがあります。`,
+                "cav.4": `JGRPG の「1,000 <ruby class="adv">語<rt>ご</rt></ruby>」と JLPT <ruby class="adv">語彙<rt>ごい</rt></ruby>リストの「1,000 <ruby class="adv">語<rt>ご</rt></ruby>」は<ruby class="adv">同<rt>おな</rt></ruby>じではありません — <ruby>大<rt>おお</rt></ruby>きく<ruby class="adv">重<rt>かさ</rt></ruby>なりますが<ruby class="adv">同一<rt>どういつ</rt></ruby>ではなく、<ruby class="adv">活用形<rt>かつようけい</rt></ruby>や<ruby class="adv">数<rt>かぞ</rt></ruby>え<ruby>方<rt>かた</rt></ruby>が<ruby class="adv">異<rt>こと</rt></ruby>なります。`,
+                "cav.5": `Duolingo スコアは 0〜160（C2 まで CEFR に<ruby class="adv">対応<rt>たいおう</rt></ruby>）ですが、<ruby class="adv">内容<rt>ないよう</rt></ruby>はコースごとに<ruby class="adv">異<rt>こと</rt></ruby>なります。<strong><ruby>日本語<rt>にほんご</rt></ruby></strong>コースは<ruby class="adv">現在<rt>げんざい</rt></ruby> B1〜B2 <ruby class="adv">前半<rt>ぜんはん</rt></ruby>くらい — 2026 <ruby>年<rt>ねん</rt></ruby><ruby class="adv">時点<rt>じてん</rt></ruby>でおよそスコア 100〜110 です（よく<ruby>言<rt>い</rt></ruby>われる「130 <ruby class="adv">上限<rt>じょうげん</rt></ruby>」は<ruby class="adv">全体<rt>ぜんたい</rt></ruby>の<ruby class="adv">数字<rt>すうじ</rt></ruby>で、<ruby>日本語<rt>にほんご</rt></ruby><ruby class="adv">固有<rt>こゆう</rt></ruby>ではありません）。それ<ruby class="adv">以上<rt>いじょう</rt></ruby>はスケールの<ruby class="adv">余白<rt>よはく</rt></ruby>です。<em><ruby class="adv">公開<rt>こうかい</rt></ruby><ruby>前<rt>まえ</rt></ruby>に<ruby class="adv">再確認<rt>さいかくにん</rt></ruby>を — Duolingo は 2025〜2026 <ruby>年<rt>ねん</rt></ruby>に<ruby class="adv">内容<rt>ないよう</rt></ruby>を<ruby class="adv">拡張<rt>かくちょう</rt></ruby>しています。</em>`,
+                "cav.6": `CEFR はヨーロッパの<ruby>言語<rt>げんご</rt></ruby>のために<ruby class="adv">作<rt>つく</rt></ruby>られました。<ruby>日本語<rt>にほんご</rt></ruby>への<ruby class="adv">適用<rt>てきよう</rt></ruby>は<ruby class="adv">最近<rt>さいきん</rt></ruby>の<ruby class="adv">試<rt>こころ</rt></ruby>みで、まだ<ruby class="adv">研究<rt>けんきゅう</rt></ruby><ruby class="adv">途上<rt>とじょう</rt></ruby>です — N5 ≈ A1 は<ruby class="adv">便利<rt>べんり</rt></ruby>な<ruby class="adv">目安<rt>めやす</rt></ruby>で、<ruby class="adv">等価<rt>とうか</rt></ruby>ではありません。`,
+                "cav.7": `CIJ の<ruby class="adv">難易度<rt>なんいど</rt></ruby>スコアは<ruby class="adv">動画<rt>どうが</rt></ruby><ruby class="adv">字幕<rt>じまく</rt></ruby>の<ruby class="adv">統計<rt>とうけい</rt></ruby>モデルです。<ruby class="adv">話題<rt>わだい</rt></ruby>のなじみ、<ruby class="adv">映像<rt>えいぞう</rt></ruby>の<ruby class="adv">補助<rt>ほじょ</rt></ruby>、<ruby class="adv">個人<rt>こじん</rt></ruby>の<ruby class="adv">興味<rt>きょうみ</rt></ruby>で、<ruby class="adv">体感<rt>たいかん</rt></ruby><ruby class="adv">難易度<rt>なんいど</rt></ruby>は 10〜15 <ruby class="adv">点<rt>てん</rt></ruby><ruby class="adv">上下<rt>じょうげ</rt></ruby>します。`,
+                "cav.8": `<ruby class="adv">教材<rt>きょうざい</rt></ruby>に<ruby>書<rt>か</rt></ruby>かれた<ruby class="adv">自己<rt>じこ</rt></ruby><ruby class="adv">申告<rt>しんこく</rt></ruby>の JLPT レベルは<ruby>大<rt>おお</rt></ruby>ざっぱです。<ruby class="adv">多読<rt>たどく</rt></ruby>レベル5（N2〜N1 を<ruby class="adv">主張<rt>しゅちょう</rt></ruby>）は N3 <ruby class="adv">寄<rt>よ</rt></ruby>り、Crystal Hunters の「ナチュラル」<ruby class="adv">版<rt>ばん</rt></ruby>（N4〜N3 を<ruby class="adv">主張<rt>しゅちょう</rt></ruby>）は N4 <ruby class="adv">寄<rt>よ</rt></ruby>りに<ruby>読<rt>よ</rt></ruby>めます。<ruby class="adv">出発点<rt>しゅっぱつてん</rt></ruby>として<ruby class="adv">使<rt>つか</rt></ruby>い、<ruby class="adv">測定<rt>そくてい</rt></ruby>とはみなさないでください。`,
+                "cav.9": `2025〜2026 <ruby>年<rt>ねん</rt></ruby><ruby class="adv">時点<rt>じてん</rt></ruby>の<ruby class="adv">最新<rt>さいしん</rt></ruby><ruby class="adv">情報<rt>じょうほう</rt></ruby>：<strong>NHK NEWS WEB EASY の<ruby class="adv">無料<rt>むりょう</rt></ruby><ruby class="adv">記事<rt>きじ</rt></ruby>は<ruby>今<rt>いま</rt></ruby>も<ruby>読<rt>よ</rt></ruby>めるようです</strong>（サイトは <code>news.web.nhk</code> に<ruby class="adv">移転<rt>いてん</rt></ruby>）。NHK が 2025 <ruby>年<rt>ねん</rt></ruby>に<ruby class="adv">有料化<rt>ゆうりょうか</rt></ruby>したのは<ruby class="adv">配信<rt>はいしん</rt></ruby>アプリで、EASY の<ruby>読<rt>よ</rt></ruby>みものではありません — <ruby class="adv">以前<rt>いぜん</rt></ruby>の「<ruby class="adv">有料化<rt>ゆうりょうか</rt></ruby>」という<ruby class="adv">情報<rt>じょうほう</rt></ruby>は<ruby class="adv">混同<rt>こんどう</rt></ruby>の<ruby class="adv">可能性<rt>かのうせい</rt></ruby>が<ruby>高<rt>たか</rt></ruby>いです。<em><ruby class="adv">未確認<rt>みかくにん</rt></ruby> — <ruby class="adv">直接<rt>ちょくせつ</rt></ruby><ruby class="adv">確認<rt>かくにん</rt></ruby>を。<ruby class="adv">無料<rt>むりょう</rt></ruby>ミラーの NHK Easier も<ruby class="adv">代替<rt>だいたい</rt></ruby>として<ruby class="adv">使<rt>つか</rt></ruby>えます。</em> <ruby class="adv">別件<rt>べっけん</rt></ruby>ですが、<strong>News in Slow Japanese は<ruby class="adv">休止<rt>きゅうし</rt></ruby><ruby class="adv">中<rt>ちゅう</rt></ruby></strong>（2025 <ruby>年<rt>ねん</rt></ruby> 1 <ruby>月<rt>がつ</rt></ruby> 31 <ruby>日<rt>にち</rt></ruby>の<ruby class="adv">最終<rt>さいしゅう</rt></ruby><ruby class="adv">回<rt>かい</rt></ruby><ruby class="adv">以降<rt>いこう</rt></ruby>）。<ruby class="adv">過去<rt>かこ</rt></ruby><ruby class="adv">回<rt>かい</rt></ruby>は<ruby class="adv">有用<rt>ゆうよう</rt></ruby>ですが、<ruby>新<rt>あたら</rt></ruby>しい<ruby class="adv">配信<rt>はいしん</rt></ruby>はありません。`,
+                "sources.title": `<span style="color: var(--vermilion-deep)">出典</span>`,
             };
 
             // ============== Calculator state ==============
