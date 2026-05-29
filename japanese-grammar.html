@@ -1,0 +1,1721 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>日本語文法 — Japanese Grammar Reference · N5 → N3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+:root, :root[data-theme="light"] {
+  --ink:#1a1612; --ink-soft:#4a3f33;
+  --paper:#f4ede0; --paper-deep:#ebe2d0; --paper-warm:#f9f3e6;
+  --rule:#2a221b;
+  --vermilion:#c8443a; --vermilion-deep:#9a2e26;
+  --highlight:#fff8a8; --highlight-soft:rgba(255,248,168,0.5);
+  --grain-color:rgba(74,63,51,0.015);
+  --shadow-deep:rgba(26,22,18,0.08);
+}
+:root[data-theme="dark"] {
+  --ink:#ede4d3; --ink-soft:#b0a594;
+  --paper:#161210; --paper-deep:#1f1916; --paper-warm:#1a1411;
+  --rule:#5a4f43;
+  --vermilion:#e07568; --vermilion-deep:#c8443a;
+  --highlight:#5a4d1e; --highlight-soft:rgba(255,248,168,0.08);
+  --grain-color:rgba(237,228,211,0.01);
+  --shadow-deep:rgba(0,0,0,0.5);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] {
+    --ink:#ede4d3; --ink-soft:#b0a594;
+    --paper:#161210; --paper-deep:#1f1916; --paper-warm:#1a1411;
+    --rule:#5a4f43;
+    --vermilion:#e07568; --vermilion-deep:#c8443a;
+    --highlight:#5a4d1e; --highlight-soft:rgba(255,248,168,0.08);
+    --grain-color:rgba(237,228,211,0.01);
+    --shadow-deep:rgba(0,0,0,0.5);
+  }
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Fraunces",Georgia,serif;
+  background:var(--paper); color:var(--ink);
+  line-height:1.55; font-size:17px;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(200,68,58,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(67,160,71,0.03) 0%, transparent 50%);
+  min-height:100vh; overflow-x:hidden;
+  transition:background-color 0.3s ease, color 0.3s ease;
+}
+body::before{
+  content:""; position:fixed; inset:0;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--grain-color) 2px,var(--grain-color) 3px);
+  pointer-events:none; z-index:1;
+}
+.container{
+  max-width:1240px; margin:0 auto; padding:60px 48px 100px;
+  position:relative; z-index:2;
+}
+
+/* Japanese text — use Shippori Mincho for native script */
+:lang(ja), .ja-text { font-family:"Shippori Mincho",serif; }
+
+/* ===== Sticky nav ===== */
+.site-nav{
+  position:sticky; top:0; z-index:100;
+  display:flex; align-items:center; gap:20px;
+  padding:10px 24px;
+  background:color-mix(in srgb, var(--paper) 85%, transparent);
+  backdrop-filter:saturate(140%) blur(10px);
+  -webkit-backdrop-filter:saturate(140%) blur(10px);
+  border-bottom:1px solid var(--rule);
+}
+.nav-wordmark{
+  font-family:"Shippori Mincho",serif; font-weight:700; font-size:16px;
+  color:var(--ink); text-decoration:none; white-space:nowrap; letter-spacing:0.02em;
+}
+.nav-wordmark .nav-ja{color:var(--vermilion); margin-right:6px;}
+.nav-links{
+  display:flex; align-items:center; gap:4px;
+  margin-left:auto; overflow-x:auto; scrollbar-width:none;
+}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-link{
+  font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.1em;
+  color:var(--ink-soft); text-decoration:none;
+  padding:7px 11px; border-radius:3px; white-space:nowrap;
+  transition:all 0.15s ease;
+}
+.nav-link:hover{background:rgba(200,68,58,0.1); color:var(--vermilion-deep);}
+.nav-link.primary{background:var(--vermilion); color:var(--paper);}
+.nav-link.primary:hover{background:var(--vermilion-deep);}
+.nav-divider{width:1px; align-self:stretch; background:var(--rule); opacity:0.4; margin:4px;}
+
+.section, .explainer, .masthead {scroll-margin-top:70px}
+
+/* ===== Theme toggle ===== */
+.theme-toggle{
+  display:flex; background:var(--paper-warm);
+  border:1px solid var(--rule); box-shadow:2px 2px 0 var(--rule);
+  flex-shrink:0;
+}
+.theme-btn{
+  background:transparent; border:none; border-right:1px solid var(--rule);
+  padding:10px 12px; cursor:pointer;
+  font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700;
+  color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.1em;
+  transition:all 0.15s ease; display:flex; align-items:center; gap:6px;
+}
+.theme-btn:last-child{border-right:none}
+.theme-btn:hover{background:rgba(200,68,58,0.08); color:var(--ink);}
+.theme-btn.active{background:var(--ink); color:var(--paper);}
+.theme-icon{width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:1.5;}
+
+/* ===== Masthead ===== */
+.masthead{
+  border-top:4px double var(--rule); border-bottom:1px solid var(--rule);
+  padding:28px 0 22px; margin-bottom:56px;
+  display:grid; grid-template-columns:auto 1fr auto;
+  align-items:center; gap:32px;
+}
+.masthead-left, .masthead-right{
+  font-family:"JetBrains Mono",monospace; font-size:11px;
+  text-transform:uppercase; letter-spacing:0.15em; color:var(--ink-soft);
+}
+.masthead-right{text-align:right}
+.masthead-left div+div, .masthead-right div+div{margin-top:4px}
+.masthead-title{text-align:center; line-height:1}
+.masthead-title .ja{
+  font-family:"Shippori Mincho",serif; font-size:28px; font-weight:500;
+  color:var(--vermilion-deep); letter-spacing:0.05em;
+  display:block; margin-bottom:6px;
+}
+.masthead-title .en{
+  font-family:"Fraunces",serif; font-size:13px; font-weight:500;
+  text-transform:uppercase; letter-spacing:0.3em;
+}
+
+/* ===== Hero ===== */
+.hero{
+  display:grid; grid-template-columns:1.2fr 1fr;
+  gap:48px; align-items:end; margin-bottom:64px;
+}
+.hero-headline{
+  font-family:"Shippori Mincho",serif; font-weight:700;
+  font-size:clamp(48px, 6.5vw, 82px); line-height:0.98;
+  letter-spacing:-0.02em;
+}
+.hero-headline .accent{
+  color:var(--vermilion); font-style:italic;
+  font-family:"Fraunces",serif; font-weight:600;
+}
+.hero-headline .small-ja{
+  display:block; font-size:0.3em; color:var(--ink-soft);
+  margin-top:18px; letter-spacing:0.1em; font-weight:500;
+}
+.hero-deck{
+  font-family:"Fraunces",serif; font-size:18px; line-height:1.6;
+  color:var(--ink-soft);
+  border-left:2px solid var(--vermilion); padding:6px 0 6px 24px;
+}
+.hero-deck strong{color:var(--ink); font-weight:600;}
+.hero-cta{
+  grid-column:1 / -1;
+  display:flex; align-items:center; flex-wrap:wrap;
+  gap:16px 28px; margin-top:8px;
+}
+.btn-primary{
+  background:var(--ink); color:var(--paper);
+  border:none; padding:18px 32px;
+  font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.2em;
+  cursor:pointer; text-decoration:none; display:inline-block;
+  transition:all 0.15s ease; box-shadow:3px 3px 0 var(--vermilion);
+}
+.btn-primary:hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--vermilion);}
+.hero-cta-link{
+  font-family:"Fraunces",serif; font-size:16px;
+  color:var(--ink-soft); text-decoration:none;
+  border-bottom:1px dotted var(--vermilion);
+  transition:color 0.15s ease;
+}
+.hero-cta-link:hover{color:var(--vermilion-deep)}
+
+/* ===== Explainer ===== */
+.explainer{
+  margin-bottom:80px;
+  display:grid; grid-template-columns:1fr 1.5fr; gap:56px; align-items:start;
+}
+.explainer-aside{position:sticky; top:80px}
+.explainer-kanji{
+  font-family:"Shippori Mincho",serif; font-size:180px; font-weight:700;
+  color:var(--vermilion); line-height:0.8; margin-bottom:16px; opacity:0.9;
+}
+.explainer-aside-label{
+  font-family:"JetBrains Mono",monospace; font-size:11px;
+  text-transform:uppercase; letter-spacing:0.2em;
+  color:var(--vermilion); margin-bottom:8px;
+}
+.explainer-aside-title{
+  font-family:"Shippori Mincho",serif; font-size:32px; font-weight:700;
+  line-height:1.1; margin-bottom:12px;
+}
+.explainer-aside-sub{
+  font-family:"Fraunces",serif; font-size:14px; color:var(--ink-soft);
+  font-style:italic; line-height:1.5;
+}
+.explainer-body p{
+  font-family:"Fraunces",serif; font-size:17px; line-height:1.7;
+  margin-bottom:20px;
+}
+.explainer-body strong{color:var(--vermilion-deep); font-weight:600;}
+.explainer-signs{
+  margin-top:28px;
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;
+}
+.sign-card{
+  background:var(--paper-warm); border:1px solid var(--rule); padding:18px;
+}
+.sign-card .sign-label{
+  font-family:"JetBrains Mono",monospace; font-size:10px;
+  text-transform:uppercase; letter-spacing:0.15em;
+  margin-bottom:8px; font-weight:700; color:var(--ink-soft);
+}
+.sign-card.featured .sign-label{color:var(--vermilion);}
+.sign-card.featured{background:var(--highlight-soft); border-color:var(--vermilion);}
+.sign-card .sign-title{
+  font-family:"Shippori Mincho",serif; font-weight:600;
+  font-size:16px; margin-bottom:8px;
+}
+.sign-card .sign-desc{
+  font-family:"Fraunces",serif; font-size:13px; line-height:1.5; color:var(--ink-soft);
+}
+
+/* ===== Section structure ===== */
+.section{margin-bottom:90px; position:relative;}
+.section-bg-kanji{
+  position:absolute; right:-30px; top:-40px;
+  font-family:"Shippori Mincho",serif; font-size:280px; font-weight:700;
+  color:var(--ink); opacity:0.035; line-height:1; pointer-events:none;
+  z-index:0; user-select:none;
+}
+:root[data-theme="dark"] .section-bg-kanji{opacity:0.06}
+@media (prefers-color-scheme:dark){:root[data-theme="auto"] .section-bg-kanji{opacity:0.06}}
+.section-inner{position:relative; z-index:1;}
+.section-label{
+  font-family:"JetBrains Mono",monospace; font-size:11px;
+  text-transform:uppercase; letter-spacing:0.2em;
+  color:var(--vermilion); margin-bottom:12px;
+  display:flex; align-items:center; gap:12px;
+}
+.section-label::before{
+  content:""; width:32px; height:1px; background:var(--vermilion);
+}
+.section-title{
+  font-family:"Shippori Mincho",serif; font-size:42px; font-weight:700;
+  line-height:1.05; margin-bottom:18px; letter-spacing:-0.01em;
+}
+.section-title .ja{color:var(--vermilion-deep); font-weight:500; margin-right:16px;}
+.section-intro{
+  font-family:"Fraunces",serif; font-size:17px; line-height:1.6;
+  color:var(--ink-soft); max-width:760px; margin-bottom:36px;
+}
+
+/* ===== Subsection ===== */
+.subsec{margin-bottom:48px;}
+.subsec-label{
+  font-family:"JetBrains Mono",monospace; font-size:10px;
+  text-transform:uppercase; letter-spacing:0.2em;
+  color:var(--vermilion); margin-bottom:8px;
+}
+.subsec-title{
+  font-family:"Shippori Mincho",serif; font-size:26px; font-weight:600;
+  margin-bottom:14px; line-height:1.2;
+}
+.subsec-title .ja{color:var(--vermilion-deep); margin-right:10px; font-weight:500;}
+.subsec p{margin-bottom:14px; font-size:16px; line-height:1.65;}
+.subsec p strong{color:var(--vermilion-deep);}
+
+/* ===== Panel — offset shadow card ===== */
+.panel{
+  background:var(--paper-warm); border:1px solid var(--rule);
+  box-shadow:4px 4px 0 var(--rule), 0 0 60px var(--shadow-deep);
+  padding:32px; margin:20px 0 28px;
+}
+.panel.tight{padding:22px 26px;}
+.panel-title{
+  font-family:"Shippori Mincho",serif; font-size:20px; font-weight:600;
+  margin-bottom:14px;
+}
+.panel-title .ja{color:var(--vermilion-deep); margin-right:10px; font-weight:500;}
+
+/* ===== Tables ===== */
+table.ref{
+  width:100%; border-collapse:collapse; margin:14px 0 22px;
+  font-size:15px;
+}
+table.ref th, table.ref td{
+  padding:11px 14px; text-align:left;
+  border-bottom:1px solid var(--rule);
+  vertical-align:top;
+}
+table.ref thead th{
+  background:var(--ink); color:var(--paper);
+  font-family:"JetBrains Mono",monospace; font-size:10px;
+  text-transform:uppercase; letter-spacing:0.15em; font-weight:700;
+  border-bottom:none;
+}
+table.ref tbody tr:hover{background:rgba(200,68,58,0.03);}
+table.ref td.ja-cell{
+  font-family:"Shippori Mincho",serif; font-size:17px; font-weight:500;
+  white-space:nowrap;
+}
+table.ref td.rom{
+  font-family:"JetBrains Mono",monospace; font-size:12px;
+  color:var(--ink-soft); white-space:nowrap;
+}
+table.ref td.note{font-style:italic; color:var(--ink-soft); font-size:14px;}
+table.compact{font-size:13.5px;}
+table.compact th, table.compact td{padding:7px 10px;}
+
+/* ===== Kana grid ===== */
+.kana-grid{
+  display:grid; gap:6px; margin:14px 0 22px;
+  grid-template-columns:80px repeat(5, 1fr);
+}
+.kana-cell{
+  background:var(--paper-warm); border:1px solid var(--rule);
+  padding:9px 6px; text-align:center;
+  font-family:"Shippori Mincho",serif;
+}
+.kana-cell .k{font-size:24px; font-weight:600; line-height:1; display:block;}
+.kana-cell .r{
+  font-family:"JetBrains Mono",monospace; font-size:10px;
+  color:var(--ink-soft); margin-top:4px; display:block;
+}
+.kana-cell.empty{background:transparent; border:1px dashed rgba(42,34,27,0.2);}
+.kana-cell.header{
+  background:var(--ink); color:var(--paper);
+  font-family:"JetBrains Mono",monospace; font-size:11px;
+  font-weight:700; text-transform:uppercase; letter-spacing:0.1em;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ===== Callout ===== */
+.callout{
+  background:var(--paper-deep); border-left:4px solid var(--vermilion);
+  padding:18px 22px; margin:18px 0;
+}
+.callout-label{
+  font-family:"JetBrains Mono",monospace; font-size:10px;
+  text-transform:uppercase; letter-spacing:0.2em;
+  color:var(--vermilion-deep); margin-bottom:6px; font-weight:700;
+}
+.callout p{margin-bottom:8px; font-size:15px;}
+.callout p:last-child{margin-bottom:0;}
+
+/* ===== Example block ===== */
+.ex{margin:10px 0;}
+.ex .ja{
+  font-family:"Shippori Mincho",serif; font-size:18px; font-weight:500;
+}
+.ex .romaji{
+  font-family:"JetBrains Mono",monospace; font-size:13px;
+  color:var(--ink-soft); margin-top:2px;
+}
+.ex .en{font-size:15px; color:var(--ink-soft); margin-top:2px; font-style:italic;}
+
+/* ===== Pattern badge ===== */
+.pattern{
+  display:inline-block;
+  font-family:"Shippori Mincho",serif; font-size:16px; font-weight:600;
+  background:var(--ink); color:var(--paper);
+  padding:2px 10px; margin:0 2px;
+  border:1px solid var(--rule); letter-spacing:0.02em;
+}
+code, .mono{
+  font-family:"JetBrains Mono",monospace; font-size:0.92em;
+  background:var(--paper-deep); padding:1px 6px; border-radius:2px;
+}
+
+/* ===== Decision tree ===== */
+.tree{
+  font-family:"JetBrains Mono",monospace; font-size:13px;
+  line-height:1.7; background:var(--paper-warm);
+  padding:18px 22px; border:1px solid var(--rule);
+  box-shadow:3px 3px 0 var(--rule);
+  margin:14px 0;
+}
+.tree .branch{color:var(--vermilion-deep); font-weight:700;}
+.tree .ja-inline{font-family:"Shippori Mincho",serif; font-size:16px; font-weight:500; color:var(--ink);}
+
+/* ===== Two-col layout for dense reference ===== */
+.two-col{
+  display:grid; grid-template-columns:1fr 1fr; gap:28px;
+  margin:18px 0;
+}
+
+/* ===== Sources footer ===== */
+.sources{
+  border-top:4px double var(--rule);
+  padding-top:40px; margin-top:80px;
+  display:grid; grid-template-columns:1fr 2fr; gap:48px;
+}
+.sources-title{
+  font-family:"Shippori Mincho",serif; font-size:24px; font-weight:600;
+}
+.sources-title .ja{color:var(--vermilion-deep); display:block; margin-bottom:6px;}
+.sources-list{font-family:"Fraunces",serif; font-size:14px; line-height:1.7; color:var(--ink-soft);}
+.sources-list li{
+  list-style:none; padding:8px 0;
+  border-bottom:1px solid rgba(42,34,27,0.08);
+  display:flex; gap:12px;
+}
+:root[data-theme="dark"] .sources-list li{border-bottom-color:rgba(237,228,211,0.08);}
+@media (prefers-color-scheme:dark){:root[data-theme="auto"] .sources-list li{border-bottom-color:rgba(237,228,211,0.08);}}
+.sources-list{counter-reset:src-counter;}
+.sources-list li::before{
+  content:counter(src-counter, decimal-leading-zero);
+  counter-increment:src-counter;
+  font-family:"JetBrains Mono",monospace; font-size:11px;
+  color:var(--vermilion); font-weight:700; flex-shrink:0; padding-top:2px;
+}
+.sources-list strong{color:var(--ink); font-weight:600;}
+.sources-list a{color:var(--vermilion-deep); text-decoration:none; border-bottom:1px dotted var(--vermilion);}
+
+.colophon{
+  margin-top:48px; padding-top:24px;
+  border-top:1px solid rgba(42,34,27,0.2);
+  font-family:"JetBrains Mono",monospace; font-size:10px;
+  text-transform:uppercase; letter-spacing:0.15em; color:var(--ink-soft);
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+}
+:root[data-theme="dark"] .colophon{border-top-color:rgba(237,228,211,0.2);}
+@media (prefers-color-scheme:dark){:root[data-theme="auto"] .colophon{border-top-color:rgba(237,228,211,0.2);}}
+
+/* ===== Responsive ===== */
+@media (max-width:960px){
+  .container{padding:32px 20px 60px;}
+  .site-nav{padding:8px 14px; gap:10px;}
+  .nav-link{padding:6px 8px; font-size:10px;}
+  .theme-btn{padding:8px 10px;}
+  .theme-btn .theme-label{display:none;}
+  .masthead{grid-template-columns:1fr; text-align:center; gap:12px;}
+  .masthead-right{text-align:center;}
+  .hero{grid-template-columns:1fr; gap:24px;}
+  .hero-headline{font-size:44px;}
+  .explainer{grid-template-columns:1fr; gap:32px;}
+  .explainer-aside{position:static;}
+  .explainer-kanji{font-size:100px;}
+  .explainer-signs{grid-template-columns:1fr; gap:12px;}
+  .section-bg-kanji{font-size:160px; right:-15px;}
+  .section-title{font-size:30px;}
+  .panel{padding:22px;}
+  .two-col{grid-template-columns:1fr;}
+  .kana-grid{grid-template-columns:50px repeat(5,1fr); font-size:14px;}
+  .kana-cell .k{font-size:20px;}
+  .sources{grid-template-columns:1fr;}
+  table.ref{font-size:14px;}
+  table.ref th, table.ref td{padding:8px 9px;}
+}
+
+/* ===== Print ===== */
+@media print{
+  @page{size:Letter; margin:0.5in;}
+  body{background:#fff; color:#000; font-size:9.5pt; line-height:1.35;}
+  body::before{display:none;}
+  .site-nav, .hero-cta, .theme-toggle{display:none !important;}
+  .container{padding:0; max-width:none;}
+  .masthead{padding:10px 0; margin-bottom:18px;}
+  .masthead-title .ja{font-size:18pt;}
+  .masthead-title .en{font-size:8pt;}
+  .hero{margin-bottom:18px; gap:20px;}
+  .hero-headline{font-size:24pt; line-height:1;}
+  .hero-deck{font-size:10pt;}
+  .explainer{margin-bottom:24px; gap:24px;}
+  .explainer-kanji{font-size:70pt;}
+  .explainer-aside-title{font-size:16pt;}
+  .explainer-body p{font-size:9pt; margin-bottom:8px;}
+  .explainer-signs{gap:8px;}
+  .sign-card{padding:8px;}
+  .sign-card .sign-desc{font-size:8pt;}
+  .section{margin-bottom:24px; page-break-inside:avoid;}
+  .section-bg-kanji{font-size:160pt; opacity:0.04;}
+  .section-title{font-size:18pt;}
+  .section-intro{font-size:9.5pt; margin-bottom:14px;}
+  .subsec{margin-bottom:14px; page-break-inside:avoid;}
+  .subsec-title{font-size:12pt; margin-bottom:6px;}
+  .subsec p{font-size:9pt; margin-bottom:6px;}
+  .panel{padding:10px 14px; margin:8px 0; box-shadow:1px 1px 0 var(--rule);}
+  .panel-title{font-size:11pt;}
+  table.ref{font-size:8pt; margin:6px 0 10px;}
+  table.ref th, table.ref td{padding:3px 6px;}
+  table.ref td.ja-cell{font-size:10pt;}
+  table.ref td.rom{font-size:7pt;}
+  table.compact{font-size:7.5pt;}
+  .kana-grid{gap:2px;}
+  .kana-cell{padding:3px;}
+  .kana-cell .k{font-size:11pt;}
+  .kana-cell .r{font-size:6pt;}
+  .callout{padding:8px 12px; margin:8px 0;}
+  .callout p{font-size:8.5pt;}
+  .ex .ja{font-size:11pt;}
+  .ex .romaji{font-size:7.5pt;}
+  .ex .en{font-size:8pt;}
+  .pattern{font-size:9pt; padding:0 4px;}
+  .tree{font-size:7.5pt; padding:8px 10px;}
+  .two-col{gap:14px;}
+  .sources{margin-top:24px; padding-top:14px; gap:20px;}
+  .sources-title{font-size:13pt;}
+  .sources-list{font-size:8pt;}
+  .colophon{font-size:7pt; margin-top:14px; padding-top:8px;}
+  /* page breaks at major sections */
+  #verbs, #particles, #adjectives, #patterns, #keigo, #reference {page-break-before:always;}
+  a{color:inherit; text-decoration:none;}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Site">
+  <a href="#top" class="nav-wordmark">
+    <span class="nav-ja">日本語</span><span>文法 Grammar</span>
+  </a>
+  <div class="nav-links">
+    <a href="#writing" class="nav-link">Writing</a>
+    <a href="#verbs" class="nav-link">Verbs</a>
+    <a href="#particles" class="nav-link">Particles</a>
+    <a href="#adjectives" class="nav-link">Adj.</a>
+    <a href="#patterns" class="nav-link">Patterns</a>
+    <a href="#keigo" class="nav-link">Keigo</a>
+    <a href="#reference" class="nav-link primary">Reference</a>
+    <a href="index.html" class="nav-link">Crosswalk ↗</a>
+    <span class="nav-divider"></span>
+    <div class="theme-toggle" role="group" aria-label="Theme">
+      <button class="theme-btn" data-theme-set="light" title="Light">
+        <svg class="theme-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <span class="theme-label">Light</span>
+      </button>
+      <button class="theme-btn" data-theme-set="auto" title="Auto">
+        <svg class="theme-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="1"/><path d="M8 22h8M12 18v4"/></svg>
+        <span class="theme-label">Auto</span>
+      </button>
+      <button class="theme-btn" data-theme-set="dark" title="Dark">
+        <svg class="theme-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span class="theme-label">Dark</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container" id="top">
+
+<header class="masthead">
+  <div class="masthead-left">
+    <div>Vol. 01</div>
+    <div>Reference</div>
+  </div>
+  <div class="masthead-title">
+    <span class="ja">日本語文法</span>
+    <span class="en">Japanese Grammar · N5 → N3</span>
+  </div>
+  <div class="masthead-right">
+    <div>Compiled 2026</div>
+    <div>Original work</div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1 class="hero-headline">
+    Japanese grammar,<br>
+    <span class="accent">when you forget,</span>
+    <span class="small-ja">日本語文法 — a working reference for late-N4 / early-N3 immersers</span>
+  </h1>
+  <p class="hero-deck">
+    A practical reference for the patterns that actually keep coming up — <strong>verb groups, the te-form, the big eleven particles, conditionals, keigo, and the conjugation matrix</strong>. Built for the moment you're reading something and need the rule, not the moment you're studying for a test.
+  </p>
+  <div class="hero-cta">
+    <a href="#writing" class="btn-primary">Start at the top ↓</a>
+    <a href="#reference" class="hero-cta-link">Or jump to the master conjugation table →</a>
+  </div>
+</section>
+
+<section class="explainer" id="explainer">
+  <aside class="explainer-aside">
+    <div class="explainer-kanji">引</div>
+    <div class="explainer-aside-label">How to read this</div>
+    <h2 class="explainer-aside-title">A reference, not a course</h2>
+    <p class="explainer-aside-sub">Skim the section labels in the top nav; the rules are dense but the examples are short. Romaji is included for the kana sections only — past that it gets in the way.</p>
+  </aside>
+  <div class="explainer-body">
+    <p>Japanese grammar is built on a few small primitives — <strong>three verb groups, two adjective types, a small set of stems</strong> — combined by attaching endings to those stems. Once you can identify which group a verb is in and find its stems, the rest of the system unfolds mechanically.</p>
+    <p>This reference is organized around that idea. <strong>§1 Writing</strong> covers the scripts. <strong>§2 Verbs</strong> is the structural core — verb groups, the stems, and every form derived from them. <strong>§3 Particles</strong> covers the eleven that account for almost all sentence-marking work. <strong>§4 Adjectives</strong> and <strong>§5 Patterns</strong> fill in modifiers and sentence construction. <strong>§6 Keigo</strong> sketches the three politeness registers, and <strong>§7 Reference</strong> is the conjugation matrix and decision trees.</p>
+    <div class="explainer-signs">
+      <div class="sign-card">
+        <div class="sign-label">★ Stems</div>
+        <div class="sign-title">Find the right one</div>
+        <div class="sign-desc">Most conjugation is "attach X to stem Y." Know your <span class="mono">-i</span>, <span class="mono">-a</span>, <span class="mono">-e</span>, <span class="mono">-o</span>, <span class="mono">-te</span> stems and 80% of grammar follows.</div>
+      </div>
+      <div class="sign-card featured">
+        <div class="sign-label">★ Te-form</div>
+        <div class="sign-title">The structural verb</div>
+        <div class="sign-desc">The te-form connects, lists, requests, permits, prohibits, and forms the progressive. Memorize the rule that derives it from the dictionary form.</div>
+      </div>
+      <div class="sign-card">
+        <div class="sign-label">★ Particles</div>
+        <div class="sign-title">Roles, not prepositions</div>
+        <div class="sign-desc">Particles mark a noun's <em>role</em> in the sentence (topic, subject, object, etc.) rather than translating English prepositions one-to-one.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ §1 WRITING ═══════ -->
+<section class="section" id="writing">
+  <span class="section-bg-kanji">書</span>
+  <div class="section-inner">
+    <div class="section-label">§ 一 · Writing</div>
+    <h2 class="section-title"><span class="ja">書</span>Writing &amp; Pronunciation</h2>
+    <p class="section-intro">Japanese is written in three scripts used together. Hiragana writes native words and grammar; katakana writes foreign borrowings and emphasis; kanji writes content roots. Pronunciation is strictly mora-based — each kana is one beat.</p>
+
+    <div class="subsec">
+      <div class="subsec-label">1.1</div>
+      <h3 class="subsec-title"><span class="ja">音</span>Sounds &amp; mora</h3>
+      <p>Japanese has 5 vowels — <code>a i u e o</code> — pronounced as in Spanish or Italian. Consonants (except <code>n</code>) always pair with a vowel into a single mora. The double-consonant marker <code>っ</code> and the long-vowel marker (<code>ー</code> or doubled vowel) each count as one mora. <strong>Pitch accent</strong> distinguishes some words (橋 hashi↓ "bridge" vs. 箸 ↑hashi "chopsticks") but is rarely written.</p>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">1.2</div>
+      <h3 class="subsec-title"><span class="ja">仮名</span>Hiragana — ひらがな</h3>
+      <p>The base 46 syllables. Add ゛ (dakuten) for voiced consonants — <code>か→が</code>, <code>た→だ</code>, <code>は→ば</code> — or ゜ (handakuten) for the p-row: <code>は→ぱ</code>. Combinations like <code>きゃ・きゅ・きょ</code> form one mora.</p>
+
+      <div class="kana-grid">
+        <div class="kana-cell header">—</div>
+        <div class="kana-cell header">a</div>
+        <div class="kana-cell header">i</div>
+        <div class="kana-cell header">u</div>
+        <div class="kana-cell header">e</div>
+        <div class="kana-cell header">o</div>
+
+        <div class="kana-cell header">∅</div>
+        <div class="kana-cell"><span class="k">あ</span><span class="r">a</span></div>
+        <div class="kana-cell"><span class="k">い</span><span class="r">i</span></div>
+        <div class="kana-cell"><span class="k">う</span><span class="r">u</span></div>
+        <div class="kana-cell"><span class="k">え</span><span class="r">e</span></div>
+        <div class="kana-cell"><span class="k">お</span><span class="r">o</span></div>
+
+        <div class="kana-cell header">k</div>
+        <div class="kana-cell"><span class="k">か</span><span class="r">ka</span></div>
+        <div class="kana-cell"><span class="k">き</span><span class="r">ki</span></div>
+        <div class="kana-cell"><span class="k">く</span><span class="r">ku</span></div>
+        <div class="kana-cell"><span class="k">け</span><span class="r">ke</span></div>
+        <div class="kana-cell"><span class="k">こ</span><span class="r">ko</span></div>
+
+        <div class="kana-cell header">s</div>
+        <div class="kana-cell"><span class="k">さ</span><span class="r">sa</span></div>
+        <div class="kana-cell"><span class="k">し</span><span class="r">shi</span></div>
+        <div class="kana-cell"><span class="k">す</span><span class="r">su</span></div>
+        <div class="kana-cell"><span class="k">せ</span><span class="r">se</span></div>
+        <div class="kana-cell"><span class="k">そ</span><span class="r">so</span></div>
+
+        <div class="kana-cell header">t</div>
+        <div class="kana-cell"><span class="k">た</span><span class="r">ta</span></div>
+        <div class="kana-cell"><span class="k">ち</span><span class="r">chi</span></div>
+        <div class="kana-cell"><span class="k">つ</span><span class="r">tsu</span></div>
+        <div class="kana-cell"><span class="k">て</span><span class="r">te</span></div>
+        <div class="kana-cell"><span class="k">と</span><span class="r">to</span></div>
+
+        <div class="kana-cell header">n</div>
+        <div class="kana-cell"><span class="k">な</span><span class="r">na</span></div>
+        <div class="kana-cell"><span class="k">に</span><span class="r">ni</span></div>
+        <div class="kana-cell"><span class="k">ぬ</span><span class="r">nu</span></div>
+        <div class="kana-cell"><span class="k">ね</span><span class="r">ne</span></div>
+        <div class="kana-cell"><span class="k">の</span><span class="r">no</span></div>
+
+        <div class="kana-cell header">h</div>
+        <div class="kana-cell"><span class="k">は</span><span class="r">ha</span></div>
+        <div class="kana-cell"><span class="k">ひ</span><span class="r">hi</span></div>
+        <div class="kana-cell"><span class="k">ふ</span><span class="r">fu</span></div>
+        <div class="kana-cell"><span class="k">へ</span><span class="r">he</span></div>
+        <div class="kana-cell"><span class="k">ほ</span><span class="r">ho</span></div>
+
+        <div class="kana-cell header">m</div>
+        <div class="kana-cell"><span class="k">ま</span><span class="r">ma</span></div>
+        <div class="kana-cell"><span class="k">み</span><span class="r">mi</span></div>
+        <div class="kana-cell"><span class="k">む</span><span class="r">mu</span></div>
+        <div class="kana-cell"><span class="k">め</span><span class="r">me</span></div>
+        <div class="kana-cell"><span class="k">も</span><span class="r">mo</span></div>
+
+        <div class="kana-cell header">y</div>
+        <div class="kana-cell"><span class="k">や</span><span class="r">ya</span></div>
+        <div class="kana-cell empty"></div>
+        <div class="kana-cell"><span class="k">ゆ</span><span class="r">yu</span></div>
+        <div class="kana-cell empty"></div>
+        <div class="kana-cell"><span class="k">よ</span><span class="r">yo</span></div>
+
+        <div class="kana-cell header">r</div>
+        <div class="kana-cell"><span class="k">ら</span><span class="r">ra</span></div>
+        <div class="kana-cell"><span class="k">り</span><span class="r">ri</span></div>
+        <div class="kana-cell"><span class="k">る</span><span class="r">ru</span></div>
+        <div class="kana-cell"><span class="k">れ</span><span class="r">re</span></div>
+        <div class="kana-cell"><span class="k">ろ</span><span class="r">ro</span></div>
+
+        <div class="kana-cell header">w / n</div>
+        <div class="kana-cell"><span class="k">わ</span><span class="r">wa</span></div>
+        <div class="kana-cell empty"></div>
+        <div class="kana-cell"><span class="k">ん</span><span class="r">n</span></div>
+        <div class="kana-cell empty"></div>
+        <div class="kana-cell"><span class="k">を</span><span class="r">wo/o</span></div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">Particle spellings</div>
+        <p>Three particles are spelled with kana that don't match their pronunciation: topic <code>は</code> is read <strong>wa</strong>, direction <code>へ</code> is read <strong>e</strong>, and object <code>を</code> is read <strong>o</strong>. The pronunciation is purely positional — when these kana appear as particles, they shift; everywhere else <code>は</code> is <code>ha</code> and <code>へ</code> is <code>he</code>.</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">1.3</div>
+      <h3 class="subsec-title"><span class="ja">片仮名</span>Katakana — カタカナ</h3>
+      <p>Same syllable inventory, used for loanwords, foreign names, onomatopoeia, and emphasis (a bit like italics). The long-vowel marker <code>ー</code> appears almost exclusively in katakana.</p>
+      <div class="ex">
+        <div class="ja">コーヒー · アメリカ · ヴィクトル</div>
+        <div class="romaji">kōhī (coffee) · amerika (America) · Vikutoru (Victor)</div>
+      </div>
+      <p><strong>Extended katakana</strong> handles foreign sounds that hiragana can't: <code>ファ・フィ・フェ・フォ</code> for <em>f-</em>, <code>ティ・ディ</code> for <em>ti / di</em>, <code>ヴァ・ヴィ・ヴ・ヴェ・ヴォ</code> for <em>v-</em>.</p>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">1.4</div>
+      <h3 class="subsec-title"><span class="ja">漢字</span>Kanji</h3>
+      <p>Chinese-origin logographs. Most kanji carry two reading types: <strong>音読み (on-yomi)</strong>, the Chinese-derived reading used mostly in compounds; and <strong>訓読み (kun-yomi)</strong>, the native Japanese reading used for standalone words.</p>
+      <table class="ref">
+        <thead><tr><th>Kanji</th><th>On-yomi</th><th>Kun-yomi</th><th>Standalone</th><th>In compound</th></tr></thead>
+        <tbody>
+          <tr><td class="ja-cell">人</td><td class="rom">ジン · ニン</td><td class="rom">ひと</td><td>人 hito — person</td><td>日本人 nihon-jin — Japanese person</td></tr>
+          <tr><td class="ja-cell">山</td><td class="rom">サン</td><td class="rom">やま</td><td>山 yama — mountain</td><td>富士山 fuji-san — Mt. Fuji</td></tr>
+          <tr><td class="ja-cell">食</td><td class="rom">ショク</td><td class="rom">た(べる)</td><td>食べる taberu — to eat</td><td>食事 shoku-ji — meal</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Okurigana</strong> are the trailing hiragana that show inflection: <code>食べる</code> writes the root <code>食</code> in kanji and the verb ending <code>べる</code> in hiragana. The okurigana changes as the verb conjugates (<code>食べた · 食べて · 食べない</code>); the kanji doesn't.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ §2 VERBS ═══════ -->
+<section class="section" id="verbs">
+  <span class="section-bg-kanji">動</span>
+  <div class="section-inner">
+    <div class="section-label">§ 二 · Verbs</div>
+    <h2 class="section-title"><span class="ja">動</span>Verbs</h2>
+    <p class="section-intro">All verbs end in a u-row syllable in the dictionary form. They split into three groups; the group determines how every other form is derived. The two irregular verbs <code>する</code> and <code>来る</code> appear everywhere.</p>
+
+    <div class="subsec">
+      <div class="subsec-label">2.1</div>
+      <h3 class="subsec-title"><span class="ja">分類</span>The three groups</h3>
+      <div class="two-col">
+        <div class="panel tight">
+          <div class="panel-title"><span class="ja">五段</span>Group 1 — <em>godan</em> / u-verbs</div>
+          <p>Ends in any u-row kana except <code>る</code>, OR ends in <code>る</code> preceded by an <em>a/u/o</em>-row vowel. Examples: <code>書く kaku</code>, <code>話す hanasu</code>, <code>飲む nomu</code>, <code>取る toru</code>.</p>
+        </div>
+        <div class="panel tight">
+          <div class="panel-title"><span class="ja">一段</span>Group 2 — <em>ichidan</em> / ru-verbs</div>
+          <p>Ends in <code>る</code> preceded by an <em>i</em>- or <em>e</em>-row vowel. Examples: <code>食べる taberu</code>, <code>見る miru</code>, <code>寝る neru</code>.</p>
+        </div>
+      </div>
+      <div class="panel tight">
+        <div class="panel-title"><span class="ja">不規則</span>Group 3 — irregular</div>
+        <p>Only two members in everyday use: <code>する</code> (to do — appears in hundreds of compound verbs like <code>勉強する</code>) and <code>来る kuru</code> (to come). A few semi-irregulars exist, notably <code>行く iku</code> (treated as godan except in te/ta where it becomes <code>行って・行った</code>) and <code>ある</code> (godan, but its negative is the irregular <code>ない</code>).</p>
+      </div>
+      <div class="callout">
+        <div class="callout-label">The disguise problem</div>
+        <p>A verb ending in <code>る</code> with <em>a/u/o</em> before it is always Group 1. But verbs ending in <code>る</code> with <em>i/e</em> before it can be either group — most are Group 2, but a handful are Group 1 in disguise: <code>帰る kaeru</code> (return), <code>切る kiru</code> (cut), <code>走る hashiru</code> (run), <code>入る hairu</code> (enter), <code>知る shiru</code> (know), <code>要る iru</code> (need). Memorize these as Group 1 exceptions.</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">2.2</div>
+      <h3 class="subsec-title"><span class="ja">辞書形</span>Dictionary form &amp; the five stems</h3>
+      <p>The dictionary form is plain non-past — used for the present tense, future, and as the citation form. Every other form is built by replacing the final syllable with a different vowel-row syllable. These are <strong>the stems</strong>.</p>
+      <table class="ref">
+        <thead><tr><th>Stem</th><th>Group 1 (e.g. 書く)</th><th>Group 2 (e.g. 食べる)</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td><strong>-a</strong> (未然)</td><td class="ja-cell">書か (kak-a)</td><td class="ja-cell">食べ</td><td>negative (-ない), passive, causative</td></tr>
+          <tr><td><strong>-i</strong> (連用)</td><td class="ja-cell">書き (kak-i)</td><td class="ja-cell">食べ</td><td>polite (-ます), noun form, conjunction</td></tr>
+          <tr><td><strong>-u</strong> (終止)</td><td class="ja-cell">書く (kak-u)</td><td class="ja-cell">食べる</td><td>dictionary form / plain non-past</td></tr>
+          <tr><td><strong>-e</strong> (仮定)</td><td class="ja-cell">書け (kak-e)</td><td class="ja-cell">食べれ</td><td>conditional (-ば), potential (G1)</td></tr>
+          <tr><td><strong>-o</strong> (意志)</td><td class="ja-cell">書こ (kak-o)</td><td class="ja-cell">食べよ</td><td>volitional (-う/-よう)</td></tr>
+          <tr><td><strong>-te</strong></td><td class="ja-cell">書いて</td><td class="ja-cell">食べて</td><td>te-form — connector, request, progressive</td></tr>
+        </tbody>
+      </table>
+      <p>For Group 2, the stem is just the verb minus <code>る</code>, used for everything. Group 1's "stem" depends on the form — each ending picks its own vowel row.</p>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">2.3</div>
+      <h3 class="subsec-title"><span class="ja">ます形</span>Polite (-masu) form</h3>
+      <p>Attach <code>-ます</code> to the <em>-i</em> stem. This is the default register for talking to strangers, customers, colleagues at work, and anyone you don't know well.</p>
+      <table class="ref">
+        <thead><tr><th>Form</th><th>Meaning</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>〜ます</td><td>present / future affirmative</td><td class="ja-cell">食べます · 行きます</td></tr>
+          <tr><td>〜ません</td><td>present / future negative</td><td class="ja-cell">食べません · 行きません</td></tr>
+          <tr><td>〜ました</td><td>past affirmative</td><td class="ja-cell">食べました · 行きました</td></tr>
+          <tr><td>〜ませんでした</td><td>past negative</td><td class="ja-cell">食べませんでした</td></tr>
+          <tr><td>〜ましょう</td><td>let's / shall we</td><td class="ja-cell">食べましょう · 行きましょう</td></tr>
+          <tr><td>〜ませんか</td><td>won't you / invitation</td><td class="ja-cell">食べませんか</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">2.4</div>
+      <h3 class="subsec-title"><span class="ja">普通形</span>Plain (dictionary) form &amp; plain past</h3>
+      <p>The plain form is used in casual speech, with close friends and family, and (importantly) inside subordinate clauses regardless of overall politeness. Plain past adds <code>-た</code> via the same rule as the te-form.</p>
+      <table class="ref">
+        <thead><tr><th></th><th>Affirmative</th><th>Negative</th></tr></thead>
+        <tbody>
+          <tr><td>Non-past</td><td class="ja-cell">食べる · 書く</td><td class="ja-cell">食べない · 書かない</td></tr>
+          <tr><td>Past</td><td class="ja-cell">食べた · 書いた</td><td class="ja-cell">食べなかった · 書かなかった</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Negative formation:</strong> Group 1 takes <em>-a</em> stem + <code>ない</code> (書く → 書かない); Group 2 drops <code>る</code> and adds <code>ない</code> (食べる → 食べない); irregular する → しない, 来る → こない. <strong>Exception:</strong> <code>ある</code> (to exist) is negative <code>ない</code>, not *<code>あらない</code>.</p>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">2.5</div>
+      <h3 class="subsec-title"><span class="ja">テ形</span>The te-form — the most important form</h3>
+      <p>The te-form derives from the dictionary form via a simple rule per ending. Once you have it, replacing the final <code>て</code> with <code>た</code> gives the plain past. Memorizing the te-form rule pays for itself a hundred times over.</p>
+      <table class="ref">
+        <thead><tr><th>Dictionary ending</th><th>Te-form</th><th>Past (-ta)</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>〜う · 〜つ · 〜る</code></td><td><code>〜って</code></td><td><code>〜った</code></td><td class="ja-cell">買う → 買って · 待つ → 待って</td></tr>
+          <tr><td><code>〜む · 〜ぶ · 〜ぬ</code></td><td><code>〜んで</code></td><td><code>〜んだ</code></td><td class="ja-cell">飲む → 飲んで · 遊ぶ → 遊んで</td></tr>
+          <tr><td><code>〜く</code></td><td><code>〜いて</code></td><td><code>〜いた</code></td><td class="ja-cell">書く → 書いて · 聞く → 聞いて</td></tr>
+          <tr><td><code>〜ぐ</code></td><td><code>〜いで</code></td><td><code>〜いだ</code></td><td class="ja-cell">泳ぐ → 泳いで</td></tr>
+          <tr><td><code>〜す</code></td><td><code>〜して</code></td><td><code>〜した</code></td><td class="ja-cell">話す → 話して</td></tr>
+          <tr><td>Group 2 〜る</td><td>〜て</td><td>〜た</td><td class="ja-cell">食べる → 食べて · 見る → 見て</td></tr>
+          <tr><td>する</td><td>して</td><td>した</td><td class="ja-cell">勉強する → 勉強して</td></tr>
+          <tr><td>来る</td><td>来て (kite)</td><td>来た (kita)</td><td class="ja-cell">—</td></tr>
+          <tr><td><strong>行く</strong> (exception)</td><td><strong>行って</strong></td><td><strong>行った</strong></td><td class="ja-cell">not *行いて</td></tr>
+        </tbody>
+      </table>
+
+      <div class="panel">
+        <div class="panel-title"><span class="ja">用法</span>What the te-form does</div>
+        <table class="compact ref">
+          <thead><tr><th>Construction</th><th>Meaning</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><code>〜て、〜</code></td><td>and then (sequencing actions)</td><td class="ja-cell">朝起きて、コーヒーを飲みます。</td></tr>
+            <tr><td><code>〜てください</code></td><td>please do (request)</td><td class="ja-cell">待ってください。</td></tr>
+            <tr><td><code>〜ています</code></td><td>progressive / state</td><td class="ja-cell">食べています · 知っています</td></tr>
+            <tr><td><code>〜てもいい(ですか)</code></td><td>may I / it's okay to</td><td class="ja-cell">入ってもいいですか。</td></tr>
+            <tr><td><code>〜てはいけない</code></td><td>must not (prohibition)</td><td class="ja-cell">写真を撮ってはいけません。</td></tr>
+            <tr><td><code>〜てしまう</code> (〜ちゃう)</td><td>regretfully / completely</td><td class="ja-cell">忘れてしまった · 食べちゃった</td></tr>
+            <tr><td><code>〜てみる</code></td><td>try doing</td><td class="ja-cell">食べてみる</td></tr>
+            <tr><td><code>〜ておく</code> (〜とく)</td><td>do in advance / leave done</td><td class="ja-cell">予約しておく · やっとく</td></tr>
+            <tr><td><code>〜てから</code></td><td>after doing</td><td class="ja-cell">食べてから出かけます。</td></tr>
+            <tr><td><code>〜てある</code></td><td>resultative (someone did it & it remains)</td><td class="ja-cell">窓が開けてある。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">〜ている vs. 〜てある</div>
+        <p><code>〜ている</code> = ongoing action or resulting state. <code>〜てある</code> = the result of someone's deliberate action remaining visible. Compare <code>窓が開いている</code> (the window is open — just describing the state) with <code>窓が開けてある</code> (the window has been opened — implying someone did it for a reason).</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">2.6</div>
+      <h3 class="subsec-title"><span class="ja">時制・相</span>Tense &amp; aspect</h3>
+      <p>Japanese has two tenses (past, non-past) and a small aspect system layered on the te-form. The non-past covers both present habitual and future.</p>
+      <table class="ref compact">
+        <thead><tr><th>Form</th><th>Meaning</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>非過去 plain non-past</td><td>habitual / future</td><td class="ja-cell">毎日コーヒーを飲む。</td></tr>
+          <tr><td>過去 plain past</td><td>completed action</td><td class="ja-cell">昨日映画を見た。</td></tr>
+          <tr><td>〜ている</td><td>progressive (active verb)</td><td class="ja-cell">今食べている。</td></tr>
+          <tr><td>〜ている</td><td>resulting state (change-of-state verb)</td><td class="ja-cell">結婚している · 知っている · 死んでいる</td></tr>
+          <tr><td>〜ていた</td><td>past progressive</td><td class="ja-cell">電話していた。</td></tr>
+          <tr><td>〜たことがある</td><td>have experienced</td><td class="ja-cell">日本に行ったことがあります。</td></tr>
+          <tr><td>〜たばかり</td><td>just (recently) did</td><td class="ja-cell">食べたばかりです。</td></tr>
+          <tr><td>〜ところ</td><td>about to / just / in middle of (with 〜る・〜ている・〜た)</td><td class="ja-cell">今出かけるところです。</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="callout-label">The 知っている trap</div>
+        <p>Some verbs describe a momentary change-of-state, and <code>〜ている</code> with them means "the state resulting from that change." 知る "come to know" → 知っている "know (currently)." Negative: <code>知りません</code> "I don't know," <strong>not</strong> *<code>知っていません</code>. Other examples: 結婚する → 結婚している (be married), 死ぬ → 死んでいる (be dead).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <div class="subsec">
+      <div class="subsec-label">2.7</div>
+      <h3 class="subsec-title"><span class="ja">受身・使役</span>Passive, causative, potential</h3>
+      <p>All three are built on the <em>-a</em> stem for Group 1, on the bare root for Group 2.</p>
+      <table class="ref">
+        <thead><tr><th>Voice</th><th>Group 1 ending</th><th>Group 2 ending</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Passive</strong> 〜される/られる</td><td>-a + れる</td><td>+ られる</td><td class="ja-cell">書かれる · 食べられる · される · 来られる</td></tr>
+          <tr><td><strong>Causative</strong> 〜させる</td><td>-a + せる</td><td>+ させる</td><td class="ja-cell">書かせる · 食べさせる · させる · 来させる</td></tr>
+          <tr><td><strong>Causative-passive</strong> 〜させられる</td><td>-a + せられる / -a + される</td><td>+ させられる</td><td class="ja-cell">書かせられる / 書かされる · 食べさせられる</td></tr>
+          <tr><td><strong>Potential</strong> 〜られる / 〜える</td><td>-e + る</td><td>+ られる</td><td class="ja-cell">書ける · 食べられる · できる · 来られる</td></tr>
+        </tbody>
+      </table>
+      <div class="two-col">
+        <div>
+          <p><strong>Passive — affected by an action.</strong> The performer takes <code>に</code>:</p>
+          <div class="ex"><div class="ja">弟にケーキを食べられた。</div><div class="en">My (little) brother ate my cake (on me).</div></div>
+        </div>
+        <div>
+          <p><strong>Causative — make/let someone do.</strong> The do-er takes <code>に</code> (let) or <code>を</code> (make):</p>
+          <div class="ex"><div class="ja">子供に野菜を食べさせた。</div><div class="en">I made/let the child eat vegetables.</div></div>
+        </div>
+        <div>
+          <p><strong>Causative-passive — being made to do, often unwillingly.</strong></p>
+          <div class="ex"><div class="ja">妹に部屋を掃除させられた。</div><div class="en">I was made (by my sister) to clean the room.</div></div>
+        </div>
+        <div>
+          <p><strong>Potential — be able to do.</strong> Object often takes <code>が</code>:</p>
+          <div class="ex"><div class="ja">日本語が話せる。</div><div class="en">I can speak Japanese.</div></div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="callout-label">"ら-nuki" speech</div>
+        <p>In casual modern speech, Group 2 potentials often drop the <code>ら</code>: 食べられる → 食べれる, 見られる → 見れる. Widely used but still considered nonstandard in formal writing.</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">2.8</div>
+      <h3 class="subsec-title"><span class="ja">条件</span>Conditionals — the four forms</h3>
+      <p>Japanese has four distinct conditionals, each with its own nuance. Choosing the right one matters more than you'd expect.</p>
+      <table class="ref">
+        <thead><tr><th>Form</th><th>Formation</th><th>Use</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>〜と</code></td><td>plain non-past + と</td><td>natural / inevitable result; habitual</td><td class="ja-cell">春になると、桜が咲く。<br><span class="rom">When spring comes, the cherry blossoms bloom.</span></td></tr>
+          <tr><td><code>〜ば</code></td><td>verb -e stem + ば; い-adj. drop い + ければ</td><td>general / hypothetical "if"</td><td class="ja-cell">時間があれば、行きます。<br><span class="rom">If I have time, I'll go.</span></td></tr>
+          <tr><td><code>〜たら</code></td><td>past form + ら</td><td>specific event / "when/after"; most flexible</td><td class="ja-cell">家に帰ったら、電話します。<br><span class="rom">When I get home, I'll call.</span></td></tr>
+          <tr><td><code>〜なら</code></td><td>plain form + なら</td><td>"if it's the case that"; topic-conditional</td><td class="ja-cell">日本に行くなら、京都がいい。<br><span class="rom">If you're going to Japan, Kyoto is good.</span></td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="callout-label">Choosing the right conditional</div>
+        <p>If the result is automatic or law-like, use <code>と</code>. If it's hypothetical/general, use <code>ば</code>. If it's "after this specific thing happens," use <code>たら</code>. If you're responding to information someone gave you (<em>"if that's the case…"</em>), use <code>なら</code>. <code>たら</code> is the most flexible and the safe default in casual speech.</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">2.9</div>
+      <h3 class="subsec-title"><span class="ja">意志</span>Volitional, imperative, prohibitive</h3>
+      <table class="ref">
+        <thead><tr><th>Form</th><th>Polite</th><th>Plain</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>Volitional</td><td class="ja-cell">食べましょう</td><td class="ja-cell">食べよう · 書こう</td><td>let's / I shall</td></tr>
+          <tr><td>Imperative</td><td class="ja-cell">食べてください</td><td class="ja-cell">食べろ · 書け</td><td>do! (plain is forceful)</td></tr>
+          <tr><td>Prohibitive</td><td class="ja-cell">食べないでください</td><td class="ja-cell">食べるな · 書くな</td><td>don't!</td></tr>
+          <tr><td>Soft suggestion</td><td class="ja-cell">食べたらどう?</td><td class="ja-cell">食べたら?</td><td>why don't you eat?</td></tr>
+        </tbody>
+      </table>
+      <p>Plain imperatives (<code>食べろ・書け</code>) are blunt — used in shouted commands, sports, anger, or close-male speech. The standard polite request is <code>〜てください</code>; the more polite is <code>〜ていただけませんか</code>.</p>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">2.10</div>
+      <h3 class="subsec-title"><span class="ja">授受</span>Giving &amp; receiving — あげる, くれる, もらう</h3>
+      <p>Three verbs encode the direction of giving in Japanese. The choice depends on <em>who is the in-group</em> relative to the speaker.</p>
+      <table class="ref">
+        <thead><tr><th>Verb</th><th>Direction</th><th>Pattern</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>あげる</td><td>I/in-group → others (outward)</td><td>A は B に X を あげる</td><td class="ja-cell">私は友達に本をあげた。</td></tr>
+          <tr><td>くれる</td><td>others → me/in-group (inward)</td><td>A は B(=me) に X を くれる</td><td class="ja-cell">友達が私に本をくれた。</td></tr>
+          <tr><td>もらう</td><td>I/in-group ← others (receiving)</td><td>A は B から/に X を もらう</td><td class="ja-cell">私は友達に本をもらった。</td></tr>
+        </tbody>
+      </table>
+      <p>The same three verbs attach to the te-form to express <strong>favor-doing</strong>: <code>〜てあげる</code> "do for someone (outward)," <code>〜てくれる</code> "do for me (inward)," <code>〜てもらう</code> "have/get someone to do for me."</p>
+      <div class="ex"><div class="ja">道を教えてくれてありがとう。</div><div class="en">Thanks for showing me the way (lit. for showing-me-as-favor).</div></div>
+      <p>Polite forms: <code>差し上げる</code> (humble give to a superior), <code>くださる</code> (honorific give to me from a superior), <code>いただく</code> (humble receive from a superior).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ §3 PARTICLES ═══════ -->
+<section class="section" id="particles">
+  <span class="section-bg-kanji">助</span>
+  <div class="section-inner">
+    <div class="section-label">§ 三 · Particles</div>
+    <h2 class="section-title"><span class="ja">助</span>Particles — 助詞</h2>
+    <p class="section-intro">Particles attach <em>after</em> a noun (or noun phrase) to mark its grammatical role. They're not prepositions — they describe what the noun does in the sentence, not where things are relative to each other. The eleven listed here account for the vast majority of usage.</p>
+
+    <div class="subsec">
+      <div class="subsec-label">3.1</div>
+      <h3 class="subsec-title"><span class="ja">主要</span>The core eleven</h3>
+      <table class="ref">
+        <thead><tr><th style="width:60px;">Particle</th><th>Marks</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td class="ja-cell" style="font-size:22px;">は</td><td><strong>Topic</strong> — "as for X" — pronounced <em>wa</em></td><td class="ja-cell">私は学生です。<br><span class="rom">As for me, I'm a student.</span></td></tr>
+          <tr><td class="ja-cell" style="font-size:22px;">が</td><td><strong>Subject</strong> — identifies who/what does the action; emphasizes; used with new info, questions, descriptions</td><td class="ja-cell">ヴィクトルが来た。<br><span class="rom">Victor (specifically) came.</span></td></tr>
+          <tr><td class="ja-cell" style="font-size:22px;">を</td><td><strong>Direct object</strong> — what the action affects; also path-through (公園を歩く)</td><td class="ja-cell">本を読む。 · 道を渡る。</td></tr>
+          <tr><td class="ja-cell" style="font-size:22px;">に</td><td><strong>Destination, location of existence, indirect object, time, agent of passive</strong></td><td class="ja-cell">学校に行く · 部屋にいる · 友達に話す · 三時に</td></tr>
+          <tr><td class="ja-cell" style="font-size:22px;">で</td><td><strong>Location of action, means, cause, time bound</strong></td><td class="ja-cell">図書館で勉強する · 電車で行く · 一週間で</td></tr>
+          <tr><td class="ja-cell" style="font-size:22px;">へ</td><td><strong>Direction</strong> — pronounced <em>e</em> — like に for movement but emphasizes direction</td><td class="ja-cell">東京へ行く</td></tr>
+          <tr><td class="ja-cell" style="font-size:22px;">と</td><td><strong>With (companion), and (exhaustive list), quotation marker</strong></td><td class="ja-cell">友達と行く · 本とペン · 「はい」と言った</td></tr>
+          <tr><td class="ja-cell" style="font-size:22px;">の</td><td><strong>Possessive / modifier</strong> — connects two nouns; also nominalizer</td><td class="ja-cell">私の本 · 日本の文化 · 読むのが好き</td></tr>
+          <tr><td class="ja-cell" style="font-size:22px;">も</td><td><strong>Also / even</strong> — replaces は/が/を</td><td class="ja-cell">私も学生です。</td></tr>
+          <tr><td class="ja-cell" style="font-size:22px;">から</td><td><strong>From (source, starting point, cause)</strong></td><td class="ja-cell">九時から · アメリカから来た</td></tr>
+          <tr><td class="ja-cell" style="font-size:22px;">まで</td><td><strong>Until / as far as</strong></td><td class="ja-cell">五時まで · 駅まで歩く</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">3.2</div>
+      <h3 class="subsec-title"><span class="ja">は対が</span>The は vs. が problem</h3>
+      <p>The most-asked question in Japanese grammar. A starting heuristic, not an absolute rule:</p>
+      <div class="two-col">
+        <div class="panel tight">
+          <div class="panel-title">Use は when…</div>
+          <p>· The noun is the <strong>topic</strong> (already known or introduced).<br>· You're <strong>contrasting</strong> two things.<br>· The sentence makes a <strong>general statement</strong>.<br>· In <strong>negative</strong> sentences, the predicate's focus often takes は.</p>
+        </div>
+        <div class="panel tight">
+          <div class="panel-title">Use が when…</div>
+          <p>· The noun is <strong>new information</strong>.<br>· You're <strong>identifying</strong> (answering "who/what?").<br>· Inside a <strong>subordinate clause</strong> (relative clauses, は often turns into が).<br>· With <strong>questions about subject</strong> (誰が…?).<br>· Describing <strong>states/feelings</strong> (好き, 上手, 分かる, ある).</p>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="callout-label">Test it</div>
+        <p>"There is a cat in the garden" (introducing) → 庭に猫<strong>が</strong>います。 "The cat is in the garden" (about the cat) → 猫<strong>は</strong>庭にいます。 Same scene, different starting point.</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">3.3</div>
+      <h3 class="subsec-title"><span class="ja">に対で</span>に vs. で — location split</h3>
+      <p>Both mark location, but for different verbs:</p>
+      <ul style="list-style:none; margin:8px 0;">
+        <li style="margin-bottom:8px;"><code>に</code> — <strong>location of existence or destination</strong>. Used with stative verbs (いる・ある・住む・座る) and verbs of arrival (行く・来る・着く・入る). <span class="ja-text">部屋<strong>に</strong>いる · 東京<strong>に</strong>住む。</span></li>
+        <li><code>で</code> — <strong>location where an action happens</strong>. Used with action verbs (食べる・勉強する・働く). <span class="ja-text">図書館<strong>で</strong>勉強する。</span></li>
+      </ul>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">3.4</div>
+      <h3 class="subsec-title"><span class="ja">終助詞</span>Sentence-ending particles</h3>
+      <p>These attach to the end of a sentence and add tone, emphasis, or solicit agreement. They're almost untranslatable but carry a lot of conversational weight.</p>
+      <table class="ref compact">
+        <thead><tr><th>Particle</th><th>Function</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td class="ja-cell">か</td><td>question marker; in casual speech often dropped, replaced by rising intonation</td><td class="ja-cell">行きますか。 · 食べる?</td></tr>
+          <tr><td class="ja-cell">ね</td><td>seeking agreement / softening — "right?" / "isn't it?"</td><td class="ja-cell">きれいですね。</td></tr>
+          <tr><td class="ja-cell">よ</td><td>asserting new info — "you know" / "I'm telling you"</td><td class="ja-cell">時間がないよ。</td></tr>
+          <tr><td class="ja-cell">よね</td><td>asserting + seeking confirmation — "right? I'm pretty sure"</td><td class="ja-cell">明日休みですよね。</td></tr>
+          <tr><td class="ja-cell">な / なあ</td><td>self-directed emphasis / wishful — "I wish…" / "huh"</td><td class="ja-cell">いいなあ。</td></tr>
+          <tr><td class="ja-cell">わ</td><td>soft assertion — strongly feminine in standard Tokyo speech</td><td class="ja-cell">私もそう思うわ。</td></tr>
+          <tr><td class="ja-cell">ぞ · ぜ</td><td>forceful / masculine assertion</td><td class="ja-cell">行くぞ。</td></tr>
+          <tr><td class="ja-cell">の</td><td>softer question / explanation (casual, often feminine)</td><td class="ja-cell">どうしたの?</td></tr>
+          <tr><td class="ja-cell">かな</td><td>"I wonder…" (to self)</td><td class="ja-cell">来るかな。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">3.5</div>
+      <h3 class="subsec-title"><span class="ja">複合</span>Compound particles &amp; high-frequency add-ons</h3>
+      <table class="ref compact">
+        <thead><tr><th>Particle</th><th>Meaning</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td class="ja-cell">しか</td><td>only / nothing but (paired with negative verb)</td><td class="ja-cell">水しか飲まない。</td></tr>
+          <tr><td class="ja-cell">だけ</td><td>only (neutral)</td><td class="ja-cell">水だけ飲む。</td></tr>
+          <tr><td class="ja-cell">ばかり</td><td>nothing but / just (often complaining)</td><td class="ja-cell">遊んでばかりいる。</td></tr>
+          <tr><td class="ja-cell">など · なんか</td><td>and so on / things like</td><td class="ja-cell">寿司やラーメンなど</td></tr>
+          <tr><td class="ja-cell">くらい · ぐらい</td><td>about (approximate amount)</td><td class="ja-cell">一時間くらい</td></tr>
+          <tr><td class="ja-cell">ごろ</td><td>about (approximate point in time)</td><td class="ja-cell">三時ごろ</td></tr>
+          <tr><td class="ja-cell">でも</td><td>even / or something</td><td class="ja-cell">子供でもできる · お茶でも飲もう</td></tr>
+          <tr><td class="ja-cell">について</td><td>about / concerning</td><td class="ja-cell">日本の文化について</td></tr>
+          <tr><td class="ja-cell">によって</td><td>by means of / depending on</td><td class="ja-cell">国によって違う</td></tr>
+          <tr><td class="ja-cell">に対して</td><td>toward / against (a target)</td><td class="ja-cell">先生に対して失礼</td></tr>
+          <tr><td class="ja-cell">として</td><td>as / in the capacity of</td><td class="ja-cell">先生として話す</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ §4 ADJECTIVES ═══════ -->
+<section class="section" id="adjectives">
+  <span class="section-bg-kanji">形</span>
+  <div class="section-inner">
+    <div class="section-label">§ 四 · Adjectives</div>
+    <h2 class="section-title"><span class="ja">形</span>Adjectives — 形容詞</h2>
+    <p class="section-intro">Two types: <strong>i-adjectives</strong> (which conjugate like a kind of verb) and <strong>na-adjectives</strong> (which behave like nouns and take <code>な</code> to modify another noun). Knowing the type tells you how to make every form.</p>
+
+    <div class="subsec">
+      <div class="subsec-label">4.1</div>
+      <h3 class="subsec-title"><span class="ja">い形容詞</span>i-adjectives</h3>
+      <p>Always end in <code>い</code> in the dictionary form (大き<strong>い</strong>, おいし<strong>い</strong>, 高<strong>い</strong>). They conjugate by replacing or appending to that final <code>い</code> — the copula <code>です</code> is just added on top for politeness, never inflects with the adjective itself.</p>
+      <table class="ref">
+        <thead><tr><th>Form</th><th>Pattern</th><th>Example (大きい)</th></tr></thead>
+        <tbody>
+          <tr><td>Non-past affirmative</td><td>—</td><td class="ja-cell">大きい(です)</td></tr>
+          <tr><td>Non-past negative</td><td>drop い + くない</td><td class="ja-cell">大きくない(です)</td></tr>
+          <tr><td>Past affirmative</td><td>drop い + かった</td><td class="ja-cell">大きかった(です)</td></tr>
+          <tr><td>Past negative</td><td>drop い + くなかった</td><td class="ja-cell">大きくなかった(です)</td></tr>
+          <tr><td>Adverbial</td><td>drop い + く</td><td class="ja-cell">大きく書く (write big-ly)</td></tr>
+          <tr><td>Te-form (connector)</td><td>drop い + くて</td><td class="ja-cell">大きくて、新しい</td></tr>
+          <tr><td>Modifying a noun</td><td>just attach</td><td class="ja-cell">大きい本</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="callout-label">いい is irregular</div>
+        <p>The adjective <code>いい</code> (good) conjugates from its older form <code>よい</code>. So: <code>よくない</code> (not good), <code>よかった</code> (was good), <code>よくなかった</code> (was not good). Never *いくない or *いかった.</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">4.2</div>
+      <h3 class="subsec-title"><span class="ja">な形容詞</span>na-adjectives</h3>
+      <p>End in any sound, but require <code>な</code> when directly modifying a noun: <code>きれい<strong>な</strong>花</code>. They inflect via the copula (<code>だ・です・じゃない・だった</code>) just like nouns.</p>
+      <table class="ref">
+        <thead><tr><th>Form</th><th>Plain</th><th>Polite</th><th>Example (静か)</th></tr></thead>
+        <tbody>
+          <tr><td>Non-past affirmative</td><td>〜だ</td><td>〜です</td><td class="ja-cell">静かだ · 静かです</td></tr>
+          <tr><td>Non-past negative</td><td>〜じゃない</td><td>〜じゃないです / 〜ではありません</td><td class="ja-cell">静かじゃない</td></tr>
+          <tr><td>Past affirmative</td><td>〜だった</td><td>〜でした</td><td class="ja-cell">静かだった</td></tr>
+          <tr><td>Past negative</td><td>〜じゃなかった</td><td>〜じゃなかったです</td><td class="ja-cell">静かじゃなかった</td></tr>
+          <tr><td>Adverbial</td><td>〜に</td><td>—</td><td class="ja-cell">静かに歩く</td></tr>
+          <tr><td>Te-form (connector)</td><td>〜で</td><td>—</td><td class="ja-cell">静かで、きれいだ</td></tr>
+          <tr><td>Modifying a noun</td><td>〜な</td><td>—</td><td class="ja-cell">静かな部屋</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="callout-label">きれい trap</div>
+        <p>A few na-adjectives look like i-adjectives because they end in <code>い</code>: <code>きれい</code> (pretty), <code>きらい</code> (disliked), <code>有名</code> (famous, when written 有名い…it never is — it's just 有名). When in doubt, check: does it take <code>な</code> before a noun? Then it's na.</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">4.3</div>
+      <h3 class="subsec-title"><span class="ja">比較</span>Comparison &amp; degree</h3>
+      <table class="ref compact">
+        <thead><tr><th>Pattern</th><th>Meaning</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>A は B より 〜</td><td>A is more 〜 than B</td><td class="ja-cell">東京は大阪より大きい。</td></tr>
+          <tr><td>A と B と どちらが 〜?</td><td>which of A and B is more 〜?</td><td class="ja-cell">猫と犬とどちらが好きですか?</td></tr>
+          <tr><td>〜の中で 一番</td><td>most 〜 of all</td><td class="ja-cell">クラスの中で一番背が高い。</td></tr>
+          <tr><td>もっと 〜</td><td>more 〜</td><td class="ja-cell">もっと大きい本がほしい。</td></tr>
+          <tr><td>あまり 〜ない</td><td>not very 〜</td><td class="ja-cell">あまり高くない。</td></tr>
+          <tr><td>ぜんぜん 〜ない</td><td>not at all 〜</td><td class="ja-cell">ぜんぜん分からない。</td></tr>
+          <tr><td>〜すぎる</td><td>too 〜 (drop い / drop な)</td><td class="ja-cell">大きすぎる · 静かすぎる</td></tr>
+          <tr><td>〜くなる / 〜になる</td><td>become 〜</td><td class="ja-cell">寒くなった · 静かになった</td></tr>
+          <tr><td>〜くする / 〜にする</td><td>make it 〜</td><td class="ja-cell">部屋を静かにする</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ §5 SENTENCE PATTERNS ═══════ -->
+<section class="section" id="patterns">
+  <span class="section-bg-kanji">文</span>
+  <div class="section-inner">
+    <div class="section-label">§ 五 · Sentence Patterns</div>
+    <h2 class="section-title"><span class="ja">文</span>Sentence Patterns</h2>
+    <p class="section-intro">The default Japanese word order is Subject-Object-Verb, but really it's <strong>topic-comment</strong>: the topic comes first (marked with は), then everything else, with the verb almost always at the end. Modifiers always precede what they modify.</p>
+
+    <div class="subsec">
+      <div class="subsec-label">5.1</div>
+      <h3 class="subsec-title"><span class="ja">語順</span>Word order &amp; the copula</h3>
+      <p>The basic skeletons:</p>
+      <table class="ref compact">
+        <thead><tr><th>Pattern</th><th>Meaning</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>N1 は N2 です</td><td>N1 is N2</td><td class="ja-cell">私は学生です。</td></tr>
+          <tr><td>N1 は N2 じゃない / ではない</td><td>N1 isn't N2</td><td class="ja-cell">私は学生じゃない。</td></tr>
+          <tr><td>N1 は N2 でした</td><td>N1 was N2</td><td class="ja-cell">彼は先生でした。</td></tr>
+          <tr><td>N1 は Adj-i</td><td>(no copula needed for plain)</td><td class="ja-cell">この本は高い。</td></tr>
+          <tr><td>N1 が Adj-na</td><td>—</td><td class="ja-cell">日本語が上手です。</td></tr>
+          <tr><td>(N1 は) V</td><td>subject often dropped if clear</td><td class="ja-cell">食べました。</td></tr>
+        </tbody>
+      </table>
+      <p>The copula has multiple registers: <code>だ</code> (plain), <code>です</code> (polite), <code>である</code> (literary/declarative), <code>でございます</code> (very polite). The negative is <code>じゃない / ではない</code> (plain) or <code>じゃありません / ではありません</code> (polite).</p>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">5.2</div>
+      <h3 class="subsec-title"><span class="ja">存在</span>Existence — ある &amp; いる</h3>
+      <p>"X exists" or "there is X" uses two different verbs depending on what X is:</p>
+      <table class="ref compact">
+        <thead><tr><th>Verb</th><th>For</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>いる</td><td>animate (people, animals, sometimes spirits)</td><td class="ja-cell">猫がいる。 · 友達がいる。</td></tr>
+          <tr><td>ある</td><td>inanimate (objects, plants, abstract things)</td><td class="ja-cell">本がある。 · 時間がある。</td></tr>
+        </tbody>
+      </table>
+      <p>Possession uses the same verbs: <code>車がある</code> "I have a car (it exists for me)," <code>子供がいる</code> "I have a child." The location particle is <code>に</code>: <code>部屋に猫がいる</code>.</p>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">5.3</div>
+      <h3 class="subsec-title"><span class="ja">修飾</span>Relative clauses</h3>
+      <p>Japanese builds relative clauses by simply putting a verb or adjective phrase directly before the noun it modifies — no equivalent of "who/which/that." The internal subject takes <code>が</code> rather than <code>は</code>.</p>
+      <div class="ex">
+        <div class="ja">昨日 <strong>買った</strong> 本</div>
+        <div class="romaji">kinō katta hon</div>
+        <div class="en">the book (that I) bought yesterday</div>
+      </div>
+      <div class="ex">
+        <div class="ja">日本語が<strong>上手な</strong>人</div>
+        <div class="en">a person who is good at Japanese</div>
+      </div>
+      <div class="ex">
+        <div class="ja">兄<strong>が</strong>作ったケーキ</div>
+        <div class="en">the cake (that) my brother made</div>
+      </div>
+      <p>Relative clauses chain naturally: <code>私が昨日駅で会った人</code> "the person I met at the station yesterday."</p>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">5.4</div>
+      <h3 class="subsec-title"><span class="ja">名詞化</span>Nominalization — turning verbs into nouns</h3>
+      <p>Two ways to make a verb act as a noun phrase: <code>の</code> and <code>こと</code>. They're often interchangeable, but each has its preferred contexts.</p>
+      <table class="ref compact">
+        <thead><tr><th>Nominalizer</th><th>When</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>〜の</code></td><td>concrete, perceived events; with verbs of perception (見る, 聞く)</td><td class="ja-cell">彼が来るのを見た。<br><span class="rom">I saw him come.</span></td></tr>
+          <tr><td><code>〜こと</code></td><td>abstract concepts, propositions, decisions</td><td class="ja-cell">日本語を勉強することは大切です。</td></tr>
+          <tr><td><code>〜ことができる</code></td><td>be able to (alternative potential)</td><td class="ja-cell">日本語を話すことができる。</td></tr>
+          <tr><td><code>〜ことにする</code></td><td>decide to</td><td class="ja-cell">毎日勉強することにした。</td></tr>
+          <tr><td><code>〜ことになる</code></td><td>it's decided that / it turns out</td><td class="ja-cell">来月引っ越すことになりました。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">5.5</div>
+      <h3 class="subsec-title"><span class="ja">引用</span>Quoting &amp; reporting</h3>
+      <table class="ref compact">
+        <thead><tr><th>Pattern</th><th>Meaning</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>「…」と言う</td><td>direct quote</td><td class="ja-cell">「行きます」と言った。</td></tr>
+          <tr><td>〜と言う</td><td>indirect quote (plain form)</td><td class="ja-cell">行くと言った。</td></tr>
+          <tr><td>〜と思う</td><td>I think that 〜</td><td class="ja-cell">明日雨が降ると思う。</td></tr>
+          <tr><td>〜という(N)</td><td>a N called 〜 / named</td><td class="ja-cell">「すし」という食べ物</td></tr>
+          <tr><td>〜って</td><td>casual quote / "they say"</td><td class="ja-cell">行くって言ってた。</td></tr>
+          <tr><td>〜そうだ (hearsay)</td><td>I heard that 〜</td><td class="ja-cell">雨が降るそうだ。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">5.6</div>
+      <h3 class="subsec-title"><span class="ja">推量・様態</span>Conjecture &amp; appearance</h3>
+      <p>Japanese has a rich system for hedging certainty. The form you use signals how confident you are and what evidence you have.</p>
+      <table class="ref">
+        <thead><tr><th>Form</th><th>Meaning &amp; evidence</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>〜だろう / でしょう</code></td><td>probably (no evidence needed) — speaker's general guess</td><td class="ja-cell">雨が降るでしょう。</td></tr>
+          <tr><td><code>〜かもしれない</code></td><td>might / maybe (lower probability)</td><td class="ja-cell">雨が降るかもしれない。</td></tr>
+          <tr><td><code>〜はずだ</code></td><td>should be / is supposed to be (based on reasoning/expectation)</td><td class="ja-cell">もう着いたはずです。</td></tr>
+          <tr><td><code>〜そうだ</code> (-i stem / Adj-i drop い)</td><td>looks like / about to (visual)</td><td class="ja-cell">雨が降りそうだ。 · おいしそう。</td></tr>
+          <tr><td><code>〜ようだ / みたいだ</code></td><td>seems like (broader evidence; みたいだ is casual)</td><td class="ja-cell">病気のようです。</td></tr>
+          <tr><td><code>〜らしい</code></td><td>seems / I heard (secondhand or typical)</td><td class="ja-cell">先生は休みらしい。</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="callout-label">そう vs. よう vs. らしい</div>
+        <p><code>そう</code> is what you see right now ("looks about to rain"). <code>よう</code> is broader inference from circumstances ("she seems sick"). <code>らしい</code> is hearsay or what's typical ("the teacher's apparently off"). With i-adjectives, <code>そう</code> drops the final い (おいし<strong>そう</strong>), but <code>いい</code> is irregular: よ<strong>さそう</strong>.</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">5.7</div>
+      <h3 class="subsec-title"><span class="ja">必要・許可</span>Obligation, permission, prohibition</h3>
+      <table class="ref">
+        <thead><tr><th>Pattern</th><th>Meaning</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>〜なければならない / 〜なきゃ</code></td><td>must do (literally "if not, doesn't go")</td><td class="ja-cell">行かなければならない · 行かなきゃ</td></tr>
+          <tr><td><code>〜なくてはいけない / 〜なくちゃ</code></td><td>must do (slightly more obligation-flavored)</td><td class="ja-cell">勉強しなくちゃ。</td></tr>
+          <tr><td><code>〜ないといけない</code></td><td>have to / it won't be okay if not</td><td class="ja-cell">早く帰らないといけない。</td></tr>
+          <tr><td><code>〜なくてもいい</code></td><td>don't have to</td><td class="ja-cell">来なくてもいいよ。</td></tr>
+          <tr><td><code>〜てもいい</code></td><td>may / it's okay to</td><td class="ja-cell">座ってもいいですか。</td></tr>
+          <tr><td><code>〜てはいけない</code></td><td>must not</td><td class="ja-cell">入ってはいけない。</td></tr>
+          <tr><td><code>〜べきだ</code></td><td>should (moral) — drop だ for だ-clause subject</td><td class="ja-cell">勉強するべきだ。</td></tr>
+          <tr><td><code>〜方がいい</code></td><td>better to do (advice) — usually past form before</td><td class="ja-cell">早く寝た方がいい。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">5.8</div>
+      <h3 class="subsec-title"><span class="ja">願望</span>Desires &amp; intent</h3>
+      <table class="ref compact">
+        <thead><tr><th>Pattern</th><th>Meaning</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>〜たい (verb -i stem + たい)</td><td>I want to do (1st person)</td><td class="ja-cell">寿司が食べたい。</td></tr>
+          <tr><td>〜たがる</td><td>(someone else) wants to / shows wanting</td><td class="ja-cell">弟は行きたがっている。</td></tr>
+          <tr><td>N が ほしい</td><td>want N (object/noun)</td><td class="ja-cell">新しい車がほしい。</td></tr>
+          <tr><td>〜てほしい</td><td>want someone to do</td><td class="ja-cell">来てほしい。</td></tr>
+          <tr><td>〜つもりだ</td><td>intend to (dictionary form before)</td><td class="ja-cell">明日行くつもりです。</td></tr>
+          <tr><td>〜予定だ</td><td>be scheduled to (more formal/fixed)</td><td class="ja-cell">三時に出発する予定です。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">5.9</div>
+      <h3 class="subsec-title"><span class="ja">接続</span>Sentence-level connectors</h3>
+      <table class="ref compact">
+        <thead><tr><th>Connector</th><th>Meaning</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>〜が / 〜けど</td><td>but / however / and (mild contrast)</td><td>けど is casual; <code>が</code> can be neutral, not always contrastive</td></tr>
+          <tr><td>〜から</td><td>because (speaker's reason)</td><td>subjective; can come at start of sentence</td></tr>
+          <tr><td>〜ので</td><td>because (more objective)</td><td>preferred for politeness; before な-adj/copula → <code>〜なので</code></td></tr>
+          <tr><td>〜のに</td><td>although / despite</td><td>conveys unexpected/surprise; takes plain forms</td></tr>
+          <tr><td>〜し</td><td>and (listing reasons)</td><td>often used to imply more reasons exist</td></tr>
+          <tr><td>そして</td><td>and / and then</td><td>sentence-initial</td></tr>
+          <tr><td>でも · しかし</td><td>but / however</td><td>sentence-initial; しかし is formal</td></tr>
+          <tr><td>それから</td><td>after that / and then</td><td>sequential</td></tr>
+          <tr><td>だから · ですから</td><td>so / therefore</td><td>causal continuation</td></tr>
+          <tr><td>つまり</td><td>in other words</td><td>restating</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">5.10</div>
+      <h3 class="subsec-title"><span class="ja">指示・人称</span>Demonstratives, pronouns, numbers</h3>
+      <div class="two-col">
+        <div>
+          <p><strong>The こそあど system</strong> — three distances:</p>
+          <table class="ref compact">
+            <thead><tr><th>—</th><th>こ (near speaker)</th><th>そ (near listener)</th><th>あ (far from both)</th><th>ど (question)</th></tr></thead>
+            <tbody>
+              <tr><td>thing</td><td class="ja-cell">これ</td><td class="ja-cell">それ</td><td class="ja-cell">あれ</td><td class="ja-cell">どれ</td></tr>
+              <tr><td>+ N</td><td class="ja-cell">この</td><td class="ja-cell">その</td><td class="ja-cell">あの</td><td class="ja-cell">どの</td></tr>
+              <tr><td>place</td><td class="ja-cell">ここ</td><td class="ja-cell">そこ</td><td class="ja-cell">あそこ</td><td class="ja-cell">どこ</td></tr>
+              <tr><td>direction</td><td class="ja-cell">こちら</td><td class="ja-cell">そちら</td><td class="ja-cell">あちら</td><td class="ja-cell">どちら</td></tr>
+              <tr><td>kind</td><td class="ja-cell">こんな</td><td class="ja-cell">そんな</td><td class="ja-cell">あんな</td><td class="ja-cell">どんな</td></tr>
+              <tr><td>way</td><td class="ja-cell">こう</td><td class="ja-cell">そう</td><td class="ja-cell">ああ</td><td class="ja-cell">どう</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p><strong>Person references.</strong> First-person <code>私 watashi</code> (neutral polite), <code>僕 boku</code> (male, soft), <code>俺 ore</code> (male, casual/rough), <code>あたし</code> (female, casual). Second-person <code>あなた</code> is used sparingly — usually you use the person's name + honorific, or omit subject. <code>君 kimi</code> is intimate or condescending; <code>お前 omae</code> is rough.</p>
+          <p><strong>Honorifics.</strong> <code>〜さん</code> (default), <code>〜さま</code> (very polite / customer), <code>〜くん</code> (young men, juniors), <code>〜ちゃん</code> (children, intimacy), <code>〜先生</code> (teachers, doctors, masters).</p>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:18px;">
+        <div class="panel-title"><span class="ja">数</span>Numbers — sino-Japanese and native</div>
+        <table class="ref compact">
+          <thead><tr><th>—</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead>
+          <tbody>
+            <tr><td>Sino-J.</td><td class="ja-cell">ゼロ・れい</td><td class="ja-cell">いち</td><td class="ja-cell">に</td><td class="ja-cell">さん</td><td class="ja-cell">よん・し</td><td class="ja-cell">ご</td><td class="ja-cell">ろく</td><td class="ja-cell">なな・しち</td><td class="ja-cell">はち</td><td class="ja-cell">きゅう・く</td><td class="ja-cell">じゅう</td></tr>
+            <tr><td>Native (only 1-10)</td><td class="ja-cell">—</td><td class="ja-cell">ひとつ</td><td class="ja-cell">ふたつ</td><td class="ja-cell">みっつ</td><td class="ja-cell">よっつ</td><td class="ja-cell">いつつ</td><td class="ja-cell">むっつ</td><td class="ja-cell">ななつ</td><td class="ja-cell">やっつ</td><td class="ja-cell">ここのつ</td><td class="ja-cell">とお</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:10px;">Beyond 10: 百 hyaku (100), 千 sen (1,000), 万 man (10,000), 億 oku (100,000,000). Counting is done in <strong>units of 10,000</strong> — 100,000 is 十万 (10 万), 1,000,000 is 百万 (100 万).</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">5.11</div>
+      <h3 class="subsec-title"><span class="ja">助数詞</span>Counters — the high-frequency ones</h3>
+      <p>Japanese requires a counter suffix when stating quantities — different counter for different categories of object. The sounds often change depending on the number (1, 3, 6, 8, 10 are the usual mutators).</p>
+      <table class="ref">
+        <thead><tr><th>Counter</th><th>For</th><th>1 · 2 · 3</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>〜つ</td><td>general (1-10 only)</td><td class="ja-cell">ひとつ · ふたつ · みっつ</td><td>safe fallback if unsure</td></tr>
+          <tr><td>〜人 (にん)</td><td>people</td><td class="ja-cell">ひとり · ふたり · さんにん</td><td>1 &amp; 2 irregular</td></tr>
+          <tr><td>〜本 (ほん)</td><td>long thin (bottles, pens, bananas)</td><td class="ja-cell">いっぽん · にほん · さんぼん</td><td>sound shifts on 1/3/6/8/10</td></tr>
+          <tr><td>〜枚 (まい)</td><td>flat thin (paper, plates, shirts)</td><td class="ja-cell">いちまい · にまい · さんまい</td><td>regular</td></tr>
+          <tr><td>〜冊 (さつ)</td><td>bound books / notebooks</td><td class="ja-cell">いっさつ · にさつ · さんさつ</td><td>—</td></tr>
+          <tr><td>〜匹 (ひき)</td><td>small animals</td><td class="ja-cell">いっぴき · にひき · さんびき</td><td>—</td></tr>
+          <tr><td>〜頭 (とう)</td><td>large animals</td><td class="ja-cell">いっとう · にとう · さんとう</td><td>—</td></tr>
+          <tr><td>〜台 (だい)</td><td>machines, vehicles</td><td class="ja-cell">いちだい · にだい · さんだい</td><td>—</td></tr>
+          <tr><td>〜回 (かい)</td><td>occurrences</td><td class="ja-cell">いっかい · にかい · さんかい</td><td>also stories of a building</td></tr>
+          <tr><td>〜時 (じ)</td><td>hours (o'clock)</td><td class="ja-cell">いちじ · にじ · さんじ</td><td>4時 is よじ; 7時 is しちじ; 9時 is くじ</td></tr>
+          <tr><td>〜時間 (じかん)</td><td>hours (duration)</td><td class="ja-cell">いちじかん · にじかん</td><td>—</td></tr>
+          <tr><td>〜分 (ふん/ぷん)</td><td>minutes</td><td class="ja-cell">いっぷん · にふん · さんぷん</td><td>4分 is よんぷん</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ §6 KEIGO ═══════ -->
+<section class="section" id="keigo">
+  <span class="section-bg-kanji">敬</span>
+  <div class="section-inner">
+    <div class="section-label">§ 六 · Keigo</div>
+    <h2 class="section-title"><span class="ja">敬</span>Keigo &amp; Daily Use</h2>
+    <p class="section-intro">Japanese has three formal registers above plain speech, plus a handful of stable expressions you'll hear daily. Mastery is a long road — but recognizing the registers is essential for understanding service workers, formal meetings, and most workplace email.</p>
+
+    <div class="subsec">
+      <div class="subsec-label">6.1</div>
+      <h3 class="subsec-title"><span class="ja">敬語</span>The three registers</h3>
+      <div class="two-col">
+        <div class="panel tight">
+          <div class="panel-title"><span class="ja">丁寧語</span>Teineigo — polite</div>
+          <p>The <code>です・ます</code> register. The default for almost any unfamiliar situation. You should be fluent here before worrying about the other two.</p>
+        </div>
+        <div class="panel tight">
+          <div class="panel-title"><span class="ja">尊敬語</span>Sonkeigo — respectful</div>
+          <p>Used to <em>elevate</em> the listener or person being talked about (customer, superior, elder). Patterns: <code>お + verb -i stem + になる</code>, special verbs (下記), or passive form (見られる "saw" politely).</p>
+        </div>
+      </div>
+      <div class="panel tight">
+        <div class="panel-title"><span class="ja">謙譲語</span>Kenjōgo — humble</div>
+        <p>Used to <em>lower</em> yourself or your in-group when speaking with/about an outsider or superior. Patterns: <code>お + verb -i stem + する</code>, or special verbs (下記).</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">6.2</div>
+      <h3 class="subsec-title"><span class="ja">特別動詞</span>Special verbs in keigo</h3>
+      <p>The most common verbs have dedicated sonkeigo and kenjōgo forms that simply replace the plain verb. Worth memorizing — you'll hear them constantly.</p>
+      <table class="ref">
+        <thead><tr><th>Plain</th><th>Polite</th><th>Sonkeigo (about other)</th><th>Kenjōgo (about self)</th></tr></thead>
+        <tbody>
+          <tr><td>する</td><td>します</td><td class="ja-cell">なさる → なさいます</td><td class="ja-cell">いたす → いたします</td></tr>
+          <tr><td>行く / 来る</td><td>行きます / 来ます</td><td class="ja-cell">いらっしゃる → いらっしゃいます</td><td class="ja-cell">参る (まいる) → 参ります</td></tr>
+          <tr><td>いる</td><td>います</td><td class="ja-cell">いらっしゃる → いらっしゃいます</td><td class="ja-cell">おる → おります</td></tr>
+          <tr><td>言う</td><td>言います</td><td class="ja-cell">おっしゃる → おっしゃいます</td><td class="ja-cell">申す (もうす) → 申します</td></tr>
+          <tr><td>見る</td><td>見ます</td><td class="ja-cell">ご覧になる</td><td class="ja-cell">拝見する (はいけん)</td></tr>
+          <tr><td>食べる / 飲む</td><td>食べます / 飲みます</td><td class="ja-cell">召し上がる (めしあがる)</td><td class="ja-cell">いただく</td></tr>
+          <tr><td>聞く / 訪ねる</td><td>聞きます</td><td class="ja-cell">—</td><td class="ja-cell">伺う (うかがう)</td></tr>
+          <tr><td>知っている</td><td>知っています</td><td class="ja-cell">ご存じだ (ごぞんじ)</td><td class="ja-cell">存じている (ぞんじ) / 存じ上げる</td></tr>
+          <tr><td>もらう</td><td>もらいます</td><td class="ja-cell">—</td><td class="ja-cell">いただく</td></tr>
+          <tr><td>あげる</td><td>あげます</td><td class="ja-cell">—</td><td class="ja-cell">差し上げる (さしあげる)</td></tr>
+          <tr><td>くれる</td><td>くれます</td><td class="ja-cell">くださる → くださいます</td><td class="ja-cell">—</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="callout-label">The いらっしゃい family</div>
+        <p><code>いらっしゃる</code> covers <em>three</em> sonkeigo meanings: be/exist, come, and go. Context disambiguates. <code>いらっしゃいませ</code> is the greeting you hear walking into any shop — literally "please be (here)," but functionally "welcome."</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">6.3</div>
+      <h3 class="subsec-title"><span class="ja">時間表現</span>Time expressions</h3>
+      <table class="ref compact">
+        <thead><tr><th>—</th><th>past</th><th>today / now</th><th>future</th></tr></thead>
+        <tbody>
+          <tr><td>day</td><td class="ja-cell">きのう yesterday · おととい day before</td><td class="ja-cell">きょう today</td><td class="ja-cell">あした tomorrow · あさって day after</td></tr>
+          <tr><td>week</td><td class="ja-cell">先週 last week</td><td class="ja-cell">今週 this week</td><td class="ja-cell">来週 next week</td></tr>
+          <tr><td>month</td><td class="ja-cell">先月 last month</td><td class="ja-cell">今月 this month</td><td class="ja-cell">来月 next month</td></tr>
+          <tr><td>year</td><td class="ja-cell">去年 last year</td><td class="ja-cell">今年 this year</td><td class="ja-cell">来年 next year</td></tr>
+          <tr><td>morning / etc.</td><td class="ja-cell">—</td><td class="ja-cell">朝 morning · 昼 noon · 夕方 evening · 夜 night</td><td class="ja-cell">—</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Days of the week:</strong> 月曜日 げつようび Mon · 火曜日 か Tue · 水曜日 すい Wed · 木曜日 もく Thu · 金曜日 きん Fri · 土曜日 ど Sat · 日曜日 にち Sun.</p>
+      <p><strong>Months:</strong> Just the number + 月 (sino-Japanese reading). 1月 いちがつ, 2月 にがつ, … 4月 <strong>しがつ</strong> (not よん), 7月 <strong>しちがつ</strong> (not なな), 9月 <strong>くがつ</strong> (not きゅう).</p>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">6.4</div>
+      <h3 class="subsec-title"><span class="ja">挨拶</span>Daily expressions</h3>
+      <table class="ref compact">
+        <thead><tr><th>Phrase</th><th>When</th></tr></thead>
+        <tbody>
+          <tr><td class="ja-cell">おはよう(ございます)</td><td>morning greeting</td></tr>
+          <tr><td class="ja-cell">こんにちは</td><td>daytime greeting (note: は = wa)</td></tr>
+          <tr><td class="ja-cell">こんばんは</td><td>evening greeting (note: は = wa)</td></tr>
+          <tr><td class="ja-cell">おやすみ(なさい)</td><td>good night (going to sleep)</td></tr>
+          <tr><td class="ja-cell">いただきます</td><td>before eating (humble "I receive")</td></tr>
+          <tr><td class="ja-cell">ごちそうさま(でした)</td><td>after eating</td></tr>
+          <tr><td class="ja-cell">いってきます · いってらっしゃい</td><td>"I'm off" / "see you off"</td></tr>
+          <tr><td class="ja-cell">ただいま · おかえり(なさい)</td><td>"I'm home" / "welcome back"</td></tr>
+          <tr><td class="ja-cell">おつかれさま(でした)</td><td>"you've worked hard" — closing work, end of activity</td></tr>
+          <tr><td class="ja-cell">よろしくお願いします</td><td>"please treat me well" — introductions, requests</td></tr>
+          <tr><td class="ja-cell">すみません</td><td>"excuse me" / "sorry" / "thank you" — most versatile word in the language</td></tr>
+          <tr><td class="ja-cell">どういたしまして</td><td>"you're welcome"</td></tr>
+          <tr><td class="ja-cell">お疲れ様 · お世話になります</td><td>set phrases for work / ongoing relationships</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">6.5</div>
+      <h3 class="subsec-title"><span class="ja">副詞</span>High-frequency adverbs</h3>
+      <table class="ref compact">
+        <thead><tr><th>Adverb</th><th>Meaning</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="ja-cell">よく</td><td>often / well</td><td>positive verb</td></tr>
+          <tr><td class="ja-cell">あまり</td><td>not very / not often</td><td>requires negative verb</td></tr>
+          <tr><td class="ja-cell">全然 ぜんぜん</td><td>not at all</td><td>requires negative; in casual speech can mean "absolutely (yes)"</td></tr>
+          <tr><td class="ja-cell">もう</td><td>already / anymore</td><td>もう食べた · もう飲まない</td></tr>
+          <tr><td class="ja-cell">まだ</td><td>still / not yet</td><td>まだ食べている · まだ食べていない</td></tr>
+          <tr><td class="ja-cell">たぶん</td><td>probably</td><td>often paired with でしょう</td></tr>
+          <tr><td class="ja-cell">きっと</td><td>surely / definitely</td><td>—</td></tr>
+          <tr><td class="ja-cell">ちょっと</td><td>a little / sort of</td><td>also softening: "I'm a bit busy" → polite refusal</td></tr>
+          <tr><td class="ja-cell">少し すこし</td><td>a little</td><td>more formal than ちょっと</td></tr>
+          <tr><td class="ja-cell">たくさん</td><td>a lot</td><td>—</td></tr>
+          <tr><td class="ja-cell">いつも</td><td>always</td><td>—</td></tr>
+          <tr><td class="ja-cell">時々 ときどき</td><td>sometimes</td><td>—</td></tr>
+          <tr><td class="ja-cell">やっぱり · やはり</td><td>as expected / after all</td><td>conversational filler / confirmation</td></tr>
+          <tr><td class="ja-cell">なかなか</td><td>quite / not easily</td><td>positive verb = "very," negative = "not easily"</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ §7 REFERENCE TABLES ═══════ -->
+<section class="section" id="reference">
+  <span class="section-bg-kanji">活</span>
+  <div class="section-inner">
+    <div class="section-label">§ 七 · Reference Tables</div>
+    <h2 class="section-title"><span class="ja">活</span>Conjugation Reference</h2>
+    <p class="section-intro">The master conjugation matrix, te-form decision tree, and quick-reference summary tables. Built to be the page you bookmark.</p>
+
+    <div class="subsec">
+      <div class="subsec-label">7.1</div>
+      <h3 class="subsec-title"><span class="ja">活用表</span>Master verb conjugation table</h3>
+      <p>Seventeen forms × five representative verbs spanning both groups and the two irregulars, plus the godan-in-disguise <code>帰る</code>.</p>
+      <table class="ref compact" style="font-size:13px;">
+        <thead><tr>
+          <th>Form</th>
+          <th>書く<br><span style="font-weight:400;font-size:9px;opacity:0.7;">G1 (write)</span></th>
+          <th>食べる<br><span style="font-weight:400;font-size:9px;opacity:0.7;">G2 (eat)</span></th>
+          <th>する<br><span style="font-weight:400;font-size:9px;opacity:0.7;">irreg. (do)</span></th>
+          <th>来る<br><span style="font-weight:400;font-size:9px;opacity:0.7;">irreg. (come)</span></th>
+          <th>帰る<br><span style="font-weight:400;font-size:9px;opacity:0.7;">G1 disguised (return)</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Dictionary (plain non-past)</td><td class="ja-cell">書く</td><td class="ja-cell">食べる</td><td class="ja-cell">する</td><td class="ja-cell">来る (くる)</td><td class="ja-cell">帰る</td></tr>
+          <tr><td>Polite non-past 〜ます</td><td class="ja-cell">書きます</td><td class="ja-cell">食べます</td><td class="ja-cell">します</td><td class="ja-cell">来ます (きます)</td><td class="ja-cell">帰ります</td></tr>
+          <tr><td>Plain negative 〜ない</td><td class="ja-cell">書かない</td><td class="ja-cell">食べない</td><td class="ja-cell">しない</td><td class="ja-cell">来ない (こない)</td><td class="ja-cell">帰らない</td></tr>
+          <tr><td>Polite negative 〜ません</td><td class="ja-cell">書きません</td><td class="ja-cell">食べません</td><td class="ja-cell">しません</td><td class="ja-cell">来ません</td><td class="ja-cell">帰りません</td></tr>
+          <tr><td>Plain past 〜た</td><td class="ja-cell">書いた</td><td class="ja-cell">食べた</td><td class="ja-cell">した</td><td class="ja-cell">来た (きた)</td><td class="ja-cell">帰った</td></tr>
+          <tr><td>Polite past 〜ました</td><td class="ja-cell">書きました</td><td class="ja-cell">食べました</td><td class="ja-cell">しました</td><td class="ja-cell">来ました</td><td class="ja-cell">帰りました</td></tr>
+          <tr><td>Plain past negative 〜なかった</td><td class="ja-cell">書かなかった</td><td class="ja-cell">食べなかった</td><td class="ja-cell">しなかった</td><td class="ja-cell">来なかった</td><td class="ja-cell">帰らなかった</td></tr>
+          <tr><td>Te-form 〜て</td><td class="ja-cell">書いて</td><td class="ja-cell">食べて</td><td class="ja-cell">して</td><td class="ja-cell">来て (きて)</td><td class="ja-cell">帰って</td></tr>
+          <tr><td>Negative te-form 〜なくて / 〜ないで</td><td class="ja-cell">書かなくて / 書かないで</td><td class="ja-cell">食べなくて / 食べないで</td><td class="ja-cell">しなくて / しないで</td><td class="ja-cell">来なくて / 来ないで</td><td class="ja-cell">帰らなくて / 帰らないで</td></tr>
+          <tr><td>Volitional 〜(よ)う</td><td class="ja-cell">書こう</td><td class="ja-cell">食べよう</td><td class="ja-cell">しよう</td><td class="ja-cell">来よう (こよう)</td><td class="ja-cell">帰ろう</td></tr>
+          <tr><td>Imperative (plain)</td><td class="ja-cell">書け</td><td class="ja-cell">食べろ</td><td class="ja-cell">しろ · せよ</td><td class="ja-cell">来い (こい)</td><td class="ja-cell">帰れ</td></tr>
+          <tr><td>Prohibitive 〜るな</td><td class="ja-cell">書くな</td><td class="ja-cell">食べるな</td><td class="ja-cell">するな</td><td class="ja-cell">来るな</td><td class="ja-cell">帰るな</td></tr>
+          <tr><td>Conditional 〜ば</td><td class="ja-cell">書けば</td><td class="ja-cell">食べれば</td><td class="ja-cell">すれば</td><td class="ja-cell">来れば (くれば)</td><td class="ja-cell">帰れば</td></tr>
+          <tr><td>Conditional 〜たら</td><td class="ja-cell">書いたら</td><td class="ja-cell">食べたら</td><td class="ja-cell">したら</td><td class="ja-cell">来たら</td><td class="ja-cell">帰ったら</td></tr>
+          <tr><td>Potential</td><td class="ja-cell">書ける</td><td class="ja-cell">食べられる</td><td class="ja-cell">できる</td><td class="ja-cell">来られる</td><td class="ja-cell">帰れる</td></tr>
+          <tr><td>Passive</td><td class="ja-cell">書かれる</td><td class="ja-cell">食べられる</td><td class="ja-cell">される</td><td class="ja-cell">来られる</td><td class="ja-cell">帰られる</td></tr>
+          <tr><td>Causative</td><td class="ja-cell">書かせる</td><td class="ja-cell">食べさせる</td><td class="ja-cell">させる</td><td class="ja-cell">来させる</td><td class="ja-cell">帰らせる</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">7.2</div>
+      <h3 class="subsec-title"><span class="ja">テ形決定</span>Te-form decision tree</h3>
+      <p>The single most useful rule in Japanese verb morphology. Given any verb in dictionary form, you can derive both te-form (〜て) and plain past (〜た) by following this tree. Past is identical except final て→た, で→だ.</p>
+      <div class="tree">
+What group is the verb?
+├─ <span class="branch">Group 2</span> (ru-verb): drop る, add て
+│    <span class="ja-inline">食べる → 食べて · 見る → 見て</span>
+│
+├─ <span class="branch">Irregular</span>:
+│    する → して
+│    来る → 来て (kite)
+│    <span class="branch">行く (godan exception)</span> → 行って  ← <em>not 行いて</em>
+│
+└─ <span class="branch">Group 1</span> (godan): look at the LAST KANA of the dictionary form
+     ├─ う · つ · る → 〜って
+     │    <span class="ja-inline">買う → 買って · 待つ → 待って · 取る → 取って</span>
+     │
+     ├─ む · ぶ · ぬ → 〜んで    (note: で, not て)
+     │    <span class="ja-inline">飲む → 飲んで · 遊ぶ → 遊んで · 死ぬ → 死んで</span>
+     │
+     ├─ く → 〜いて
+     │    <span class="ja-inline">書く → 書いて · 聞く → 聞いて</span>
+     │
+     ├─ ぐ → 〜いで    (note: で, not て)
+     │    <span class="ja-inline">泳ぐ → 泳いで · 急ぐ → 急いで</span>
+     │
+     └─ す → 〜して
+          <span class="ja-inline">話す → 話して · 貸す → 貸して</span>
+      </div>
+      <div class="callout">
+        <div class="callout-label">For plain past (〜た), use the same tree</div>
+        <p>Just swap the final て → た, で → だ. So 書いて → 書いた, 飲んで → 飲んだ, 食べて → 食べた, 行って → 行った.</p>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">7.3</div>
+      <h3 class="subsec-title"><span class="ja">助詞一覧</span>Particle cheat sheet</h3>
+      <div class="panel">
+        <table class="ref compact">
+          <thead><tr><th>Marks…</th><th>Particle</th><th>Mnemonic</th></tr></thead>
+          <tbody>
+            <tr><td>topic</td><td class="ja-cell">は (wa)</td><td>"as for"</td></tr>
+            <tr><td>subject (new info / contrast)</td><td class="ja-cell">が</td><td>"who/what specifically"</td></tr>
+            <tr><td>direct object</td><td class="ja-cell">を (o)</td><td>"what the verb acts on"</td></tr>
+            <tr><td>existence-location, destination, indirect obj, time</td><td class="ja-cell">に</td><td>"at / to / on"</td></tr>
+            <tr><td>action-location, means, cause</td><td class="ja-cell">で</td><td>"by / at"</td></tr>
+            <tr><td>direction (movement)</td><td class="ja-cell">へ (e)</td><td>"toward"</td></tr>
+            <tr><td>with someone / and (closed list) / quote</td><td class="ja-cell">と</td><td>"and / with"</td></tr>
+            <tr><td>possessive / nominalizer</td><td class="ja-cell">の</td><td>"of / 's"</td></tr>
+            <tr><td>also / even</td><td class="ja-cell">も</td><td>"too"</td></tr>
+            <tr><td>from (source, cause)</td><td class="ja-cell">から</td><td>"since / from"</td></tr>
+            <tr><td>until / as far as</td><td class="ja-cell">まで</td><td>"to / until"</td></tr>
+            <tr><td>only (+ negative verb)</td><td class="ja-cell">しか</td><td>"nothing but"</td></tr>
+            <tr><td>or, listing options</td><td class="ja-cell">や</td><td>"… and (etc.)"</td></tr>
+            <tr><td>question</td><td class="ja-cell">か</td><td>at end of sentence</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">7.4</div>
+      <h3 class="subsec-title"><span class="ja">形容詞比較</span>Adjective comparison summary</h3>
+      <table class="ref">
+        <thead><tr><th>Form</th><th>i-adj. (大きい)</th><th>na-adj. (静か)</th><th>Copula / noun (学生)</th></tr></thead>
+        <tbody>
+          <tr><td>Affirmative plain</td><td class="ja-cell">大きい</td><td class="ja-cell">静かだ</td><td class="ja-cell">学生だ</td></tr>
+          <tr><td>Negative plain</td><td class="ja-cell">大きくない</td><td class="ja-cell">静かじゃない</td><td class="ja-cell">学生じゃない</td></tr>
+          <tr><td>Past affirmative plain</td><td class="ja-cell">大きかった</td><td class="ja-cell">静かだった</td><td class="ja-cell">学生だった</td></tr>
+          <tr><td>Past negative plain</td><td class="ja-cell">大きくなかった</td><td class="ja-cell">静かじゃなかった</td><td class="ja-cell">学生じゃなかった</td></tr>
+          <tr><td>Adverbial</td><td class="ja-cell">大きく</td><td class="ja-cell">静かに</td><td class="ja-cell">—</td></tr>
+          <tr><td>Te-form (connector)</td><td class="ja-cell">大きくて</td><td class="ja-cell">静かで</td><td class="ja-cell">学生で</td></tr>
+          <tr><td>Modifying noun</td><td class="ja-cell">大きい+N</td><td class="ja-cell">静かな+N</td><td class="ja-cell">学生の+N</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">7.5</div>
+      <h3 class="subsec-title"><span class="ja">敬意</span>Politeness ladder, in one glance</h3>
+      <div class="panel">
+        <p style="margin-bottom:8px;"><strong>The verb 食べる, climbing the ladder:</strong></p>
+        <table class="ref compact">
+          <thead><tr><th>Register</th><th>Form</th><th>When</th></tr></thead>
+          <tbody>
+            <tr><td>Rough / casual</td><td class="ja-cell">食う (くう)</td><td>male, very casual / rough</td></tr>
+            <tr><td>Plain</td><td class="ja-cell">食べる</td><td>family, close friends, internal monologue</td></tr>
+            <tr><td>Polite</td><td class="ja-cell">食べます</td><td>default for strangers, work</td></tr>
+            <tr><td>Sonkeigo (about other)</td><td class="ja-cell">召し上がります</td><td>about the customer, boss, guest</td></tr>
+            <tr><td>Kenjōgo (about self)</td><td class="ja-cell">いただきます</td><td>about your own eating, especially before food</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <div class="subsec-label">7.6</div>
+      <h3 class="subsec-title"><span class="ja">勉強</span>A study suggestion</h3>
+      <p>If you're using this as a reference during immersion (which is the highest-leverage way to use it), the order of operations that pays back fastest is:</p>
+      <ol style="padding-left:24px; margin:14px 0; line-height:1.7;">
+        <li><strong>Memorize the te-form decision tree.</strong> It's used everywhere. Once you can derive it instantly from the dictionary form, plain past comes free, and roughly a third of the grammar in §2 falls into place.</li>
+        <li><strong>Internalize the verb group rule.</strong> You need it for every conjugation that isn't the te-form. The "godan-in-disguise" exceptions (帰る, 切る, 走る, 入る, 知る, 要る) are worth flashcards on their own.</li>
+        <li><strong>Drill the eleven core particles</strong> from §3, plus the four conditionals from §2.8. These three together cover most sentence-level ambiguity you'll meet at N4-N3.</li>
+        <li><strong>Skim, don't memorize</strong> §5 (sentence patterns) and §6 (keigo). Both are pattern-recognition material — they'll click on the third or fourth encounter in real text, not on the page. Mark this reference with sticky tabs or scroll-to-section links and consult it when you meet something specific.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SOURCES ═══════ -->
+<footer class="sources">
+  <div>
+    <h3 class="sources-title">
+      <span class="ja">参考</span>Going further
+    </h3>
+    <p style="font-family:'Fraunces',serif; font-size:14px; color:var(--ink-soft); margin-top:14px; font-style:italic; line-height:1.55;">
+      This reference is original work — facts about Japanese grammar (kana inventories, conjugation rules, particle functions) aren't copyrightable, but the structure and wording here are. For depth on any topic, the references below go further than any single-page chart can.
+    </p>
+  </div>
+  <ul class="sources-list">
+    <li><span><strong>A Dictionary of Basic Japanese Grammar</strong> — Makino &amp; Tsutsui (The Japan Times). The deepest single-volume reference at this level; pair with the Intermediate and Advanced volumes for N3→N1.</span></li>
+    <li><span><strong>Genki I &amp; II</strong> — Banno et al. (The Japan Times). The standard university textbook; thorough on the patterns covered here.</span></li>
+    <li><span><strong>Tobira: Gateway to Intermediate Japanese</strong> — Oka et al. (Kuroshio). The next step after Genki, where most of N3 lives.</span></li>
+    <li><span><strong>Imabi.org</strong> — exhaustive, free, deeply researched grammar reference. Sometimes denser than a learner needs, but unmatched for "why" questions.</span></li>
+    <li><span><strong>Tofugu</strong> — <a href="https://www.tofugu.com/japanese/" target="_blank" rel="noopener">tofugu.com/japanese</a>. Approachable explainers on individual patterns; good for the は vs. が and conditionals topics.</span></li>
+    <li><span><strong>Bunpro</strong> — <a href="https://bunpro.jp" target="_blank" rel="noopener">bunpro.jp</a>. Grammar SRS organized by JLPT level; each item links to multiple sources.</span></li>
+    <li><span><strong>Tae Kim's Guide to Japanese</strong> — <a href="https://guidetojapanese.org" target="_blank" rel="noopener">guidetojapanese.org</a>. Free online grammar guide that explains plain forms first (closer to how the language actually works) and politeness on top.</span></li>
+    <li><span><strong>NHK News Web Easy</strong> — <a href="https://www3.nhk.or.jp/news/easy/" target="_blank" rel="noopener">news.web.nhk</a>. Easy-Japanese news with furigana — once you can read this, most graded-reader material is below your level.</span></li>
+    <li><span><strong>NPO Tadoku graded readers</strong> — <a href="https://tadoku.org/japanese/" target="_blank" rel="noopener">tadoku.org/japanese</a>. Free, level-graded short readers — the recommended next step beyond textbooks.</span></li>
+  </ul>
+</footer>
+
+<div class="colophon">
+  <div>Japanese Grammar Reference · Vol. 01</div>
+  <div>Shippori Mincho · Fraunces · JetBrains Mono</div>
+  <div>Compiled <time datetime="2026-05">2026</time> · Original work</div>
+  <div>Never a substitute for immersion · 文法は道具</div>
+</div>
+
+</div><!-- /.container -->
+
+<script>
+(function() {
+  var root = document.documentElement;
+  var saved = null;
+  try { saved = localStorage.getItem('jpg-theme'); } catch(e) {}
+  root.setAttribute('data-theme', saved || 'auto');
+  function paint() {
+    var t = root.getAttribute('data-theme');
+    document.querySelectorAll('.theme-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.themeSet === t);
+    });
+  }
+  paint();
+  document.querySelectorAll('.theme-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var t = b.dataset.themeSet;
+      root.setAttribute('data-theme', t);
+      try { localStorage.setItem('jpg-theme', t); } catch(e) {}
+      paint();
+    });
+  });
+})();
+</script>
+</body>
+</html>
